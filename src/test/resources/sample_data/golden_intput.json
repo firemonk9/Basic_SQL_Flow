@@ -1,0 +1,32 @@
+{
+    "filesCompareList": [
+        {
+            "compareColumns": false,
+            "compareCommonColumnsOnly": false,
+            "distFile": {
+                "excludeColmns": [],
+                "header": true,
+                "srcDelimiter": ",",
+                "srcFormat": "CSV",
+                "srcPath": "/user/spark/input/golden_dist.csv",
+                "transformations": [],
+                "useOtherSchema": false
+            },
+            "matchBoth": true,
+            "primaryKey": [
+                "name"
+            ],
+            "process": true,
+            "srcFile": {
+                "excludeColmns": [],
+                "header": true,
+                "srcDelimiter": ",",
+                "srcFormat": "CSV",
+                "srcPath": "/user/spark/input/golden_src.csv",
+                "transformations": [],
+                "useOtherSchema": false
+            },
+            "validateRowsCount": false
+        }
+    ]
+}

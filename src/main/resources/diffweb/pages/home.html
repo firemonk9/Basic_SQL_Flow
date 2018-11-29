@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Home</title>
+    <link rel="shortcut icon" href="https://static.wixstatic.com/media/9815c9_642c9beb50dd45339ddfa02bba2a1182%7Emv2.png/v1/fill/w_32%2Ch_32%2Clg_1%2Cusm_0.66_1.00_0.01/9815c9_642c9beb50dd45339ddfa02bba2a1182%7Emv2.png" type="image/png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+
+    <link rel="stylesheet" href="../dest/css/sb-admin-2.css">
+    <link rel="stylesheet" href="../dest/css/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="../dest/css/custom.css">
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Select CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <script src="https://johnny.github.io/jquery-sortable/js/jquery-sortable.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+    <script src="../dest/js/bootstrap-tagsinput.min.js"></script>
+    <script src="../dest/js/bootstrap-tagsinput-angular.min.js"></script>
+
+    <!-- Select JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
+    <script src="../dest/js/bootstrap-table-export.js"></script>
+    <script src="https://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+
+    <script src="../dest/js/app.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <style>
+        #loadingDiv{
+            position: absolute;
+            z-index: 1;
+            height: 100px;
+            width: 100px;
+            top: 50%;
+            left: 50%;
+            margin-left: -50px;
+            margin-top: -50px;
+            background: url('../dest/img/loading.gif');
+            background-size: 100%;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var selectedJob = null;
+        var runningJobs = [];
+        var interval = 10000;
+
+        // Class Job
+        function Job(name, src, dest, submitTime, BeginTime,EndTime,Status,Result,jobId, input, srcColumns, destColumns) {
+            this.name = name;
+            this.src = src;
+            this.dest = dest;
+            this.submitTime = submitTime;
+            this.BeginTime = BeginTime;
+            this.EndTime = EndTime;
+            this.Status = Status;
+            this.Result = Result;
+            this.jobId = jobId;
+            this.input = input;
+            this.srcColumns = srcColumns;
+            this.destColumns = destColumns;
+        }
+
+        // -- Table Functions -- //
+        // Set Table with Data
+        function setTable(tableData) {
+            $('#table').bootstrapTable("destroy");
+            $('#table').bootstrapTable({
+                data: tableData,
+                columns: [
+                    {
+                        field: 'name',
+                        title: 'Name',
+                        sortable: true,
+                        width: "10%"
+                    },
+                    {
+                        field: 'src',
+                        title: 'Job path Source',
+                        sortable: true,
+                        width: "15%"
+                    },
+                    {
+                        field: 'dest',
+                        title: 'Job path Dest',
+                        sortable: true,
+                        width: "15%"
+                    },
+                    {
+                        field: 'submitTime',
+                        title: 'Submitted Time',
+                        sortable: true,
+                        width: "12%"
+                    },
+                    {
+                        field: 'BeginTime',
+                        title: 'Begin Time',
+                        sortable: true,
+                        width: "11%"
+                    },
+                    {
+                        field: 'EndTime',
+                        title: 'End Time',
+                        sortable: true,
+                        width: "11%"
+                    },
+                    {
+                        field: 'Status',
+                        title: 'Status',
+                        sortable: true,
+                        width: "9%"
+                    },
+                    {
+                        field: 'Result',
+                        title: 'Result',
+                        sortable: true,
+                        width: "10%"
+                    },
+                    {
+                        field: 'state',
+                        checkbox: true,
+                        width: "7%"
+                    }
+                ],
+                formatNoMatches: function () {
+                    return 'You have no Jobs. You can add a job by clicking "Add Job" at the bottom of the page.';
+                }
+            });
+            $('#table').bootstrapTable('refresh');
+        }
+
+        // Set Cell Text Color
+        function cellStyle(value, row, index, field) {
+            if (value === "OK") {
+                return {
+                    classes: 'text-nowrap',
+                    css: { "color": "blue", "font-size": "14px" }
+                };
+            }
+            return {
+                classes: '',
+            };
+        }
+        function rowStyle(row, index) {
+            if (row.Status == "RUNNING") {
+                return {
+                    css: {"background-color": "#21BB5D"}
+                };
+            } else {
+                return {};
+            }
+        }
+
+        // Set Cell Text Formatter (First call before cellStyle)
+        function stateFormatter(value, row, index) {
+            if (row.Result == null)
+                return;
+            if (row.Result ==true) {
+                return "<a href='./jobresults.html?jobId="+ row.jobId + "'>Data Match</a>";
+            } else {
+                return "<a href='./jobresults.html?jobId="+ row.jobId + "'>Data Mismatch</a>";
+                //return "Data Not Match";
+            }
+        }
+
+        function checkFormatter(value, row, index) {
+            if (row.Status == "RUNNING") {
+                return { disabled:true};
+            } else {
+                return { disabled:false};
+            }
+        }
+        ///////
+
+        // Get Jobs
+        function getJobs(){
+
+            var fileName = "/jobs";
+            $.ajax({
+                type: "GET",
+                url: fileName,
+                crossDomain: true,
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (response) { 
+                    console.log(" the length is :::  " + response.summaryList.length);
+                    var tableData = [];
+                    for (var i = 0, l = response.summaryList.length; i < l; i++) {
+                        var tmp = response.summaryList[i];
+                        // Check RUNNING status, and then call this function after 5s
+                        if (tmp.status == "RUNNING") {
+                            interval = interval * 2;
+                            setTimeout(getJobs, interval);
+                        } else {
+                            interval = 10000;
+                        }
+
+                        var sTime = new Date(tmp.submittedTime);
+                        //tmp.submittedTime = sTime.toLocaleString('en-GB');
+                        tmp.submittedTime = sTime.getFullYear() + "/" + ("0" + (sTime.getMonth() + 1)).slice(-2) + "/" + ("0" + sTime.getDate()).slice(-2) + " " + ("0" + sTime.getHours()).slice(-2) + ":" + ("0" + sTime.getMinutes()).slice(-2) + ":" + ("0" + sTime.getSeconds()).slice(-2);
+                        var bTime = new Date(tmp.beginTime);
+                        //tmp.beginTime = bTime.toLocaleString('en-GB');
+                        tmp.beginTime = bTime.getFullYear() + "/" + ("0" + (bTime.getMonth() + 1)).slice(-2) + "/" + ("0" + bTime.getDate()).slice(-2) + " " + ("0" + bTime.getHours()).slice(-2) + ":" + ("0" + bTime.getMinutes()).slice(-2) + ":" + ("0" + bTime.getSeconds()).slice(-2);
+                        var eTime = new Date(tmp.endTime);
+                        //tmp.endTime = eTime.toLocaleString('en-GB');
+                        tmp.endTime = eTime.getFullYear() + "/" + ("0" + (eTime.getMonth() + 1)).slice(-2) + "/" + ("0" + eTime.getDate()).slice(-2) + " " + ("0" + eTime.getHours()).slice(-2) + ":" + ("0" + eTime.getMinutes()).slice(-2) + ":" + ("0" + eTime.getSeconds()).slice(-2);
+                        var tdData=new Job(tmp.input.name == null ? "No name" : tmp.input.name,tmp.input.srcFile.datasetPath, tmp.input.destFile.datasetPath, tmp.submittedTime, tmp.beginTime, tmp.endTime,tmp.status == "" ? "RUNNING" : tmp.status, tmp.dataMatch, tmp.jobId, tmp.input, tmp.srcColumns, tmp.destColumns);
+                        tableData.push(tdData);
+                    }
+                    setTable(tableData);
+                    $("th[data-field='submitTime'] .sortable").click();
+                }
+            });
+        }
+
+        //Upload File
+        function doFileUpload(event) {
+            var input = event.target;
+            var file = input.files[0];
+
+            var formData = new FormData();
+            formData.append('json', file);
+
+            $.ajax({
+                url : "/fileUpload",
+                type : 'POST',
+                data : formData,
+                processData: false,
+                contentType: false,
+                success : function(response) {
+                    var alertMsg = "";
+                    for (var i = 0; i < response.jobIds.length; i++) {
+                        alertMsg += "jobID : " + response.jobIds[i] + "\n";
+                    }
+                    //$table.bootstrapTable('append', randomData());
+                    document.getElementById("success-msg").innerHTML = "Successfully imported.";
+                    $('.alert-success').show();
+					setTimeout(function () {$('.alert-success').fadeOut();}, 10000);
+                    getJobs();
+                }
+            });
+        }
+		
+
+        function submitJob(jobs, index) {
+            var jsonTree = {};
+            var filesCompareList = new Array;
+            filesCompareList.push(jobs[index].input);
+            jsonTree["filesCompareList"] = filesCompareList;
+            var jsonStr = JSON.stringify(jsonTree);
+            $.ajax({
+                type: "POST",
+                url: "/job",
+                crossDomain: true,
+                dataType: 'json',
+                data: jsonStr,
+                contentType: 'application/json',
+                success: function (response) {
+                    var jobId = response.jobIds[0];
+                    if (jobId == "" || jobId == null) {
+                        document.getElementById("error-msg").innerHTML = "Job submittion failed.";
+                        $(".alert-danger").show();
+                    }
+                    else if(jobs.length - 1 > index){
+                        index ++;
+                        submitJob(jobs, index);
+                        document.getElementById("success-msg").innerHTML = "Job saved succesfully. Your job Id is '" + jobId + "'";
+                        $(".alert-success").show();
+                        getJobs();
+                    }
+                },
+                error: function (response) {
+                }
+            });
+        }
+
+        $(document).ready(function () {
+		
+			$('#logout').on('click', function(e){
+				setCookie("email", "");
+				setCookie("password", "");
+			});
+
+            $.ajax({
+                type: "GET",
+                url: "/startUp",
+                crossDomain: true,
+                dataType: 'json',
+                data: {},
+                beforeSend: function() {
+                    $("#loadingDiv").show();
+                },
+                success: function (response) {
+                    if (response.localMode == true) {
+                        $('#nav_logout').hide();
+                    }
+                    setCookie("version", response.displayVersion);
+                    setCookie("localMode", response.localMode);
+                    setToolDetail();
+                },
+                error: function (response) {
+
+                },
+                complete: function() {
+                    $("#loadingDiv").hide();
+                }
+            });
+
+            var $table = $('#table');
+
+            // Submit Jobs
+            $('#btn_submit').on('click', function (e) {
+                var jobs = $.map($table.bootstrapTable('getSelections'), function (row) {
+                    return row;
+					
+                });
+
+                if (jobs.length <= 0) {
+                    document.getElementById("danger-msg").innerHTML = "Select job first.";
+                    $('.alert-danger').show();
+                    return;
+                }
+
+                submitJob(jobs, 0);
+            });
+
+            // Edit Jobs
+            $('#btn_edit').on('click', function (e) {
+                var jobs = $.map($table.bootstrapTable('getSelections'), function (row) {
+                    return row;
+                });
+
+                location.href = "./jobresults.html?jobId=" + jobs[0].jobId + "&edit=true";
+            });
+
+            // Table row select check
+            $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
+                 $('#btn_edit').prop('disabled', !$table.bootstrapTable('getSelections').length);
+                 $('#btn_delete').prop('disabled', !$table.bootstrapTable('getSelections').length);
+                 $('#btn_submit').prop('disabled', !$table.bootstrapTable('getSelections').length);
+                 $('#btn_export').prop('disabled', !$table.bootstrapTable('getSelections').length);
+            });
+
+            // Delete Jobs
+            $('#confirm-delete').on('show.bs.modal', function(e) {
+                //$(this).find('.btn-ok').attr('href', "submit");
+            });
+
+            $('#btn_delete').click(function () {
+                $('#confirm-delete').modal('hide');
+            });
+
+            $('#btn_confirm_delete').click(function(e) {
+                var jobIds = $.map($table.bootstrapTable('getSelections'), function (row) {
+                    return row.jobId
+                });
+
+                var param = {};
+                param["list"] = jobIds;
+
+                var jsonStr = JSON.stringify(param);
+
+                $.ajax({
+                    type: "DELETE",
+                    url: "/jobs",
+                    crossDomain: true,
+                    dataType: 'json',
+                    data: jsonStr,
+                    contentType: 'application/json',
+                    success: function (response) {
+                        document.getElementById("success-msg").innerHTML = "Successfully deleted.";
+                        $(".alert-success").show();
+                        $('#confirm-delete').modal('hide');
+                        $table.bootstrapTable('remove', {
+                            field: 'jobId',
+                            values: response.jobIds
+                        });
+                    },
+                    error: function (response) {
+                        $('#confirm-delete').modal('hide');
+                    }
+                });
+            });
+
+            // Import Json - Open file dialog
+            $('#filehref').click( function(e) {
+                e.preventDefault();
+                $('#fileInput').click();
+                return false; 
+            });
+
+            //Export Json
+            $('#btn_export').click(function(e) {
+                var jobIds = $.map($table.bootstrapTable('getSelections'), function (row) {
+                    return row.jobId
+                });
+
+                var param = {};
+                param["list"] = jobIds;
+
+                var jsonStr = JSON.stringify(param);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/exportJson",
+                    crossDomain: true,
+                    dataType: 'json',
+                    data: jsonStr,
+                    contentType: 'application/json',
+                    success: function (response) {
+                        document.getElementById("success-msg").innerHTML = "Successfully exported.";
+                        $(".alert-success").show();
+
+                        $('#exportresult').val(JSON.stringify(response));
+                        $('#exportjson-result').modal();
+
+                        //alert(JSON.stringify(response));
+                    },
+                    error: function (response) {
+                        //alert(response);
+                        $(".alert-danger").show();
+                    }
+                });
+            });
+
+            //Copy to clipboard
+            $('#btn_copy_clipboard').click(function(e) {
+                var result = document.getElementById("exportresult");
+                result.focus();
+                result.select();
+                document.execCommand( 'Copy' );
+            });
+
+            //Highlight checked row
+            /*
+            var checkedRows = [];
+
+            $('#table').on('check.bs.table', function (e, row) {
+                checkedRows.push({jobId: row.jobId});
+            });
+
+            $('#table').on('uncheck.bs.table', function (e, row) {
+                $.each(checkedRows, function(index, value) {
+                    if (value.jobId === row.jobId) {
+                        checkedRows.splice(index,1);
+                    }
+                });
+            });
+            */
+
+            getJobs();
+        });
+        
+    </script>
+
+    <div id="loadingDiv">
+    </div>
+    
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <!--
+                    <span class="icon-bar"></span>
+                    -->
+                </button>
+                <a class="navbar-brand" href="home.html" style="font-size: 21px;" id="tool-name"></a>
+                <span class="navbar-brand" style="font-size: 18px;" id="tool-version"></span>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="home.html">Home</a>
+                </li>
+                <!--
+                <li>
+                    <a href="addjob.html">Add Job</a>
+                </li>
+                -->
+                <!--
+                <li>
+                    <a href="jobresults.html">Job Results</a>
+                </li>
+                -->
+                <li class="dropdown" id="nav_logout">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="login.html" id="logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+        </nav>
+
+        <div id="page-wrapper" style="margin: 0 0 0 0;padding: 0px 30px 60px 30px;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">Home</h3>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissible" role="alert" style="display:none;">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Success!</strong> <span id="success-msg">You submitted jobs.</span>
+                    </div>
+
+                    <div class="alert alert-warning alert-dismissible" role="alert" style="display:none;">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Failure!</strong> Error occures while loading data.
+                    </div>
+
+                    <div class="alert alert-info alert-dismissible" role="alert" style="display:none;">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Failure!</strong> Error occures while loading data.
+                    </div>
+
+                    <div class="alert alert-danger alert-dismissible" role="alert" style="display:none;">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Failure!</strong> <span id="danger-msg">Error occures while loading data.</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+					<div class="panel panel-default">
+                        <div class="panel-heading"><h4>Job List</h4></div>
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+                             <!-- 
+                             <div id="toolbar">
+                                <button id="remove" class="btn btn-danger" disabled>
+                                    <i class="glyphicon glyphicon-remove"></i> Delete
+                                </button>
+                             </div>
+                             -->
+							 <table id="table" class="table fixed" 
+                                    data-toolbar="#toolbar"
+                                    data-height="540" 
+                                    data-search="true"
+                                    data-row-style="rowStyle"
+                                    data-show-columns="true" 
+                                    data-pagination="true"
+                                    data-show-export="true" >
+                                <thead>
+                                    <tr>
+                                        <th data-field="name" data-sortable="true">Name</th>
+										<th data-field="src" data-sortable="true">Job path Source</th>
+										<th data-field="dest" data-sortable="true">Job path Dest</th>
+										<th data-field="submitTime" data-sortable="true">Submitted Time</th>
+										<th data-field="BeginTime" data-sortable="true">Begin Time</th>
+										<th data-field="EndTime" data-sortable="true">End Time</th>
+										<th data-field="Status" data-sortable="true" data-cell-style="cellStyle">Status</th>
+										<th data-field="Result" data-sortable="true" data-formatter="stateFormatter" >Result</th>
+										<th data-field="state" data-checkbox="true" data-formatter="checkFormatter"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+						</div>
+                        <div class="panel-footer">
+							<div style="width: 485px;display: block;margin: 0 auto;">
+                                
+                                <input id="fileInput" type="file" style="visibility:hidden" onchange="doFileUpload(event)"/>
+                                <!-- Single button -->
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Add Job <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="addjob.html">Add Job</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="" id="filehref">Import JSON</a></li>
+                                    </ul>
+                                </div>
+								<button class='btn btn-primary' id="btn_export" disabled>Export JSON</button>
+                                <button class='btn btn-success'id="btn_submit" onClick="window.location.reload();" disabled>Submit Job</button>
+                                <button class='btn btn-danger' data-toggle="modal" data-target="#confirm-delete" id="btn_delete" disabled>Delete Job</button>
+                                <button class='btn btn-info' id="btn_edit" disabled>Edit Job</button>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+        <footer>
+            <p class="copyright">© DataQ, 2017</p>
+        </footer>
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Delete Job Modal-->
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete Jobs</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete jobs, this procedure is irreversible.</p>
+                    <p>Do you want to proceed delete jobs?</p>
+                    <p class="debug-url"></p>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger btn-ok" id="btn_confirm_delete">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Json Result Modal-->
+    <div class="modal fade" id="exportjson-result" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <textarea id="exportresult" rows="10" style="width: 100%" class="form-control custom-control"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger btn-ok" id="btn_copy_clipboard">Copy to Clipboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-93298501-2', 'auto');
+    ga('send', 'pageview');
+
+</script>
+<style>
+	table.fixed { table-layout:fixed; word-break:break-all;}
+</style>
+
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Home</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../dest/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Custom CSS -->
+    <link href="../dest/css/custom.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- DataTables Responsive CSS -->
+    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+    
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="home.html" style="font-size: 21px;">Diff Panel</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="home.html">Home</a>
+                </li>
+                <li>
+                    <a href="addjob.html">Add Job</a>
+                </li>
+                <li>
+                    <a href="jobresults.html">Job Results</a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+        </nav>
+
+        <div id="page-wrapper" style="margin: 0 0 0 0;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">Home</h3>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">DataTables Advanced Tables</div>
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+							<table width="100%"
+								class="table table-striped table-bordered table-hover"
+								id="dataTables-example">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Job path Source</th>
+										<th>Job path Dest.</th>
+										<th>Submitted Time</th>
+										<th>Begin Time</th>
+										<th>End Time</th>
+										<th>Status</th>
+										<th>Result</th>
+										<th>Action</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+            </div>
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <div class="action-popup" style="display: block;">
+        <div class="action-popup-header">
+            <div class="btn-group" style="float: right;">
+                <a type="button" class="btn btn-success action-btn"
+                    id="resumebtn" href="addjob.html" style="    height: 29px;margin-top: 4px;">Add Job</a>
+                <div class="fileupload  fileupload-new" data-provides="fileupload"
+                        id="importJsonbtn" class="btn btn-success action-btn">
+                        <span class="btn btn-primary btn-file"><span
+                            class="fileupload-new"><i class="glyphicon glyphicon-plus"></i>
+                                Select file</span> <span class="fileupload-exists"><i
+                                class="glyphicon glyphicon-edit"></i> Change</span> <input type="file"
+                            id="static_segment_id" name="static_segment_id"
+                            class="form-control" value="-1" /></span> <br> <span
+                            class="fileupload-preview"></span> <a href="#"
+                            class="close fileupload-exists" id="static_segment_id_close"
+                            data-dismiss="fileupload" style="float: none">×</a>
+                    </div>
+                <button type="button" class="btn btn-success action-btn"
+                    id="exportJsonbtn" onclick="updateState('pause')">Export Json</button>
+                <button type="button" class="btn btn-success action-btn"
+                    id="submitJobbtn" onclick="alert('Your Job has been submitted')">SubmitJob</button>
+            </div>
+        </div>
+    </div>
+    <div id="actionDiv" style="display: none">
+        <a href="http://localhost/project4/pages/index2.html"class="glyphicon glyphicon-pencil"></a>
+        <input type="checkbox"/>
+    </div>
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dest/js/sb-admin-2.js"></script>
+    <!-- DataTables JavaScript -->
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+	<script type="text/javascript" src="../json/jobs.json"></script>
+
+    <script type="text/javascript">
+        var data= (summaryList);
+        var togglingbtns=[$("#exportJsonbtn"),$("#importJsonbtn"),$("#importJsonbtn").children(),$("#importJsonbtn").find('input'),$("#submitJobbtn")]
+        $(document).ready(function(){
+        init(data);
+            $('#dataTables-example').DataTable({
+                responsive: false
+            });
+            disablebtn();
+
+            $("input[type='checkbox']").change(function(){
+                var checkEnabled=false;
+                $("input[type='checkbox']:checked").each(function() {
+                    checkEnabled=true;
+                });
+                if(checkEnabled){
+                    enablebtn();
+                }else {
+                    disablebtn();
+                }
+                
+            })
+            
+        });
+        function enablebtn(){
+            for(var i=0;i<togglingbtns.length;i++){
+                togglingbtns[i].removeClass("disabled").removeAttr('disabled');
+            }
+        }
+        function disablebtn(){
+            for(var i=0;i<togglingbtns.length;i++){
+                togglingbtns[i].addClass("disabled").attr('disabled','disabled');
+            }
+        }
+        function init(d){
+            for(var i =0;i<d.length;i++)
+            {
+                var $tr=$("<tr/>").addClass('odd gradeX');
+                var tdData=new Job("Test",d[i].input.srcFile.datasetPath,d[i].input.destFile.datasetPath,d[i].submittedTime,d[i].beginTime,d[i].endTime,"OK",d[i].result);
+                for(var j in tdData){
+                    var $td=$("<td/>").text(tdData[j]).attr('align','center');
+                    $tr.append($td);
+                }
+                $lasttd=$("#actionDiv").clone();
+                $lasttd.find('[type="checkbox"]').attr('id',d[i].jobId);
+                
+                $tr.append($("<td/>").attr('align','center').append($lasttd.show().find('a')));
+                $tr.append($("<td/>").attr('align','center').append($lasttd.show().find('[type="checkbox"]')));
+                $("#dataTables-example tbody").append($tr);
+            }
+        }
+
+        function Job(name, src, dest, submitTime, BeginTime,EndTime,Status,Result) {
+            this.name = name;
+            this.src = src;
+            this.dest = dest;
+            this.submitTime = submitTime;
+            this.BeginTime = BeginTime;
+            this.EndTime = EndTime;
+            this.Status = Status;
+            this.Result = Result;
+        }
+    </script>
+</body>
+
+</html>

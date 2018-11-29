@@ -1,0 +1,56 @@
+{
+  "root": "output",
+  "jobMap": {
+    "join_a_b": {
+      "id": "join_a_b",
+      "dependsOn": ["source_a", "source_b"],
+      "joins": {
+        "joinSql": "select a.A,b.B,a.C,b.D from joina a inner join joinb b on a.A=b.A"
+      },
+      "jobOutputTableName": "join_output"
+    },
+    "filter_a": {
+      "id": "filter_a",
+      "dependsOn": ["source_a"],
+      "filterData": {
+        "filterSql": "select * from joina where A not like '%Linus Avila%'"
+      },
+      "jobOutputTableName": "filterJobA"
+    },
+    "source_b": {
+      "id": "source_b",
+      "sourceData": {
+        "datasetFormat": "CSV",
+        "transformations": [],
+        "datasetDelimiter": ",",
+        "datasetPath": "<CODE_PATH>/Basic_SQL_Flow/src/test/resources/sample_data/joinb.csv",
+        "header": true
+      },
+      "jobOutputTableName": "joinb"
+    },
+    "source_a": {
+      "id": "source_a",
+      "sourceData": {
+        "datasetFormat": "CSV",
+        "transformations": [],
+        "datasetDelimiter": ",",
+        "datasetPath": "<CODE_PATH>/Basic_SQL_Flow/src/test/resources/sample_data/joina.csv",
+        "header": true
+      },
+      "jobOutputTableName": "joina"
+    },
+    "output": {
+      "id": "output",
+      "dependsOn": ["join_a_b"],
+      "output": {
+        "tableNameMap": {
+          "join_output": "<CODE_PATH>/golden_src_temp1.csv"
+        },
+        "datasetFormat": "PARQUET",
+        "transformations": [],
+        "datasetPath": "" 
+      }
+    }
+  },
+  "flowName": "my_temp"
+}

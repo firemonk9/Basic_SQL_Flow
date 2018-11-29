@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+	<head>
+		<title>Job Results</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+		
+		<link rel="stylesheet" href="../dest/css/sb-admin-2.css">
+		<link rel="stylesheet" href="../dest/css/bootstrap-tagsinput.css">
+		<link rel="stylesheet" href="../dest/css/custom.css">
+		<link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		
+		<script src="https://johnny.github.io/jquery-sortable/js/jquery-sortable.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+		<script src="../dest/js/bootstrap-tagsinput.min.js"></script>
+		<script src="../dest/js/bootstrap-tagsinput-angular.min.js"></script>
+		
+		<!-- Select JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+		
+		<script src="../dest/js/bootstrap-table-export.js"></script>
+		<script src="https://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+		
+		<script src="../dest/js/app.js"></script>
+		
+		<style>
+			.clickable{
+            cursor: pointer;
+			}
+			.panel-heading span {
+            margin-top: -20px;
+            font-size: 15px;
+			}
+			
+			#stats th, #stats td {
+            border: 1px !important;
+			}
+			
+			.data-filter-header{
+            border-bottom: 1px solid #f7f7f7;
+            margin-left: 15px;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            margin-top: 15px;
+			}
+			
+			#src_column .glyphicon{
+            //top: -15px;
+			}
+			
+			.badge{
+            margin-right: 4px;
+			}
+			
+			#mapper div img{
+            cursor: pointer;
+			}
+			
+			.list-group-item {
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: 0px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+			}
+			
+			#loadingDiv{
+			position: absolute;
+			z-index: 1;
+			height: 100px;
+			width: 100px;
+			top: 50%;
+			left: 50%;
+			margin-left: -50px;
+			margin-top: -50px;
+			background: url('../dest/img/loading.gif');
+			background-size: 100%;
+			}
+			
+		</style>
+	</head>
+	
+	<body>
+		<script>
+			var mergeArray = [];
+			var changeHeaderArray = [];
+			var diffCellArray = [];
+			var curColumnIndex;
+			var headerCount;
+			var jobId = "";
+			var edit = "";
+			
+			var srcRecordCnt = 0, destRecordCnt = 0;
+			
+			var info;
+			
+			var QueryString = function () {
+				// This function is anonymous, is executed immediately and
+				// the return value is assigned to QueryString!
+				var query_string = {};
+				var query = window.location.search.substring(1);
+				var vars = query.split("&");
+				for (var i=0;i<vars.length;i++) {
+					var pair = vars[i].split("=");
+					// If first entry with this name
+					if (typeof query_string[pair[0]] === "undefined") {
+						query_string[pair[0]] = decodeURIComponent(pair[1]);
+						// If second entry with this name
+						} else if (typeof query_string[pair[0]] === "string") {
+						var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+						query_string[pair[0]] = arr;
+						// If third or later entry with this name
+						} else {
+						query_string[pair[0]].push(decodeURIComponent(pair[1]));
+					}
+				}
+				return query_string;
+			}();
+			
+			function dataDiffer(response) {
+				var newData = [];
+				
+				var doubleexist = false;
+				var columerow = 0;
+				
+				if (response.reason != null) {
+					document.getElementById("reason-msg").innerHTML = response.reason;
+					$('#alert-reason').show();
+					return;
+				}
+				if (response.status == "RUNNING") {
+					$(".alert-info").show();
+					setTimeout(function(){
+						getJobResult(jobId);
+					}, 5000);
+					return;
+					} else if (response.status == "Invalid Job id") {
+					document.getElementById("danger-msg").innerHTML = "Invalid job id.";
+					$('.alert-danger').show();
+					return;
+				}
+				
+				if (response.exception != null) {
+					var except = document.getElementById("exception-value");
+					except.innerHTML = response.exception;
+					$('.alert-warning').show();
+					return;
+					} else if (response.differencessForKey == null) {
+					document.getElementById("danger-msg").innerHTML = "Json is not correct.";
+					$('.alert-danger').show();
+					return;
+				}
+				for (var i = 0, l = response.differencessForKey.length; i < l; i++) {
+					var mergeVal = {};
+					mergeVal["start"] = columerow;
+					mergeVal["count"] = 0;
+					for (var c = 0; c < response.differencessForKey[i].computedUnmatchPair.length; c++) {
+						var sarr = response.differencessForKey[i].computedUnmatchPair[c].srcFormatted;
+						var darr = response.differencessForKey[i].computedUnmatchPair[c].destFormatted;
+						var badcolsarr = response.differencessForKey[i].computedUnmatchPair[c].badCols;
+						
+						var key = response.differencessForKey[i].key
+						var keyStr = "";
+						for (var k = 0; k < key.length; k++) {
+							keyStr += key[k].col + ":" + key[k].value + ", ";
+						}
+						
+						keyStr = keyStr.substring(0, keyStr.length - 2);
+						
+						
+						if (sarr) {
+							var row = {}
+							row["key"] = keyStr;
+							row["type"] = "src";
+							for (var j = 0, jl = sarr.length; j < jl; j++) {
+								row[sarr[j].col] = sarr[j].value;
+							}
+							newData.push(row);
+							columerow++;
+							doubleexist = true;
+							mergeVal["count"] += 1;
+							if(!darr){
+								row["orphan"]=true;
+								}else {
+								row["orphan"] = false;
+							}
+						}
+						if (darr) {
+							var row = {}
+							row["key"] = keyStr;
+							row["type"] = "dest";
+							for (var j = 0, jl = darr.length; j < jl; j++) {
+								row[darr[j].col] = darr[j].value;
+							}
+							newData.push(row);
+							if(!sarr){
+								row["orphan"]=true;
+								}else {
+								row["orphan"] = false;
+							}
+							//if (doubleexist == true) {
+							// add mergearray
+							//mergeArray.push(columerow - 1);
+							
+							diffCellArray[columerow - 1] = badcolsarr;
+							var prevrow = newData[columerow - 1];
+							
+							$.each(prevrow, function (key, value) {
+								if (prevrow["key"] != row["key"])
+								return;
+								if (key !== "key" && key !== "type" && prevrow[key] !== row[key]) {
+									if (!contains.call(changeHeaderArray, key)){
+										changeHeaderArray.push(key);
+									}
+								}
+							});
+							//}
+							columerow++;
+							mergeVal["count"] += 1;
+						}
+						doubleexist = false;
+					}
+					mergeArray.push(mergeVal);
+				}
+				
+				setStatsTable(response.stats);
+				
+				// Get HeaderArray
+				if (newData.length > 0) {
+					var headerArray = Object.keys(newData[0]);
+					headerCount = headerArray.length;
+					curColumnIndex = 0;
+					var res = JSON.stringify(newData);
+					
+					setTable(newData, headerArray);
+					document.getElementById("success-msg").innerHTML = "Data differ successfully finished.";
+					$('.alert-success').show();
+					} else {
+					document.getElementById("success-msg").innerHTML = "No differ data detected.";
+					$('.alert-success').show();
+				}
+				
+				
+				$('.alert-success').show();
+			}
+			
+			function createAdvancedRulePage(response) {
+				//make src and dest transformation column inputs to typeahead
+				if (response.exception != null)
+				return;
+				createTypeahead($('.src_trans_column'), makeSrcColumn(response.srcSchema), 'name');
+				createTypeahead($('.dest_trans_column'), makedestColumn(response.destSchema), 'name');
+				
+				srcRecordCnt = response.srcRowCount;
+				destRecordCnt = response.destRowCount;
+				
+				prepareAdvancedRule(true, response.inputData.name, response.srcSchema, response.inputData.srcFile.excludeColmns,
+                response.destSchema, response.inputData.destFile.excludeColmns,
+                response.inputData.compareKey,
+                response.inputData.srcFile.transformations, response.inputData.destFile.transformations,
+                response.inputData.srcFile.filterSql, response.inputData.destFile.filterSql,
+                response.inputData.matchBoth, response.srcRowCount != response.destRowCount, response.inputData.randomSample, response.inputData.columnMapping
+				);
+				$('#advancedRulesModal').modal();
+				
+			}
+			
+			//Get Job Result from server with job id
+			function getJobResult(jobId) {
+				$.ajax({
+					type: "GET",
+					url: "/job/" + jobId,
+					dataType: "json",
+					data: {},
+					success: function (response) {
+						dataDiffer(response);
+						if (edit == "true") {
+							info = response;
+							createAdvancedRulePage(response);
+						}
+					},
+					error: function(response) {
+						//alert(response);
+					}
+				});
+			}
+			
+			function submitJobJson() {
+				
+				var data = getInputData(srcRecordCnt != destRecordCnt);
+				if (data.compareKey.length <= 0) {
+					alert("You should set at least one key.");
+					return;
+				}
+				if (data.jobname == "") {
+					alert("You should input job name.");
+					return;
+				}
+				
+				$count = $("#mapper > div img[src='../dest/img/tick.png']").length;
+				if($count <= 0){
+					alert("You should set at least one tick.");
+					return;
+					
+				}
+				
+				
+				
+				
+				//data.jobname = info.inputData.name;
+				//data.compareCommonColumnsOnly = info.inputData.compareCommonColumnsOnly;
+				//data.validateRowsCount = info.inputData.validateRowsCount;
+				//data.randomSample = info.inputData.randomSample;
+				
+				data.srcFile.filterSql = info.inputData.srcFile.filterSql;
+				data.srcFile.datasetPath = info.inputData.srcFile.datasetPath;
+				data.srcFile.datasetFormat = info.inputData.srcFile.datasetFormat;
+				if (data.srcFile.datasetFormat == "CSV") {
+					data.srcFile.header = info.inputData.srcFile.header;
+					data.srcFile.datasetDelimiter = info.inputData.srcFile.datasetDelimiter;
+					data.srcFile.useOtherSchema = info.inputData.srcFile.useOtherSchema;
+					if (!data.srcFile.useOtherSchema) {
+						data.srcFile.columns = info.inputData.srcFile.columns;
+					}
+				}
+				
+				data.destFile.filterSql = info.inputData.destFile.filterSql;
+				data.destFile.datasetPath = info.inputData.destFile.datasetPath;
+				data.destFile.datasetFormat = info.inputData.destFile.datasetFormat;
+				if (data.destFile.datasetFormat == "CSV") {
+					data.destFile.header = info.inputData.destFile.header;
+					data.destFile.datasetDelimiter = info.inputData.destFile.datasetDelimiter;
+					data.destFile.useOtherSchema = info.inputData.destFile.useOtherSchema;
+					if (!data.destFile.useOtherSchema) {
+						data.destFile.columns = info.inputData.destFile.columns;
+					}
+				}
+				var jsonStr = makeInputJson(data.jobname,data.compareCommonColumnsOnly,
+                data.validateRowsCount,data.randomSample,data.matchBoth,true,
+                data.columnMapping,data.srcFile,data.destFile,data.compareKey);
+				$.ajax({
+					type: "POST",
+					url: "/job",
+					crossDomain: true,
+					dataType: 'json',
+					data: jsonStr,
+					contentType: 'application/json',
+					success: function (response) {
+						alert(response.jobname);
+						jobId = response.jobIds[0];
+						getJobResult(jobId);
+						var url = window.location.href;
+						url = url.substring(0, url.lastIndexOf('/'));
+						window.location.href = url + '/home.html';
+					},
+					error: function (response) {
+						$('#advancedRulesModal').modal('hide');
+					}
+				});
+			}
+			
+			//Upload job json
+			function doJsonUpload(event) {
+				var input = event.target;
+				var file = input.files[0];
+				
+				var formData = new FormData();
+				formData.append('json', file);
+				
+				$.ajax({
+					url : "/fileUpload",
+					type : 'POST',
+					data : formData,
+					processData: false,
+					contentType: false,
+					success : function(response) {
+						jobId = response.jobIds[0];
+						getJobResult(response.jobId);
+					},
+					error : function (response) {
+						document.getElementById("danger-msg").innerHTML = "Invalid job id.";
+						$('.alert-danger').show();
+					}
+				});
+			}
+			
+			// Get Data from Json File
+			function getDataFromJsonFile(fileName) {
+				$.ajax({
+					type: "POST",
+					url: fileName,
+					dataType: "json",
+					data: {},
+					success: function (response) {
+						dataDiffer(response);
+					}
+				});
+			}
+			
+			// Show Stats Table
+			function setStatsTable(stats) {
+				//alert(JSON.stringify(stats.columnsNotMatching));
+				/*
+					$('.srcrecordscount').html(stats.srcRecordsCount);
+					$('.destrecordscount').html(stats.destRecordsCount);
+					$('.totalsrcrecordsmatching').html(stats.totalSrcRecordsMatching);
+					$('.totalsrcrecordsnotmatching').html(stats.totalSrcRecordsNotMatching);
+					$('.totalDestrecordsmatching').html(stats.totalDestRecordsMatching);
+					$('.totalDestrecordsnotmatching').html(stats.totalDestRecordsNotMatching);
+					$('.columnsnotmatching').html(JSON.stringify(stats.columnsNotMatching));
+					$('.columnsnotmatchingmap').html(JSON.stringify(stats.columnsNotMatchingMap));
+				*/
+				
+				//alert(JSON.stringify(stats.columnsNotMatching));
+				//var newjson = {"Dest":185,"Origin":689,"DepTime":15,"DayOfWeek":15,"TailNum":394,"destance":268,"DepDelay":689};
+				
+				var newjson = JSON.stringify(stats.columnsNotMatching);
+				var newjson = JSON.parse(newjson);
+
+				$.each(newjson, function (k, value) {
+					var tr;
+					tr = $('<tr/>');
+					tr.append("<td>" + k + "</td>");
+					tr.append("<td>" + value + "</td>");	
+					$('#tblGrid').append(tr);
+				});
+				
+				//$('.columnsnotmatching').html('click here->');
+				
+				var src_percent = (stats.totalSrcRecordsMatching / stats.srcRecordsCount) * 100;
+				$('#src_percent').html(parseInt(src_percent) + "%");
+				$('#src_count').html("(" + stats.totalSrcRecordsMatching + " / " + stats.srcRecordsCount + ")");
+				
+				var dest_percent = (stats.totalDestRecordsMatching / stats.destRecordsCount) * 100;
+				$('#dest_percent').html(parseInt(dest_percent) + "%");
+				$('#dest_count').html("(" + stats.totalDestRecordsMatching + " / " + stats.destRecordsCount + ")");
+			}
+			
+			// Show data to Table
+			function setTable(tableData, headerArray) {
+				$("#table").bootstrapTable('destroy');
+				$("#table thead tr").html('');
+				$.each(headerArray, function (index, value) {
+					var tr = '';
+					if (contains.call(changeHeaderArray, value)){
+						//tr = $('<th data-field="' + value + '" data-cell-style="cellStyle" data-formatter="stateFormatter">' + value + '<i class="glyphicon glyphicon-star"></i></th>');
+						tr = $('<th data-field="' + value + '" data-formatter="stateFormatter">' + value + ' <i class="	glyphicon glyphicon-remove"></i></th>');
+						} else {
+						tr = $('<th data-field="' + value + '" data-formatter="stateFormatter">' + value + '</th>');
+					}
+					
+					$("#table thead tr").append(tr);
+					
+					
+				});
+				$('#table').bootstrapTable({
+					data: tableData,
+					onPageChange: function (number, size) {
+						setMergeCell((number - 1) * size, number * size);
+					}
+				});
+				setMergeCell(0, 10);
+				removeTableColumn();
+			}
+			
+			/* function to delete last column*/
+			function removeTableColumn() {
+				
+				$("#table  thead tr th:last-child, #table td:last-child").addClass("intro");
+				
+			}
+			
+			// Set mergeCells
+			function setMergeCell(startat, endat) {
+				$.each(mergeArray, function (index, value) {
+					if (value.start >= startat && value.start < endat) {
+						$('#table').bootstrapTable('mergeCells', {
+							index: value.start - startat,
+							field: 'key',
+							colspan: 1,
+							rowspan: value.count
+						});
+					}
+				});
+				removeTableColumn();
+			}
+			
+			// Set Row Color
+			function rowStyle(row, index) {
+				if (row['orphan'] == true)
+				return {
+					classes: 'orphan'
+					
+				};
+				if (row['type'] == 'src')
+				return {
+					classes: 'info'
+				};
+				else
+				return {
+					classes: 'success'
+				};
+			}
+			
+			// Set Cell Text Color
+			function cellStyle(value, row, index, field) {
+				if (index === 1) {
+					return {
+						classes: 'text-nowrap',
+						css: { "color": "blue", "font-size": "16px" }
+					};
+				}
+				return {
+					classes: '',
+				};
+			}
+			
+			// Set Cell Text Formatter (First call before cellStyle)
+			function stateFormatter(value, row, index) {
+				var result = '';
+				result = value;
+				if (diffCellArray[index] ) {
+					var cellarr = diffCellArray[index];
+					$.each(cellarr, function (index, column) {
+						var keyindex = Object.keys(row).indexOf(column);
+						if (keyindex == curColumnIndex && JSON.stringify(row[column]) === JSON.stringify(value)){
+							result = '<div class="table-error">' +
+                            value +
+                            '</div>';
+						}
+					});
+					} else if (diffCellArray[index - 1]){
+					var cellarr = diffCellArray[index - 1];
+					$.each(cellarr, function (index, column) {
+						var keyindex = Object.keys(row).indexOf(column);
+						if (keyindex == curColumnIndex && JSON.stringify(row[column]) === JSON.stringify(value)){
+							result = '<div class="table-error">' +
+                            value +
+                            '</div>';
+						}
+					});
+				}
+				
+				if (curColumnIndex >= headerCount - 1){
+					curColumnIndex = 0;
+					} else {
+					curColumnIndex ++;
+				}
+				return result;
+			}
+			
+			var contains = function (needle) {
+				// Per spec, the way to identify NaN is that it is not equal to itself
+				var findNaN = needle !== needle;
+				var indexOf;
+				
+				if (!findNaN && typeof Array.prototype.indexOf === 'function') {
+					indexOf = Array.prototype.indexOf;
+					} else {
+					indexOf = function (needle) {
+						var i = -1, index = -1;
+						
+						for (i = 0; i < this.length; i++) {
+							var item = this[i];
+							
+							if ((findNaN && item !== item) || item === needle) {
+								index = i;
+								break;
+							}
+						}
+						return index;
+					};
+				}
+				
+				return indexOf.call(this, needle) > -1;
+			};
+			
+			function setListeners() {
+				$(document).on('mouseenter', ".li-tiff", function () {
+					var $this = $(this);
+					if (this.offsetWidth < this.scrollWidth && !$this.attr('title')) {
+						$this.tooltip({
+							title: $this.text(),
+							placement: "bottom"
+						});
+						$this.tooltip('show');
+					}
+				});
+				
+				$('.selectfile').on('change', function () {
+					var selected = $(this).find("option:selected").val();
+					
+					//Initialize Values
+					mergeArray = [];
+					changeHeaderArray = [];
+					diffCellArray = [];
+					curColumnIndex = 0;
+					headerCount = 0;
+					
+					getDataFromJsonFile("../json/" + selected);
+				});
+				
+				$('#table').on('search.bs.table', function (e, text) {
+					//merge cells again
+				});
+				
+				$('#btn_save_rules').on('click', function(e){
+					edit = "false";
+					submitJobJson();
+					$('#advancedRulesModal').modal('hide');
+				});
+				
+				$('#btn_cancel_rules').on('click', function(e) {
+					$('#advancedRulesModal').modal('hide');
+				});
+				
+				/* close the model*/
+				$("button[data-dismiss-modal=modal2]").click(function () {
+					$('#what1').modal('hide');
+				});
+				$("button[data-dismiss-modal=modal2]").click(function () {
+					$('#what').modal('hide');
+				});
+				$("button[data-dismiss-modal=modal2]").click(function () {
+					$('#what2').modal('hide');
+				});
+				$("button[data-dismiss-modal=modal2]").click(function () {
+					$('#what3').modal('hide');
+				});
+				$("button[data-dismiss-modal=modal2]").click(function () {
+					$('#more').modal('hide');
+				});
+				
+				$('#src_trans_plus').on('click', function(e) {
+					var srcNext = document.getElementById("src_trans_next");
+					insertRule(srcNext, "src");
+					createTypeahead($('.src_trans_column'), info.srcSchema, 'name');
+				});
+				
+				$('#src_trans_minus').on('click', function(e) {
+					removeRule($('.src-rule-extra'));
+				});
+				
+				$('#dest_trans_plus').on('click', function(e) {
+					var srcNext = document.getElementById("dest_trans_next");
+					insertRule(srcNext, "dest");
+					createTypeahead($('.dest_trans_column'), info.destSchema, 'name');
+				});
+				
+				$('#dest_trans_minus').on('click', function(e) {
+					removeRule($('.dest-rule-extra'));
+				});
+				
+				setIncludeListener();
+				setExcludeListener();
+			}
+			
+			
+			
+			$(document).ready(function () {
+				$.ajax({
+					type: "GET",
+					url: "/startUp",
+					crossDomain: true,
+					dataType: 'json',
+					data: {},
+					beforeSend: function() {
+						$("#loadingDiv").show();
+					},
+					success: function (response) {
+						setCookie("version", response.displayVersion);
+						setCookie("localMode", response.localMode);
+						setToolDetail();
+					},
+					error: function (response) {
+						
+					},
+					complete: function() {
+						$("#loadingDiv").hide();
+					}
+				});
+				
+				$( "#src_column" ).sortable({
+					connectWith: ".connectedSortable1",
+					placeholder: "ui-state-highlight",
+					
+					
+				});
+				
+				$( "#dest_column" ).sortable({
+					connectWith: ".connectedSortable2",
+					placeholder: "ui-state-highlight"
+				});
+				
+				jobId =  QueryString.jobId;
+				edit = QueryString.edit;
+				if (jobId != null) {
+					getJobResult(jobId);
+					} /* else {
+					getDataFromJsonFile("../json/diff_result.json");
+				}*/
+				mergeArray = [];
+				
+				setListeners();
+			});
+			
+			
+			
+			
+		</script>
+		
+		<div id="loadingDiv">
+			
+		</div>
+		
+		<div id="wrapper">
+			
+			<!-- Navigation -->
+			<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<!--
+							<span class="icon-bar"></span>
+						-->
+					</button>
+					<a class="navbar-brand" href="home.html" style="font-size: 21px;" id="tool-name"></a>
+					<span class="navbar-brand" style="font-size: 18px;" id="tool-version"></span>
+				</div>
+				<!-- /.navbar-header -->
+				
+				<ul class="nav navbar-top-links navbar-right">
+					<li>
+						<a href="home.html">Home</a>
+					</li>
+					<li>
+						<a href="addjob.html">Add Job</a>
+					</li>
+					<!--
+						<li>
+						<a href="jobresults.html">Job Results</a>
+						</li>
+					-->
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+							<i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-user">
+							<!--<li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>-->
+							<!--</li>-->
+							<!--<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>-->
+							<!--</li>-->
+							<!--<li class="divider"></li>-->
+							<li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+							</li>
+						</ul>
+						<!-- /.dropdown-user -->
+					</li>
+					<!-- /.dropdown -->
+				</ul>
+				<!-- /.navbar-top-links -->
+			</nav>
+			
+			<div id="page-wrapper" style="margin: 0 0 0 0;">
+				<div class="row">
+					<div class="col-lg-12">
+						<h3 class="page-header">Job Results</h3>
+					</div>
+					<!-- /.col-lg-12 -->
+				</div>
+				
+				<div class="alert alert-success alert-dismissible" role="alert" style="display:none;">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<strong>SUCCESS!</strong> <span id="success-msg">Data differ successfully finished.</span>
+				</div>
+				
+				<div class="alert alert-info alert-dismissible" role="alert" style="display:none;">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<strong>RUNNING!</strong> Job is running now.
+				</div>
+				
+				<div class="alert alert-danger alert-dismissible" role="alert" style="display:none;">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<strong>ERROR!</strong> <span id="danger-msg">Json is not correct.</span>
+				</div>
+				
+				<div class="alert alert-danger alert-dismissible" role="alert" style="display:none;" id="alert-reason">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<strong>REASON!</strong> <span id="reason-msg">Json is not correct.</span>
+				</div>
+				
+				<div class="alert alert-warning alert-dismissible" role="alert" style="display:none;">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<strong>EXCEPTION!</strong> <span id="exception-value"></span>
+				</div>
+				<div class="col-md-12">
+										<div class="modal fade" id="more" role="dialog">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss-modal="modal2" aria-hidden="true">&times;</button>
+													</div>
+													<div class="modal-body">
+														<table class="table table-striped" id="tblGrid">
+															<thead id="tblHead">
+																<tr>
+																	<th>Name</th>
+																	<th>Value</th>
+																</tr>
+															</thead>
+															<tbody>
+																
+															</tbody>
+														</table>
+													</div>
+													
+													
+												</div>
+											</div>
+										</div>
+									</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading" data-toggle="collapse" data-parent="#accordion"data-target="#specialCollapse">
+								<h3 class="panel-title accordion-toggle">Summary</h3>	
+							</div>
+							<div id="specialCollapse" class="panel-collapse collapse">
+								<table class="table table-bordered table-striped specialCollapse" id="stats">
+									<tbody>
+										<tr>
+											<td class="col-md-3" style="text-align: right;vertical-align: middle;"><small>Source Records Matching (Matched/Total) % :  </small></td>
+											<td class="col-md-9"><small id="src_percent" style="font-size: 15pt;"></small><small id="src_count" style="position: relative;bottom: 2px;margin-left: 10px;"></small></td>
+										</tr>
+										<tr>
+											<td class="col-md-3" style="text-align: right;vertical-align: middle;"><small>Destination Records Matching (Matched/Total) % :  </small></td>
+											<td class="col-md-9"><small id="dest_percent" style="font-size: 15pt;"></small><small id="dest_count" style="position: relative;bottom: 2px;margin-left: 10px;"></small></td>
+										</tr>
+										
+										<tr>
+											<td class="col-md-3" style="text-align: right;vertical-align: middle;"><small>Induvidual Column Mismatch Count : </small></td>
+											<td class="col-md-9"><small class="columnsnotmatching" id="more"></small><button type="button"  data-toggle="modal" data-target="#more">Click Here!</button></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							
+							
+							
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading"><h4>Detail Results</h4></div>
+							<!-- /.panel-heading -->
+							<div class="panel-body">
+								<table id="table" class="table fixed" 
+								data-height="540"
+								data-search="true"
+								data-show-columns="true"
+								data-pagination="true"
+								data-show-export="true"
+								data-row-style="rowStyle">
+									<thead>
+										<tr>
+											<th data-field="bookid"> Book ID </th>
+											<th data-field="name"> Book Name </th>
+											<th data-field="category"> Category </th>
+											<th data-field="price"> Item Price </th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /#page-wrapper -->
+			<footer>
+				<p class="copyright">� powered by Dhiraj, 2017</p>
+			</footer>
+		</div>
+		<!-- /#wrapper -->
+		
+		<!-- Advanced Rule Modal -->
+		<div class="modal fade" id="advancedRulesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog" style="width: 800px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Advanced Rules Mapping</h4>
+					</div>
+					
+					<div class="modal-body">
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a data-toggle="tab" href="#column_map" aria-expanded="true">Column Map</a>
+							</li>
+							<!--<li>
+								<a data-toggle="tab" href="#transmation" aria-expanded="false">Transformations</a>
+							</li>-->
+						</ul>
+						<div class="col-md-6" style="margin-left: 20%;">
+							<div class="form-group">
+								<label class="col-sm-4" style="margin-top:13px;">Job Name</label>
+								<div class="col-sm-8">
+									<input type="text" id="job_name" placeholder="Name" class="form-control" style="margin-top:9px;">
+								</div>
+							</div>
+						</div>
+						<div class="tab-content" style="margin-top: 40px;">
+							
+							<div class="row tab-pane fade active in" id="column_map">
+								<!--<img src="../dest/img/help.png" width="30px" height="30px" style="position: fixed;right: 20px;top: 75px" onclick="colMapHelp()" />-->
+								<div class="accordion">
+									<div class="panel-group" id="accordion">
+										<div class="panel panel-default" style="margin-left: 30px;margin-right: 30px;border-radius: 0;margin-top:15px;">
+											
+											
+											<div class="panel-heading" data-toggle="collapse" data-parent="#accordion"data-target="#collapseThree">
+												<h3 class="panel-title accordion-toggle">Data Filter</h3>	
+											</div>
+											
+											<div id="collapseThree" class="panel-collapse collapse">
+												<div class="panel-body">
+													<div class="col-md-12" style="margin-bottom: 25px;">
+														<div class="form-group">
+															<label class="col-sm-4">Run on sample of</label>
+															<div class="col-sm-8">
+																<input type="number" placeholder="Insert number..." class="form-control" id="rule_randomsample" min="0">
+															</div>
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group" id="src_filter_sql">
+															<label class="col-sm-4">Src Filter Sql</label>
+															<div class="col-sm-8">
+																<input type="text" placeholder="Insert sql here..." class="form-control">
+															</div>
+															<br><br>
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group" id="dest_filter_sql">
+															<label class="col-sm-4">dest Filter Sql</label>
+															<div class="col-sm-8">
+																<input type="text" placeholder="Insert sql here..." class="form-control">
+															</div>
+															<br><br>
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="modal fade" id="what1" role="dialog">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<button type="button" class="close" data-dismiss-modal="modal2" aria-hidden="true">&times;</button>
+																	</div>
+																	<div class="modal-body">
+																		<p> First popup</p>
+																		<p>Run on sample of: To run the data comparision on random sample of compare keys Instead of whole data. Accepts a number between 1 to 100,000. </p>
+																		
+																	</div>
+																	
+																	
+																</div>
+															</div>
+														</div>
+													</div>
+													
+													
+													<div class="col-md-12">
+														<!--<button class="btn btn-danger" data-toggle="modal" data-target="#what" id="btn_delete">What is this</button>-->
+														<img src="../dest/img/question.png" width="30px" height="30px" data-toggle="modal" data-target="#what1" />
+													</div>
+												</div>
+											</div>
+										</div>
+										
+										<div class="panel panel-default" style="margin-left: 30px;margin-right: 30px;border-radius: 0;margin-top:15px;">
+											
+											<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseFour">
+												<h3 class="panel-title accordion-toggle">Dataset Comparision Options</h3>	
+											</div>
+											<div id="collapseFour" class="panel-collapse collapse">
+												<div class="panel-body">
+													<div class="col-md-12">
+														<div class="modal fade" id="what" role="dialog">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<button type="button" class="close" data-dismiss-modal="modal2" aria-hidden="true">&times;</button>
+																	</div>
+																	<div class="modal-body">
+																		<p> Second popup</p>
+																		
+																		<p>Run on sample of: To run the data comparision on random sample of compare keys Instead of whole data. Accepts a number between 1 to 100,000. </p>
+																		
+																		<p>Note : The actual output may have less number of keys count. (As there could be multiple records for a key)</p>
+																		
+																		<p>Src Filter Sql/dest Filter Sql : To filter the dataset instead of comparing the whole data provide a SQL statement.</p>
+																		
+																		<p>Note :  You can refer to the dataset as my_data.</p>
+																		
+																		<p>Ex : select * from my_data where age > 30</p>
+																		
+																	</div>
+																	
+																	
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="checkbox" style="margin-bottom: 30px;display: inline-block;margin-left: 30px;">
+															<label style="margin-right: 10px"><input type="checkbox" value="" id="rule_matchboth" checked="">Compare two way</label>
+														</div>
+													</div>
+													<div class="col-md-12">
+														
+														<img src="../dest/img/question.png" width="30px" height="30px" data-toggle="modal" data-target="#what" />
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="panel panel-default" style="margin-left: 30px;margin-right: 30px;border-radius: 0;margin-top:15px;">
+											
+											<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseFive">
+												<h3 class="panel-title accordion-toggle">Data Transformations</h3>	
+											</div>
+											
+											<div id="collapseFive" class="panel-collapse collapse">
+												<div class="panel-body">
+													
+													<div class="col-md-12">
+														<div class="col-md-6">
+															<label>Source Dataset</label>
+															<div class="form-group row" style="margin-top: 15px;">
+																<label class="col-sm-3">Column</label>
+																<div class="col-sm-9">
+																	<div class="src_trans_column">
+																		<input type="text" class="form-control">
+																	</div>
+																</div>
+																<label class="col-sm-3">Rule</label>
+																<div class="col-sm-9">
+																	<input type="text" class="form-control src_trans_rule">
+																</div>
+															</div>
+															<div class="form-group row" id="src_trans_next">
+																<button class="btn btn-default btn-sm col-sm-offset-4 col-sm-1" id="src_trans_plus">
+																	<span class="glyphicon glyphicon-plus"></span>
+																</button>
+																<button class="btn btn-default btn-sm col-sm-offset-2 col-sm-1" id="src_trans_minus">
+																	<span class="glyphicon glyphicon-minus"></span>
+																</button>
+															</div>
+															
+														</div>
+														
+														<div class="col-md-6">
+															<label>Destination Dataset</label>
+															<div class="form-group row" style="margin-top: 15px;" id="dest_trans_first">
+																<label class="col-sm-3">Column</label>
+																<div class="col-sm-9">
+																	<div class="dest_trans_column">
+																		<input type="text" class="form-control" value="">
+																	</div>
+																</div>
+																<label class="col-sm-3">Rule</label>
+																<div class="col-sm-9">
+																	<input type="text" class="form-control dest_trans_rule">
+																</div>
+															</div>
+															<div class="form-group row" id="dest_trans_next">
+																<button class="btn btn-default btn-sm col-sm-offset-4 col-sm-1" id="dest_trans_plus">
+																	<span class="glyphicon glyphicon-plus"></span>
+																</button>
+																<button class="btn btn-default btn-sm col-sm-offset-2 col-sm-1" id="dest_trans_minus">
+																	<span class="glyphicon glyphicon-minus"></span>
+																</button>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="modal fade" id="what2" role="dialog">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<button type="button" class="close" data-dismiss-modal="modal2" aria-hidden="true">&times;</button>
+																	</div>
+																	<div class="modal-body">
+																		<p>	Third popup</p>
+																		<p>Run on sample of: To run the data comparision on random sample of compare keys Instead of whole data. Accepts a number between 1 to 100,000. </p>
+																		
+																		
+																	</div>
+																	
+																	
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-12">
+														
+														<img src="../dest/img/question.png" width="30px" height="30px" data-toggle="modal" data-target="#what2" />
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-body">
+									<div class="col-md-12">
+										<div class="modal fade" id="what3" role="dialog">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss-modal="modal2" aria-hidden="true">&times;</button>
+													</div>
+													<div class="modal-body">
+														
+														
+														<p>Run on sample of: To run the data comparision on random sample of compare keys Instead of whole data. Accepts a number between 1 to 100,000. </p>
+														
+														<p>Note : The actual output may have less number of keys count. (As there could be multiple records for a key)</p>
+														
+														<p>Src Filter Sql/dest Filter Sql : To filter the dataset instead of comparing the whole data provide a SQL statement.</p>
+														
+														<p>Note :  You can refer to the dataset as my_data.</p>
+														
+														<p>Ex : select * from my_data where age > 30</p>
+														
+													</div>
+													
+													
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-12">
+										
+										<img src="../dest/img/question.png" width="30px" height="30px" style="float: right" data-toggle="modal" data-target="#what3" />
+									</div>
+								</div>
+								
+								
+								<div>
+									<div class="col-md-12">
+										<h3 class="data-filter-header">Columns Mapping</h3>
+									</div>
+									
+									<div class="col-md-12">
+										<!--<div class="checkbox" style="margin-left:30px;margin-bottom: 30px;display: inline-block">-->
+										<!--<label style="margin-right: 10px"><input type="checkbox" value="" id="auto_mapping">Auto Column Mapping</label>-->
+										<!--</div>-->
+										
+									</div>
+									<div class="col-md-5">
+										<ul class="list-group connectedSortable1" style="padding-left: 0px;margin-left: 30px" id="src_column">
+											<label style="width: 100%">Source Columns <span style="float:right">Compare Key</span></label>
+										</ul>
+									</div>
+									
+									<div class="col-md-2" style="margin-top: 25px;text-align: center;" id="mapper">
+									</div>
+									
+									<div class="col-md-5">
+										<ul class="list-group connectedSortable2" style="padding-right: 0px;margin-right: 30px;" id="dest_column">
+											<label>Destination Columns</label>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!--<div class="row tab-pane fade" id="transmation">
+								<img src="../dest/img/help.png" width="30px" height="30px" style="position: fixed;right: 20px;top: 75px" onclick="transHelp()" />
+								<div class="col-md-6">
+								<label>Source Dataset</label>
+								<div class="form-group row" style="margin-top: 15px;">
+								<label class="col-sm-3">Column</label>
+								<div class="col-sm-9">
+								<div class="src_trans_column">
+								<input type="text" class="form-control">
+								</div>
+								</div>
+								<label class="col-sm-3">Rule</label>
+								<div class="col-sm-9">
+								<input type="text" class="form-control src_trans_rule">
+								</div>
+								</div>
+								<div class="form-group row" id="src_trans_next">
+								<button class="btn btn-default btn-sm col-sm-offset-4 col-sm-1" id="src_trans_plus">
+								<span class="glyphicon glyphicon-plus"></span>
+								</button>
+								<button class="btn btn-default btn-sm col-sm-offset-2 col-sm-1" id="src_trans_minus">
+								<span class="glyphicon glyphicon-minus"></span>
+								</button>
+								</div>
+								
+								</div>
+								
+								<div class="col-md-6">
+								<label>Destination Dataset</label>
+								<div class="form-group row" style="margin-top: 15px;" id="dest_trans_first">
+								<label class="col-sm-3">Column</label>
+								<div class="col-sm-9">
+								<div class="dest_trans_column">
+								<input type="text" class="form-control" value="">
+								</div>
+								</div>
+								<label class="col-sm-3">Rule</label>
+								<div class="col-sm-9">
+								<input type="text" class="form-control dest_trans_rule">
+								</div>
+								</div>
+								<div class="form-group row" id="dest_trans_next">
+								<button class="btn btn-default btn-sm col-sm-offset-4 col-sm-1" id="dest_trans_plus">
+								<span class="glyphicon glyphicon-plus"></span>
+								</button>
+								<button class="btn btn-default btn-sm col-sm-offset-2 col-sm-1" id="dest_trans_minus">
+								<span class="glyphicon glyphicon-minus"></span>
+								</button>
+								</div>
+								</div>
+							</div>-->
+						</div>
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" id="btn_cancel_rules">Cancel</button>
+						<a class="btn btn-success btn-ok" id="btn_save_rules">Submit Job</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		
+		ga('create', 'UA-93298501-2', 'auto');
+		ga('send', 'pageview');
+		
+		$(function() {
+			$('.panel-heading').click(function() {
+				if ($(this).hasClass('accordion-opened')) {
+					$(this).removeClass('accordion-opened');
+					} else {
+					$('.panel-heading').removeClass('accordion-opened');
+					$(this).addClass('accordion-opened');
+				}
+			});
+		});
+	
+	</script>
+	<style>
+		
+		#mapper div img {
+		height: 82% !important;
+		width: 52% !important;
+		}
+		.modal { overflow: auto !important; }
+		
+		.ui-state-highlight { background: #A9A9A9 !important; border-color: #A9A9A9 !important }
+		td.intro {
+		display:none !important;
+		}
+		th.intro {
+		display:none !important;
+		}
+		
+		.accordion-toggle:after {
+		font-family: 'FontAwesome';
+		content: "\f078";    
+		float: right;
+		}
+		.accordion-opened .accordion-toggle:after {    
+		content: "\f077";    
+		}
+		.panel-heading {
+		cursor: pointer;
+	}
+		
+		
+	</style>
+	
+</html>

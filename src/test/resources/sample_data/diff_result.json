@@ -1,0 +1,173 @@
+{
+    "dataMatch": false,
+    "differencessForKey": [
+        {
+            "columnsNotMatching": [
+                "age"
+            ],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [
+                        "age"
+                    ],
+                    "distFormatted": [
+                        {
+                            "col": "name",
+                            "colType": "string",
+                            "value": "david"
+                        },
+                        {
+                            "col": "age",
+                            "colType": "string",
+                            "value": "29"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "2311"
+                        },
+                        {
+                            "col": "location",
+                            "colType": "string",
+                            "value": "NC"
+                        }
+                    ],
+                    "srcFormatted": [
+                        {
+                            "col": "name",
+                            "colType": "string",
+                            "value": "david"
+                        },
+                        {
+                            "col": "age",
+                            "colType": "string",
+                            "value": "31"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "2311"
+                        },
+                        {
+                            "col": "location",
+                            "colType": "string",
+                            "value": "NC"
+                        }
+                    ]
+                }
+            ],
+            "dist": [
+                "Vector(name:david \t , age:29 \t , zip:2311 \t , location:NC \t )\n"
+            ],
+            "distRecordsCount": 1,
+            "key": [
+                {
+                    "col": "name",
+                    "colType": "string",
+                    "value": "david"
+                }
+            ],
+            "src": [
+                "Vector(name:david \t , age:31 \t , zip:2311 \t , location:NC \t )\n"
+            ],
+            "srcRecordsCount": 1,
+            "totalRecordsMatched": 1
+        },
+        {
+            "columnsNotMatching": [],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [],
+                    "distFormatted": [
+                        {
+                            "col": "name",
+                            "colType": "string",
+                            "value": "don"
+                        },
+                        {
+                            "col": "age",
+                            "colType": "string",
+                            "value": "25"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "2311"
+                        },
+                        {
+                            "col": "location",
+                            "colType": "string",
+                            "value": "SC"
+                        }
+                    ]
+                }
+            ],
+            "dist": [
+                "Vector(name:don \t , age:25 \t , zip:2311 \t , location:SC \t )\n"
+            ],
+            "distRecordsCount": 1,
+            "key": [
+                {
+                    "col": "name",
+                    "colType": "string",
+                    "value": "don"
+                }
+            ],
+            "src": [],
+            "srcRecordsCount": 0,
+            "totalRecordsMatched": 0
+        }
+    ],
+    "distPath": "/data/input/person.csv",
+    "distRowCount": 4,
+    "inputData": {
+        "compareColumns": false,
+        "compareCommonColumnsOnly": false,
+        "distFile": {
+            "excludeColmns": [],
+            "header": true,
+            "srcDelimiter": ",",
+            "srcFormat": "CSV",
+            "srcPath": "/data/input/person.csv",
+            "transformations": [],
+            "useOtherSchema": false
+        },
+        "matchBoth": true,
+        "primaryKey": [
+            "name"
+        ],
+        "process": true,
+        "srcFile": {
+            "excludeColmns": [],
+            "header": true,
+            "srcDelimiter": ",",
+            "srcFormat": "CSV",
+            "srcPath": "/data/input/person1.csv",
+            "transformations": [],
+            "useOtherSchema": false
+        },
+        "validateRowsCount": true
+    },
+    "reason": "TO_BE_IMPLEMENTED",
+    "srcPath": "/data/input/person1.csv",
+    "srcRowCount": 4,
+    "srcSampleStr": "RecordByKey(List(Cell(name,david,string)),List(age),1,1,1,List(Vector(name:david \t , age:31 \t , zip:2311 \t , location:NC \t )\n),List(Vector(name:david \t , age:29 \t , zip:2311 \t , location:NC \t )\n),Some(List(ComputedUnmatchPair(Some(List(Cell(name,david,string), Cell(age,31,string), Cell(zip,2311,string), Cell(location,NC,string))),Some(List(Cell(name,david,string), Cell(age,29,string), Cell(zip,2311,string), Cell(location,NC,string))),Some(List(age))))),None,None,None)  \n  RecordByKey(List(Cell(name,don,string)),List(),0,1,0,List(),List(Vector(name:don \t , age:25 \t , zip:2311 \t , location:SC \t )\n),Some(List(ComputedUnmatchPair(None,Some(List(Cell(name,don,string), Cell(age,25,string), Cell(zip,2311,string), Cell(location,SC,string))),Some(List())))),None,None,None)",
+    "stats": {
+        "columnsNotMatching": {
+            "age": 1
+        },
+        "columnsNotMatchingMap": {
+            "age": 1
+        },
+        "distDuplicateRecords": -1,
+        "distKeyCount": 3,
+        "distRecordsCount": 4,
+        "srcDuplicateRecords": -1,
+        "srcKeyCount": 3,
+        "srcRecordsCount": 4,
+        "totalDistRecordsMatching": 2,
+        "totalDistRecordsNotMatching": 2,
+        "totalSrcRecordsMatching": 2,
+        "totalSrcRecordsNotMatching": 1
+    }
+}

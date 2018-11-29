@@ -1,0 +1,14 @@
+{
+  "srcFile": {
+    "srcPath": "/Users/dhiraj/Documents/my_experiment/DataDiff/target/scala-2.10/test-classes/sample_data/a.csv",
+    "header": true,
+    "srcFormat": "CSV",
+    "srcDelimiter": ","
+  },
+  "distFile": {
+    "srcPath": "/Users/dhiraj/Documents/my_experiment/DataDiff/target/scala-2.10/test-classes/sample_data/b.csv",
+    "header": true,
+    "srcFormat": "CSV",
+    "srcDelimiter": ","
+  }
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dest/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <script src="../dest/js/app.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+        $(document).ready(function () {
+            $('#btn_login').on('click', function(e){
+                var email = $('#email').val();
+                var password = $('#password').val();
+                $.ajax({
+                    type: "GET",
+                    url: "/test",
+                    crossDomain: true,
+                    dataType: 'json',
+					username: email,
+					password: password,
+                    data: {},
+                    success: function (response) {
+						
+					},
+					statusCode: {
+					  200: function() {
+							setCookie("email", email);
+							setCookie("password", password);
+							//setCookie("version", response.displayVersion);
+							//setCookie("localMode", response.localMode);
+							location.href = "./home.html";
+					  },
+					  401: function() {
+							$("#add_err").html("Wrong username or password");
+					  }
+                    },
+                    error: function (response) {
+							//alert("The supplied authentication is invalid");
+                    }
+                });
+            });
+			
+			//Invoke the OLD code here.
+			$.ajax({
+				type: "GET",
+				url: "/startUp",
+				crossDomain: true,
+				dataType: 'json',
+				data: {},
+				success: function (response) {
+					if(response.authentication == 'basic'){
+						//setCookie("email", "blank");
+						//setCookie("password", "blank");
+						setCookie("version", response.displayVersion);
+						setCookie("localMode", response.localMode);
+						//location.href = "./home.html";
+					}else if(response.authentication == 'none'){
+						
+					}
+				},
+				error: function (response) {
+
+				}
+			});
+			
+        });
+    </script>
+
+</head>
+
+<body>
+<div id="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+				<div class="err" id="add_err" style="width: 100%;line-height: 40px;text-align: center;
+				margin-top: 12%;position: absolute;color: red;">
+				</div>
+                <div class="login-panel panel panel-default">
+				
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="E-mail" id="email" name="email" type="email" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Password" id="password" name="password" type="password" value="">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" value="Remember Me" id="remember">Remember Me
+                                    </label>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <!--<a href="home.html" class="btn btn-lg btn-success btn-block">Login</a>-->
+                                <input type="button" class="btn btn-lg btn-success btn-block" value="Login" id="btn_login">
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<footer>
+            <p class="copyright">© DataQ, 2017</p>
+        </footer>
+    </div>
+	
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dest/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>

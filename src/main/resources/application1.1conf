@@ -1,0 +1,18 @@
+akka {
+  loglevel = INFO
+  stdout-loglevel = INFO
+  port = 7991
+  log-dead-letters = 10
+  log-dead-letters-during-shutdown = on
+  log-config-on-start = on
+}
+
+diffTool {
+  outputLocation = "/user/cloudera/output/"
+  executorProps = ""
+  driverOnly = false
+  humanConsumption = true
+  hdfsOutput = true
+  executorProps = ""
+  authentication=None
+}

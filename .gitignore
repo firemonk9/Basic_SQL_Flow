@@ -1,0 +1,41 @@
+# Created by http://www.gitignore.io
+
+### Scala ###
+*.class
+*.log
+*.jar
+*.zip
+
+# sbt specific
+*.iml
+*.ipr
+*.iws
+.idea
+out
+.cache/
+.history/
+.lib/
+dist/*
+solr/
+solr_core/
+target
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
+/bin/
+output/
+metastore_db/
+diffTool/diffweb/
+spark-warehouse
+dataq_desktop
+dataq_cluster
+*.DS_Store
+
+
+
+

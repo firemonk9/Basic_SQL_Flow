@@ -1,0 +1,2144 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Add Job</title>
+	<link rel="shortcut icon" href="https://static.wixstatic.com/media/9815c9_642c9beb50dd45339ddfa02bba2a1182%7Emv2.png/v1/fill/w_32%2Ch_32%2Clg_1%2Cusm_0.66_1.00_0.01/9815c9_642c9beb50dd45339ddfa02bba2a1182%7Emv2.png" type="image/png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+
+	<link rel="stylesheet" href="../dest/css/sb-admin-2.css">
+	<link rel="stylesheet" href="../dest/css/bootstrap-tagsinput.css">
+	<link rel="stylesheet" href="../dest/css/custom.css">
+	<link rel="stylesheet" href="../dest/css/sweetalert.css">
+	<link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+	<script src="https://johnny.github.io/jquery-sortable/js/jquery-sortable.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+	<script src="../dest/js/bootstrap-tagsinput.min.js"></script>
+	<script src="../dest/js/bootstrap-tagsinput-angular.min.js"></script>
+
+	<!-- Select JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
+	<script src="../dest/js/bootstrap-table-export.js"></script>
+	<script src="https://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+
+	<script src="../dest/js/sweetalert-dev.js"></script>
+	<script src="../dest/js/app.js"></script>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<style>
+		.clickable{
+		cursor: pointer;
+		}
+		.panel-heading span {
+		margin-top: -20px;
+		font-size: 15px;
+		}
+
+		#stats th, #stats td {
+		border: 1px !important;
+		}
+
+		.data-filter-header{
+		border-bottom: 1px solid #f7f7f7;
+		margin-left: 15px;
+		padding-bottom: 15px;
+		margin-bottom: 30px;
+		margin-top: 15px;
+		}
+
+		#src_column .glyphicon{
+		//top: -15px;
+		}
+
+		.badge{
+		margin-right: 4px;
+		}
+
+		#mapper div img{
+		cursor: pointer;
+		}
+
+		.list-group-item {
+		position: relative;
+		display: block;
+		padding: 10px 15px;
+		margin-bottom: 0px;
+		background-color: #fff;
+		border: 1px solid #ddd;
+		}
+
+		#loadingDiv{
+		position: absolute;
+		z-index: 1;
+		height: 100px;
+		width: 100px;
+		top: 50%;
+		left: 50%;
+		margin-left: -50px;
+		margin-top: -50px;
+		background: url('../dest/img/loading.gif');
+		background-size: 100%;
+		}
+		/*
+		.tooltip {
+			width: 100%;
+		}
+		*/
+		div.tooltip-inner {
+		    max-width: 800px;
+		}
+	</style>
+</head>
+	
+<body>
+	<script type="text/javascript">
+		$(document).on('mouseenter', ".datapath-tiff", function () {
+			var $this = $(this);
+			if (this.offsetWidth < this.scrollWidth && !$this.attr('title')) {
+				$this.tooltip({
+					title: $this.text(),
+					width: "100%",
+					placement: "bottom"
+				});
+				$this.tooltip('show');
+			}
+		});
+
+		$(document).ready(function () {
+			$('#logout').on('click', function (e) {
+				setCookie("email", "");
+				setCookie("password", "");
+			});
+		});
+
+		var srcJobId = "", destJobId = "";
+
+		var srcAjax = null, destAjax = null;
+
+		var jobId = "";
+
+		var srcColumns, destColumns;
+		var srcRecordCnt = 0, destRecordCnt = 0;
+		var srcValidated = false, destValidated = false;
+		var dataResetted = false;
+
+		var advancedRuleEmpty = true;
+
+		function initForm(type) {
+			if (type === 0) {	// Hide All Input
+				$('#form_advanced').hide();
+				$('#form_advanced2').hide();
+
+				$('#src_file_delimiter').hide();
+				$('#src_file_header').hide();
+				$('#src_custom_schema').hide();
+
+				$('#src_jdbc_url').hide();
+				$('#src_jdbc_user').hide();
+				$('#src_jdbc_pass').hide();
+				$('#src_jdbc_table').hide();
+				$('#src_jdbc_driver').hide();
+
+				$('#src_progress').hide();
+				$('#src_table_panel').hide();
+				$('#src_form_panel').show();
+
+				$('#dest_file_delimiter').hide();
+				$('#dest_file_header').hide();
+				$('#dest_custom_schema').hide();
+
+				$('#dest_jdbc_url').hide();
+				$('#dest_jdbc_user').hide();
+				$('#dest_jdbc_pass').hide();
+				$('#dest_jdbc_table').hide();
+				$('#dest_jdbc_driver').hide();
+
+				$('#dest_progress').hide();
+				$('#dest_table_panel').hide();
+				$('#dest_form_panel').show();
+			} else if (type === 1) {
+				$('#form_advanced').hide();
+				$('#form_advanced2').hide();
+
+				$('#src_file_delimiter').hide();
+				$('#src_file_header').hide();
+				$('#src_custom_schema').hide();
+
+				$('#src_jdbc_url').hide();
+				$('#src_jdbc_user').hide();
+				$('#src_jdbc_pass').hide();
+				$('#src_jdbc_table').hide();
+				$('#src_jdbc_driver').hide();
+
+				$('#src_progress').hide();
+				$('#src_table_panel').hide();
+			} else if (type === 2) {
+				$('#form_advanced').hide();
+				$('#form_advanced2').hide();
+
+				$('#dest_file_delimiter').hide();
+				$('#dest_file_header').hide();
+				$('#dest_custom_schema').hide();
+
+				$('#dest_jdbc_url').hide();
+				$('#dest_jdbc_user').hide();
+				$('#dest_jdbc_pass').hide();
+				$('#dest_jdbc_table').hide();
+				$('#dest_jdbc_driver').hide();
+
+				$('#dest_progress').hide();
+				$('#dest_table_panel').hide();
+			}
+			$('#btn_save_job').prop('disabled', true);
+		}
+
+		function createSrcTableHeader() {
+			var table, columns;
+			table = document.getElementById("src_table")
+			columns = srcColumns;
+
+			if (table == null || columns == null)
+				return;
+			table.innerHTML = "";
+			var thead = document.createElement("thead");
+			var tr = document.createElement("tr");
+			for (var i = 0; i < columns.length; i++) {
+				var col = columns[i];
+				var colname = col.name;
+				var coltype = col.dataType;
+
+				var th = document.createElement("th");
+				th.setAttribute("data-field", colname);
+				th.setAttribute("data-sortable", "true");
+				th.innerHTML = colname;
+				tr.appendChild(th);
+			}
+			thead.appendChild(tr);
+			table.appendChild(thead);
+		}
+
+		function createdestTableHeader() {
+			var table, columns;
+			table = document.getElementById("dest_table");
+			columns = destColumns;
+			if (table == null || columns == null)
+				return;
+			table.innerHTML = "";
+			var thead = document.createElement("thead");
+			var tr = document.createElement("tr");
+			for (var i = 0; i < columns.length; i++) {
+				var col = columns[i];
+				var colname = col.name;
+				var coltype = col.dataType;
+
+				var th = document.createElement("th");
+				th.setAttribute("data-field", colname);
+				th.setAttribute("data-sortable", "true");
+				th.innerHTML = colname;
+				tr.appendChild(th);
+			}
+			thead.appendChild(tr);
+			table.appendChild(thead);
+		}
+
+		function createListData() {
+			if (advancedRuleEmpty == true) {
+				//make src and dest transformation column inputs to typeahead
+				createTypeahead($('.src_trans_column'), srcColumns, 'name');
+				createTypeahead($('.dest_trans_column'), destColumns, 'name');
+
+				prepareAdvancedRule(true, '', srcColumns, [],
+						destColumns, [],
+						[],
+						[], [], '', '', false, srcRecordCnt != destRecordCnt, 0, []
+				);
+			}
+		}
+
+		function submitJobJson() {
+			var data = getInputData(srcRecordCnt != destRecordCnt);
+			if (data.compareKey.length <= 0) {
+				swal("Validation Error", "Atleast one column should be selectd as Compare Key.", "error");
+				return;
+			}
+
+			if (data.jobname == "") {
+				swal("Validation Error", "Enter a name for the job.", "error");
+				return;
+			}
+
+			$count = $("#mapper > div img[src='../dest/img/tick.png']").length;
+			if ($count <= 0) {
+				swal("Validation Error", "You should set at least one tick.", "error");
+				return;
+
+			}
+			//data.srcFile.sql= true;
+			//data.destFile.sql= true;
+
+			var jsonStr = makeInputJson(data.jobname, data.compareCommonColumnsOnly,
+					data.validateRowsCount, data.randomSample, data.matchBoth, true,
+					data.columnMapping, data.srcFile, data.destFile, data.compareKey);
+			$.ajax({
+				type: "POST",
+				url: "/job",
+				crossDomain: true,
+				dataType: 'json',
+				data: jsonStr,
+				contentType: 'application/json',
+				success: function (response) {
+					jobId = response.jobIds[0];
+					if (jobId == "" || jobId == null) {
+						document.getElementById("error-msg").innerHTML = "Please create job first.";
+						$(".alert-danger").show();
+					}
+					else {
+						document.getElementById("saved_job").innerHTML = "Job saved succesfully. Your job Id is '" + jobId + "'";
+						$(".alert-success").show();
+					}
+					var url = window.location.href;
+					url = url.substring(0, url.lastIndexOf('/'));
+					window.location.href = url + '/home.html';
+				},
+				error: function (response) {
+					$('#advancedRulesModal').hide();
+				}
+			});
+		}
+
+		function getSrcSampleJobData() {
+			if (dataResetted)
+				return;
+			srcAjax = $.ajax({
+				type: "GET",
+				url: "/job/" + srcJobId,
+				dataType: "json",
+				data: {},
+				success: function (response) {
+					if (response.status == "RUNNING") {
+						setTimeout(function () {
+							getSrcSampleJobData();
+						}, 3000);
+					} else {
+						console.log(response);
+						if (response.exception != null) {
+							document.getElementById("exception-msg").innerHTML = response.exception;
+							$('.alert-warning').show();
+							$('#src_progress').hide();
+							$('#src_form_panel').show();
+							$('#src_error-msg').hide();
+							$('.src_alert-danger').hide();
+							return;
+						}
+						$('#src_heading').html('<p>'+response.fileSource.datasetFormat+', '+ ' '+response.fileSource.datasetPath+'</p>');
+						srcColumns = response.schema;
+						createSrcTableHeader();
+
+						srcRecordCnt = response.sampleData.length;
+
+						var tabledata = Array();
+						for (var i = 0; i < response.sampleData.length; i++) {
+							var row = response.sampleData[i];
+							var rowdata = {};
+							for (var j = 0; j < row.length; j++) {
+								var cell = row[j];
+								var col = cell.col;
+								var colType = cell.colType;
+								var value = cell.value;
+								rowdata[col] = value;
+							}
+							tabledata.push(rowdata);
+						}
+
+						$('#src_table').bootstrapTable("destroy");
+						$('#src_table').bootstrapTable({
+							data: tabledata
+						});
+						$('#src_table').bootstrapTable('refresh');
+
+						srcValidated = true;
+
+						$('#src_progress').hide();
+						$('#src_table_panel').show();
+
+						if (srcValidated == true && destValidated == true) {
+							$('#btn_save_job').prop('disabled', false);
+							$('#form_advanced').show();
+							$('#form_advanced2').show();
+						}
+
+						$('#src_success').show();
+						document.getElementById("success-src-msg").innerHTML = "<strong>SUCCESS</strong>!! 'Source Dataset' connected, showing sample " + response.sampleData.length +" records below";
+						$('#sample_message').css("display", "inline-block");
+						$('.alert-warning').hide();
+						$('#src_error-msg').hide();
+						$('.src_alert-danger').hide();
+						srcAjax = null;
+					}
+				},
+				error: function (response) {
+					document.getElementById("error-msg").innerHTML = "Data is not correct.";
+					$('.alert-danger').show();
+					$('#src_progress').hide();
+
+					srcAjax = null;
+				}
+			});
+		}
+
+		function getdestSampleJobData() {
+			if (dataResetted)
+				return;
+			destAjax = $.ajax({
+				type: "GET",
+				url: "/job/" + destJobId,
+				//url: "/job/5831337478162-SAMPLE",
+				dataType: "json",
+				data: {},
+				success: function (response) {
+				//alert(response.exception);
+					if (response.status == "RUNNING") {
+						setTimeout(function () {
+							getdestSampleJobData();
+						}, 3000);
+					} else {
+						console.log(response);
+						if (response.exception != null) {
+							document.getElementById("exception-msg-dest").innerHTML = response.exception;
+							$('#dest_progress').hide();
+							$('.alert-warning-dest').show();
+							$('#dest_form_panel').show();
+							$('#dest_error-msg').hide();
+							$('.dest_alert-danger').hide();
+							return;
+						}
+						$('#dest_heading').html('<p>'+response.fileSource.datasetFormat+', '+ ' '+response.fileSource.datasetPath+'</p>');
+						destColumns = response.schema;
+						createdestTableHeader();
+						/*
+							if (response.sampleData.length > 0) {
+							var row = response.sampleData[0];
+							if (row.length > 0) {
+							destColumns = row;
+							createdestTableHeader();
+							}
+							}
+						*/
+						destRecordCnt = response.sampleData.length;
+
+						var tabledata = Array();
+						for (var i = 0; i < response.sampleData.length; i++) {
+							var row = response.sampleData[i];
+							var rowdata = {};
+							for (var j = 0; j < row.length; j++) {
+								var cell = row[j];
+								var col = cell.col;
+								var colType = cell.colType;
+								var value = cell.value;
+								rowdata[col] = value;
+							}
+							tabledata.push(rowdata);
+						}
+						$('#dest_table').bootstrapTable("destroy");
+						$('#dest_table').bootstrapTable({
+							data: tabledata
+						});
+						$('#dest_table').bootstrapTable('refresh');
+
+						destValidated = true;
+
+						$('#dest_progress').hide();
+						$('#dest_table_panel').show();
+
+						if (srcValidated == true && destValidated == true) {
+							$('#btn_save_job').prop('disabled', false);
+							$('#form_advanced').show();
+							$('#form_advanced2').show();
+						}
+
+						$('#dest_success').show();
+
+
+						document.getElementById("success-dest-msg").innerHTML = "<strong>SUCCESS</strong>!! 'Destination Dataset' connected, showing sample " + response.sampleData.length +" records below";
+						$('#sample_message_dest').css("display", "inline-block");
+						$('.alert-warning-dest').hide();
+						$('#dest_error-msg').hide();
+						$('.dest_alert-danger').hide();
+						destAjax = null;
+					}
+				},
+				error: function (response) {
+					document.getElementById("error-msg").innerHTML = "Data is not correct.";
+					$('.alert-danger').show();
+					$('#dest_progress').hide();
+
+					destAjax = null;
+				}
+			});
+		}
+
+		function resetFormData() {
+			$('#src_file_path input').val("");
+			$("#select_src_type").prop("selectedIndex", 0);
+			$('#src_file_delimiter input').val("");
+			$('#src_header').prop("selectedIndex", 0);
+			$('#src_custom_schema input').val("");
+			$('#src_jdbc_url input').val("");
+			$('#src_jdbc_user input').val("");
+			$('#src_jdbc_pass input').val("");
+			$('#src_jdbc_table input').val("");
+			$('#src_jdbc_driver input').val("");
+
+			$('#dest_file_path input').val("");
+			$("#select_dest_type").prop("selectedIndex", 0);
+			$('#dest_file_delimiter input').val("");
+			$('#dest_header').prop("selectedIndex", 0);
+			$('#dest_custom_schema input').val("");
+			$('#dest_jdbc_url input').val("");
+			$('#dest_jdbc_user input').val("");
+			$('#dest_jdbc_pass input').val("");
+			$('#dest_jdbc_table input').val("");
+			$('#dest_jdbc_driver input').val("");
+
+			initForm(0);
+		}
+
+		function resetSrcFormData() {
+			$('#src_file_path input').val("");
+			$("#select_src_type").prop("selectedIndex", 0);
+			$('#src_file_delimiter input').val("");
+			$('#src_header').prop("selectedIndex", 0);
+			$('#src_custom_schema input').val("");
+			$('#src_jdbc_url input').val("");
+			$('#src_jdbc_user input').val("");
+			$('#src_jdbc_pass input').val("");
+			$('#src_jdbc_table input').val("");
+			$('#src_jdbc_driver input').val("");
+
+			initForm(1);
+			$('#src_file_path').show();
+			$('#src_file_format').show();
+			$('#src_form_panel').show();
+		}
+
+		function resetdestFormData() {
+			$('#dest_file_path input').val("");
+			$("#select_dest_type").prop("selectedIndex", 0);
+			$('#dest_file_delimiter input').val("");
+			$('#dest_header').prop("selectedIndex", 0);
+			$('#dest_custom_schema input').val("");
+			$('#dest_jdbc_url input').val("");
+			$('#dest_jdbc_user input').val("");
+			$('#dest_jdbc_pass input').val("");
+			$('#dest_jdbc_table input').val("");
+			$('#dest_jdbc_driver input').val("");
+
+			initForm(2);
+			$('#dest_file_path').show();
+			$('#dest_file_format').show();
+			$('#dest_form_panel').show();
+		}
+
+		function resetData() {
+			if (srcAjax != null)
+				srcAjax.abort();
+			if (destAjax != null)
+				destAjax.abort();
+
+			resetFormData();
+			resetRuleData();
+
+			advancedRuleEmpty = true;
+
+			dataResetted = true;
+			compareKey = [];
+		}
+
+		function resetSrcData() {
+			if (srcAjax != null)
+				srcAjax.abort();
+
+			resetSrcFormData();
+			resetSrcRuleData();
+
+			advancedRuleEmpty = true;
+
+			dataResetted = true;
+			compareKey = [];
+		}
+
+		function resetdestData() {
+			if (destAjax != null)
+				destAjax.abort();
+
+			resetdestFormData();
+			resetdestRuleData();
+
+			advancedRuleEmpty = true;
+
+			dataResetted = true;
+			compareKey = [];
+		}
+
+		function setListeners() {
+			$(document).on('mouseenter', ".li-tiff", function () {
+				var $this = $(this);
+				if (this.offsetWidth < this.scrollWidth && !$this.attr('title')) {
+					$this.tooltip({
+						title: $this.text(),
+						placement: "bottom"
+					});
+					$this.tooltip('show');
+				} else {
+					$this.tooltip({
+						title: 'You can drag columns to realign',
+						placement: "bottom"
+					});
+				}
+			});
+
+			$("#btn_src_validate").click(function () {
+				/*
+					$('#src_form_panel').bootstrapValidator({fields: {src_path: {validators: {notEmpty: { message: ' ' }}}}});
+				*/
+
+				dataResetted = false;
+
+				var params = {};
+				var format = $('#select_src_type').val();
+
+				params["datasetFormat"] = format;
+				if (format == "CSV") {
+					params["datasetPath"] = $('#src_path').val();
+					params["header"] = $('#src_header').val() == "True" ? true : false;
+					params["datasetDelimiter"] = $('#src_delimiter').val();
+					if (params["datasetPath"] == '') {
+						swal("Validation Error", "You should input data path.", "error");
+						return;
+					}
+					if (params["datasetDelimiter"] == '') {
+						swal("Validation Error", "You should input delimiter.", "error");
+						return;
+					}
+					if ($('#src_file_schema').val() == '') {
+						if (params["header"] == false) {
+							swal("Validation Error", "You should input schema.", "error");
+							return;
+						}
+						params["useOtherSchema"] = false;
+					} else {
+						params["useOtherSchema"] = true;
+						params["columns"] = $('#src_file_schema').val().split(',');
+					}
+				} else if (format == "JDBC") {
+					if ($("#src_url").val() == '') {
+						swal("Validation Error", "You should input url.", "error");
+						return;
+					} else if ($("#src_user").val() == '') {
+						swal("Validation Error", "You should input user.", "error");
+						return;
+					} else if ($("#src_pass").val() == '') {
+						swal("Validation Error", "You should input password.", "error");
+						return;
+					} else if ($('#src_jtable').val() == '') {
+						swal("Validation Error", "You should input table.", "error");
+						return;
+					}
+					var jdbcData = {};
+					if (getCookie("localMode") != "true") {
+						if ($('#src_driver').val() == '') {
+							swal("Validation Error", "You should input driver path.", "error");
+							return;
+						} else
+							jdbcData["jdbcDriverPath"] = $('#src_driver').val();
+					} else {
+						jdbcData["jdbcDriverPath"] = "";
+					}
+					jdbcData["jdbcUrl"] = $('#src_url').val();
+					jdbcData["jdbcUser"] = $('#src_user').val();
+					jdbcData["jdbcPassword"] = $('#src_pass').val();
+					params["jdbcData"] = jdbcData;
+					params["datasetPath"] = $('#src_jtable').val();
+				} else {
+					params["datasetPath"] = $('#src_path').val();
+					if (params["datasetPath"] == '') {
+						swal("Validation Error", "You should input data path.", "error");
+						return;
+					}
+				}
+
+				var jsonStr = JSON.stringify(params);
+
+				$('#src_form_panel').hide();
+				$('#src_progress').show();
+				srcAjax = $.ajax({
+					type: "POST",
+					url: "/sampleData",
+					crossDomain: true,
+					dataType: 'json',
+					data: jsonStr,
+					contentType: 'application/json',
+					success: function (response) {
+						srcJobId = response.jobIds[0];
+						getSrcSampleJobData();
+					},
+					error: function (response) {
+						console.log(response);
+						$('#src_error-msg').show();
+						document.getElementById("src_error-msg").innerHTML = "Data is not correct.";
+						$('.alert-warning').hide();
+						$('.src_alert-danger').show();
+						srcAjax = null;
+						$('#src_form_panel').show();
+						$('#src_progress').hide();
+					}
+				});
+			});
+
+			$("#btn_dest_validate").click(function () {
+				dataResetted = false;
+
+				var params = {};
+				var format = $('#select_dest_type').val();
+
+				params["datasetFormat"] = format;
+				if (format == "CSV") {
+					params["datasetPath"] = $('#dest_path').val();
+					params["header"] = $('#dest_header').val() == "True" ? true : false;
+					params["datasetDelimiter"] = $('#dest_delimiter').val();
+					if (params["datasetPath"] == '') {
+						swal("Validation Error", "You should input data path.", "error");
+						return;
+					}
+					if (params["datasetDelimiter"] == '') {
+						swal("Validation Error", "You should input delimiter.", "error");
+						return;
+					}
+					if ($('#dest_file_schema').val() == '') {
+						if (params["header"] == false) {
+							swal("Validation Error", "You should input schema.", "error");
+							return;
+						}
+						params["useOtherSchema"] = false;
+					} else {
+						params["useOtherSchema"] = true;
+						params["columns"] = $('#dest_file_schema').val().split(',');
+					}
+				} else if (format == "JDBC") {
+					if ($("#dest_url").val() == '') {
+						swal("Validation Error", "You should input url.", "error");
+						return;
+					} else if ($("#dest_user").val() == '') {
+						swal("Validation Error", "You should input user.", "error");
+						return;
+					} else if ($("#dest_pass").val() == '') {
+						swal("Validation Error", "You should input password.", "error");
+						return;
+					} else if ($('#dest_jtable').val() == '') {
+						swal("Validation Error", "You should input table.", "error");
+						return;
+					}
+					var jdbcData = {};
+					if (getCookie("localMode") != "true") {
+						if ($('#dest_driver').val() == '') {
+							swal("Validation Error", "You should input driver path.", "error");
+							return;
+						} else
+							jdbcData["jdbcDriverPath"] = $('#dest_driver').val();
+					} else {
+						jdbcData["jdbcDriverPath"] = "";
+					}
+					jdbcData["jdbcUrl"] = $('#dest_url').val();
+					jdbcData["jdbcUser"] = $('#dest_user').val();
+					jdbcData["jdbcPassword"] = $('#dest_pass').val();
+					params["jdbcData"] = jdbcData;
+					params["datasetPath"] = $('#dest_jtable').val();
+				} else {
+					params["datasetPath"] = $('#dest_path').val();
+					if (params["datasetPath"] == '') {
+						swal("Validation Error", "You should input data path.", "error");
+						return;
+					}
+				}
+
+				var jsonStr = JSON.stringify(params);
+
+				$('#dest_form_panel').hide();
+				$('#dest_progress').show();
+				destAjax = $.ajax({
+					type: "POST",
+					url: "/sampleData",
+					crossDomain: true,
+					dataType: 'json',
+					data: jsonStr,
+					contentType: 'application/json',
+					success: function (response) {
+						destJobId = response.jobIds[0];
+						getdestSampleJobData();
+					},
+					error: function (response) {
+						console.log(response);
+						$('#dest_error-msg').show();
+						document.getElementById("dest_error-msg").innerHTML = "Data is not correct.";
+						$('.dest_alert-danger').show();
+						$('.alert-warning-dest').hide();
+						destAjax = null;
+						$('#dest_form_panel').show();
+						$('#dest_progress').hide();
+					}
+				});
+				//$(".alert-info").show();
+			});
+
+			$('#btn_reset').on('click', function (e) {
+				//resetData();
+				resetSrcData();
+				resetdestData();
+				document.getElementById("mapper").innerHTML = "";
+				prepareAdvancedRule(true, '', srcColumns, [],
+						destColumns, [],
+						[],
+						[], [], '', '', false, srcRecordCnt != destRecordCnt, 0, []
+				);
+			});
+
+			$('#btn_src_reset, #btn_src_reset2').on('click', function (e) {
+				resetSrcData();
+				$('#sample_message').hide();
+				$('#src_heading').html('');
+			});
+
+			$('#btn_dest_reset, #btn_dest_reset2').on('click', function (e) {
+				resetdestData();
+				sample_message_dest
+				$('#sample_message_dest').hide();
+				$('#dest_heading').html('');
+			});
+
+			$("#btn_save_job").on('click', function (e) {
+				submitJobJson();
+			});
+
+			$('#src_header').on('change', function () {
+				var selected = $(this).find("option:selected").val();
+				if (selected == "True")
+					$('#src_custom_schema').hide();
+				else
+					$('#src_custom_schema').show();
+			});
+
+			$('#dest_header').on('change', function () {
+				var selected = $(this).find("option:selected").val();
+				if (selected == "True")
+					$('#dest_custom_schema').hide();
+				else
+					$('#dest_custom_schema').show();
+			});
+
+			$('#select_src_type').on('change', function () {
+				var selected = $(this).find("option:selected").val();
+				$('#src_file_path').show();
+				// PARQUET, ORC, JDBC, CSV, JSON, AVRO
+				if (selected === "CSV") {
+					$('#src_file_delimiter').show();
+					$('#src_file_header').show();
+					if ($('#src_header').val() == "True")
+						$('#src_custom_schema').hide();
+					else
+						$('#src_custom_schema').hide();
+
+					$('#src_jdbc_url').hide();
+					$('#src_jdbc_user').hide();
+					$('#src_jdbc_pass').hide();
+					$('#src_jdbc_table').hide();
+					$('#src_jdbc_driver').hide();
+
+				} else if (selected === "JDBC") {
+					$('#src_file_path').hide();
+
+					$('#src_file_delimiter').hide();
+					$('#src_file_header').hide();
+					$('#src_custom_schema').hide();
+
+					$('#src_jdbc_url').show();
+					$('#src_jdbc_user').show();
+					$('#src_jdbc_pass').show();
+					$('#src_jdbc_table').show();
+					if (getCookie("localMode") == "true")
+						$('#src_jdbc_driver').hide();
+					else
+						$('#src_jdbc_driver').show();
+				} else {
+					initForm(1);
+				}
+			});
+
+			$('#select_dest_type').on('change', function () {
+				var selected = $(this).find("option:selected").val();
+				$('#dest_file_path').show();
+				// PARQUET, ORC, JDBC, CSV, JSON, AVRO
+				if (selected === "CSV") {
+					$('#dest_file_delimiter').show();
+					$('#dest_file_header').show();
+					if ($('#dest_header').val() == "True")
+						$('#dest_custom_schema').hide();
+					else
+						$('#dest_custom_schema').hide();
+
+					$('#dest_jdbc_url').hide();
+					$('#dest_jdbc_user').hide();
+					$('#dest_jdbc_pass').hide();
+					$('#dest_jdbc_table').hide();
+					$('#dest_jdbc_driver').hide();
+
+				} else if (selected === "JDBC") {
+					$('#dest_file_path').hide();
+
+					$('#dest_file_delimiter').hide();
+					$('#dest_file_header').hide();
+					$('#dest_custom_schema').hide();
+
+					$('#dest_jdbc_url').show();
+					$('#dest_jdbc_user').show();
+					$('#dest_jdbc_pass').show();
+					$('#dest_jdbc_table').show();
+					if (getCookie("localMode") == "true")
+						$('#dest_jdbc_driver').hide();
+					else
+						$('#dest_jdbc_driver').show();
+				} else {
+					initForm(2);
+				}
+			});
+
+			$('#btn_advanced_rules').on('click', function (e) {
+				createListData();
+				$('#advancedRulesModal').show();
+			});
+
+			$('#btn_advanced_rules2').on('click', function (e) {
+				$('#btn_advanced_rules').click();
+			});
+
+			$('#btn_save_rules').on('click', function (e) {
+				advancedRuleEmpty = false;
+				submitJobJson();
+				//$('#advancedRulesModal').hide();
+			});
+
+			$('#btn_cancel_rules').on('click', function (e) {
+				advancedRuleEmpty = true;
+				$('.src_trans_column').tagsinput('removeAll');
+				$('.dest_trans_column').tagsinput('removeAll');
+
+				$('#src_trans_rule').val('');
+				$('#dest_trans_rule').val('');
+				$('#advancedRulesModal').hide();
+			});
+
+			$('#src_trans_plus').on('click', function (e) {
+				var srcNext = document.getElementById("src_trans_next");
+				insertRule(srcNext, "src");
+				createTypeahead($('.src_trans_column'), srcColumns, 'name');
+			});
+
+			$('#src_trans_minus').on('click', function (e) {
+				removeRule($('.src-rule-extra'));
+			});
+
+			$('#dest_trans_plus').on('click', function (e) {
+				var srcNext = document.getElementById("dest_trans_next");
+				insertRule(srcNext, "dest");
+				createTypeahead($('.dest_trans_column'), destColumns, 'name');
+			});
+
+			$('#dest_trans_minus').on('click', function (e) {
+				removeRule($('.dest-rule-extra'));
+			});
+
+			$('#advanced').on('click', function(e) {
+				$('#advancedRulesModal').hide();
+				$('#mapper').html('');
+			});
+
+			$('#advancedRulesModal').draggable();
+
+			$('#what').draggable();
+			$('#what1').draggable();
+			$('#what2').draggable();
+			$('#what3').draggable();
+
+			//setMoveDownListener();
+			//setMoveUpListener();
+			setIncludeListener();
+			setExcludeListener();
+		}
+
+		$(document).ready(function () {
+			//alert('1');
+			$.ajax({
+				type: "GET",
+				url: "/startUp",
+				crossDomain: true,
+				dataType: 'json',
+				data: {},
+				beforeSend: function () {
+					$("#loadingDiv").show();
+				},
+				success: function (response) {
+				//alert(response.localMode);
+				//alert(response.displayVersion);
+					if (response.localMode == true) {
+						$('#nav_logout').hide();
+						$('#cluster_resources').hide();
+					}
+					setCookie("version", response.displayVersion);
+					setCookie("localMode", response.localMode);
+					setToolDetail();
+				},
+				error: function (response) {
+
+				},
+				complete: function () {
+					$("#loadingDiv").hide();
+				}
+			});
+
+			$("#src_column").sortable({
+				connectWith: ".connectedSortable1",
+				placeholder: "ui-state-highlight",
+
+				stop: function (event, ui) {
+
+					$("#src_column li").each(function (event, el) {
+						//console.log(el);
+						//console.log($(el).index());
+						//$(el).attr('data-id',$(el).index() - 1);
+						//$("li span.glyphicon").attr('data-id',$(el).index() - 1);
+					});
+
+					$("#src_column li").each(function (event, el) {
+						var product = $(this);
+						var child = product.children("span.glyphicon").attr('id');
+						var id = "#" + child;
+						var i = $(el).index();
+						$(id).attr('new-div-id', i);
+					})
+
+					$("#mapper div").each(function (event, el) {
+						var product = $(this);
+						var child_new = product.children("img").attr('rel');
+						var class_new = ".list_" + child_new + " img";
+						var i = $(el).index();
+						$(class_new).attr('rel', i);
+					});
+				}
+
+			});
+
+			$("#dest_column").sortable({
+				connectWith: ".connectedSortable2",
+				placeholder: "ui-state-highlight"
+			});
+
+			initForm(0);
+
+			setListeners();
+		});
+
+	</script>
+	<div id="loadingDiv">
+	</div>
+	<div id="wrapper">
+		<!-- Navigation -->
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<!--
+						<span class="icon-bar"></span>
+					-->
+				</button>
+				<a class="navbar-brand" href="home.html" style="font-size: 21px;" id="tool-name"></a>
+				<span class="navbar-brand" style="font-size: 18px;" id="tool-version"></span>
+			</div>
+			<!-- /.navbar-header -->
+
+			<ul class="nav navbar-top-links navbar-right">
+				<li>
+					<a href="home.html">Home</a>
+				</li>
+				<!--
+				<li>
+					<a href="addjob.html">Add Job</a>
+				</li>
+				-->
+				<!--
+					<li>
+					<a href="jobresults.html">Job Results</a>
+					</li>
+				-->
+				<li class="dropdown" id="nav_logout">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						<i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-user">
+						<!--<li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>-->
+						<!--</li>-->
+						<!--<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>-->
+						<!--</li>-->
+						<!--<li class="divider"></li>-->
+						<li><a href="login.html" id="logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+						</li>
+					</ul>
+					<!-- /.dropdown-user -->
+				</li>
+				<!-- /.dropdown -->
+			</ul>
+			<!-- /.navbar-top-links -->
+		</nav>
+		<!-- add job help popup text-->
+		<div class="panel-body">
+			<div class="col-md-12">
+				<div class="modal fade" id="addjobhelp" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss-modal="modal2" aria-hidden="true">&times;</button>
+							</div>
+							<div class="modal-body">
+								<p><b>CSV :</b> When a dataset is CSV and there is no header, provide the column names as comma seperated in �Column Names� field. Provide the Delimiter.</p>
+
+								<p><b>JSON :</b> The JSON file needs to be in JSONL format. The records cannot be like JSON-array. Each line should be a valid JSON value.</p>
+
+								<p><b>JDBC :</b></p>
+
+								<p>URL : JDBC url  ex :
+									Driver Path : Provide the absolute path(HDFS or NAS) to the JDBC driver. The path should be accessible from all the nodes of the cluster.
+								Note : This is only required in Cluster mode of installation.</p>
+
+
+								<p><b>Parquet, Avro, ORC :</b> Enter the file path. In cluster mode.</p>
+
+								<p>On clicking �Validate� a small sample of 20 records are displayed in the table.</p>
+
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+		<div id="page-wrapper" style="margin: 0 0 0 0;">
+
+			<div class="row">
+				<div class="col-lg-12">
+					<h3 class="page-header">Add Job
+						<img src="../dest/img/question.png"  width="30px" height="30px" style=" float:right;" data-toggle="modal" data-target="#addjobhelp" />
+					</h3>
+				</div>
+
+
+				<!-- /.col-lg-12 -->
+
+			</div>
+			<div class="row">
+			<!--start leftside message-->
+				<div class="col-lg-6">
+					<div class="alert alert-success alert-dismissible" role="alert" style="display:none;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<strong>Success!</strong> <span id="saved_job">Saved job successfully.</span>
+					</div>
+
+					<div class="alert alert-warning alert-dismissible" role="alert" style="display:none;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<strong>EXCEPTION</strong> <span id="exception-msg">Error occures while loading data.</span>
+					</div>
+
+					<div class="alert alert-info alert-dismissible" role="alert" style="display:none;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<strong>SUCCESS</strong> <span id="success-msg">This data is validated successfully.</span>
+					</div>
+
+					<div id="sample_message" class="alert alert-info alert-dismissible" role="alert" style="width: 100%; display:none;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<span style="float: left;" id="src_success" style="display: none;">
+							<span id="success-src-msg"></span>
+						</span>
+					</div>
+
+					<div class="alert alert-danger alert-dismissible src_alert-danger" role="alert" style="display:none;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<strong>ERROR</strong> <span id="src_error-msg">Error occures while loading data.</span>
+					</div>
+
+					<div class="alert alert-danger alert-dismissible src_alert-danger" role="alert" style="display:none;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					<strong>ERROR</strong> <span id="src_error-msg">Error occures while loading data.</span>
+					</div>
+				</div>
+
+<!--start rightside message-->
+				<div class="col-lg-6" style="float:right">
+					<div class="alert alert-success alert-dismissible" role="alert" style="display:none;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<strong>Success!</strong> <span id="saved_job">Saved job successfully.</span>
+					</div>
+
+					<div class="alert alert-warning-dest alert-dismissible" role="alert" style="display:none;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<strong>EXCEPTION</strong> <span id="exception-msg-dest">Error occures while loading data.</span>
+					</div>
+
+					<div class="alert alert-info alert-dismissible" role="alert" style="display:none;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<strong>SUCCESS</strong> <span id="success-msg">This data is validated successfully.</span>
+					</div>
+
+					<div id="sample_message_dest" class="alert alert-info alert-dismissible" role="alert" style="width: 100%; display:none;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<span style="float: left;" id="dest_success" style="display: none;">
+							<span id="success-dest-msg"></span>
+						</span>
+					</div>
+
+					<div class="alert alert-danger alert-dismissible dest_alert-danger" role="alert" style="display:none;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<strong>ERROR</strong> <span id="dest_error-msg">Error occures while loading dataaa.</span>
+					</div>
+					
+					<div class="alert alert-danger alert-dismissible dest_alert-danger" role="alert" style="display:none;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<strong>ERROR</strong> <span id="dest_error-msg">Errors occures while loading data.</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="row" id="form_advanced">
+				<div class="col-lg-12" style="padding-bottom: 9px;text-align: right;">
+					<button id="btn_advanced_rules" type="button" class="btn btn-danger" >
+						<i class="glyphicon glyphicon-pencil"></i>Compare datasets
+					</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="panel panel-default">
+						<div class="panel-heading" style="font-size: 14px; font-weight: bold;">Source Dataset:<div id="src_heading" class="datapath-tiff" style="margin-left: 5px"></div></div>
+						<!-- /.panel-heading -->
+						<div class="panel-body" id="src_form_panel">
+							<div class="row">
+								<div class="col-md-12">
+									<!-- CSV -->
+									<div class="form-group required" id="src_file_path">
+										<label class="col-sm-3" id="table">Dataset path</label>
+										<div class="col-sm-6">
+										<input type="text" placeholder="Path..." class="form-control" name="src_path" id="src_path"></div>
+									</div>
+									<br><br>
+									<div class="form-group" id="src_file_format">
+										<label class="col-sm-3">Dataset Format</label>
+										<div class="col-sm-6">
+											<select class="form-control" id="select_src_type">
+												<option>PARQUET</option>
+												<option id="src_orc">ORC</option>
+												<option>JDBC</option>
+												<option>CSV</option>
+												<option>JSON</option>
+												<option id="src_hive">HIVE</option>
+												<option>AVRO</option>
+											</select>
+										</div>
+									</div>
+									<br><br>
+									<!-- CSV -->
+									<div class="form-group required" id="src_file_delimiter">
+										<div class="col-sm-3 tooltipd">
+										<label>Delimiter </label>
+										<img src="../dest/img/tooltip.jpg" style="height:11%;width:11%">
+											<span class="tooltiptext">Enter, For Comma = , For Tab = \t</span>
+										</div>
+
+
+										<div class="col-sm-6">
+											<input type="text" placeholder="Delimiter..." class="form-control" name="src_delimiter" id="src_delimiter">
+										</div>
+										<br><br>
+									</div>
+									<div class="form-group required" id="src_file_header">
+										<label class="col-sm-3">Header </label>
+										<div class="col-sm-6">
+											<select class="form-control" id="src_header">
+												<option>True</option>
+												<option>False</option>
+											</select>
+										</div>
+										<br><br>
+									</div>
+									<div class="form-group" id="src_custom_schema">
+										<label class="col-sm-3">Custom Schema</label>
+										<div class="col-sm-6">
+											<input type="text" placeholder="Custom schema..." class="form-control" id="src_file_schema">
+										</div>
+										<br><br>
+									</div>
+									<!-- /#CSV -->
+									<!-- JDBC -->
+									<div class="form-group required" id="src_jdbc_url">
+										<label class="col-sm-3">URL</label>
+										<div class="col-sm-6">
+											<input type="text" placeholder="Connection URL..." class="form-control" name="src_url" id="src_url">
+										</div>
+										<br><br>
+									</div>
+									<div class="form-group required" id="src_jdbc_user">
+										<label class="col-sm-3">User</label>
+										<div class="col-sm-6">
+											<input type="text" placeholder="User..." class="form-control" name="src_user" id="src_user">
+										</div>
+										<br><br>
+									</div>
+									<div class="form-group required" id="src_jdbc_pass">
+										<label class="col-sm-3">Password</label>
+										<div class="col-sm-6">
+											<input type="text" placeholder="Password..." class="form-control" name="src_pass" id="src_pass">
+										</div>
+										<br><br>
+									</div>
+									<div class="form-group required" id="src_jdbc_table">
+										<label class="col-sm-3">Table</label>
+										<div class="col-sm-6">
+											<input type="text" placeholder="Table..." class="form-control" name="src_table" id="src_jtable">
+										</div>
+										<br><br>
+									</div>
+									<div class="form-group required" id="src_jdbc_driver">
+										<label class="col-sm-3">Driver Path</label>
+										<div class="col-sm-6">
+											<input type="text" placeholder="JDBC driver path" class="form-control" name="src_driver" id="src_driver">
+										</div>
+										<br>
+									</div>
+									<!-- /#JDBC -->
+									<div class="form-group" id="src_validate">
+										<label class="col-sm-3"> </label>
+										<div class="col-sm-6" style="text-align:right">
+											<button class='btn btn-warning' id="btn_src_validate">Validate</button>
+										</div>
+										<br>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel-body" id="src_progress">
+							<div class="progress progress-striped active" style="margin-bottom:10px;">
+								<div class="progress-bar" style="width: 100%"></div>
+							</div>
+							<button class="btn btn-primary col-sm-offset-10 col-sm-2" id="btn_src_reset">Reset</button>
+						</div>
+						<div class="panel-body" id="src_table_panel">
+							<table id="src_table" class="table table-hover"
+								data-height="100%"
+								data-search="true"
+								data-show-export="true"
+								data-show-columns="true"
+								data-pagination="true" >
+							</table>
+							<button class="btn btn-primary col-sm-offset-10 col-sm-2" id="btn_src_reset2">Reset</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="panel panel-default">
+						<div class="panel-heading" style="font-size: 14px; font-weight: bold;">Destination Dataset:<div id="dest_heading" class="datapath-tiff" style="width:77%; margin-left: 5px"></div></div>
+						<!-- /.panel-heading -->
+						<div class="panel-body" id="dest_form_panel">
+							<div class="row">
+								<div class="col-md-12">
+									<!-- CSV -->
+									<div class="form-group required" id="dest_file_path">
+										<label class="col-sm-3" id="table_dest">Dataset path</label>
+										<div class="col-sm-6">
+											<input type="text" placeholder="Path..." class="form-control" name="dest_path" id="dest_path">
+										</div>
+									</div>
+									<br><br>
+									<div class="form-group" id="dest_file_format">
+										<label class="col-sm-3">Dataset Format</label>
+										<div class="col-sm-6">
+											<select class="form-control" id="select_dest_type">
+												<option>PARQUET</option>
+												<option id="dest_orc">ORC</option>
+												<option>JDBC</option>
+												<option>CSV</option>
+												<option>JSON</option>
+												<option id="dest_hive">HIVE</option>
+												<option>AVRO</option>
+											</select>
+										</div>
+									</div>
+									<br><br>
+									<!-- CSV -->
+									<div class="form-group required" id="dest_file_delimiter">
+									<div class="col-sm-3 tooltipd">
+										<label>Delimiter </label>
+										<img src="../dest/img/tooltip.jpg" style="height:11%;width:11%">
+											<span class="tooltiptext">Enter, For Comma = , For Tab = \t</span>
+										</div>
+										<div class="col-sm-6">
+											<input type="text" placeholder="Delimiter..." class="form-control" name="dest_delimiter" id="dest_delimiter">
+										</div>
+										<br><br>
+									</div>
+									<div class="form-group required" id="dest_file_header">
+										<label class="col-sm-3">Header </label>
+										<div class="col-sm-6">
+											<select class="form-control" id="dest_header">
+												<option>True</option>
+												<option>False</option>
+											</select>
+										</div>
+										<br><br>
+									</div>
+									<div class="form-group" id="dest_custom_schema">
+										<label class="col-sm-3">Custom Schema</label>
+										<div class="col-sm-6">
+											<input type="text" placeholder="Custom schema..." class="form-control" id="dest_file_schema">
+										</div>
+										<br><br>
+									</div>
+									<!-- /#CSV -->
+									<!-- JDBC -->
+									<div class="form-group required" id="dest_jdbc_url">
+										<label class="col-sm-3">URL</label>
+										<div class="col-sm-6">
+											<input type="text" placeholder="Connection URL..." class="form-control" name="dest_url" id="dest_url">
+										</div>
+										<br><br>
+									</div>
+									<div class="form-group required " id="dest_jdbc_user">
+										<label class="col-sm-3">User</label>
+										<div class="col-sm-6">
+											<input type="text" placeholder="User..." class="form-control" name="dest_user" id="dest_user">
+										</div>
+										<br><br>
+									</div>
+									<div class="form-group required " id="dest_jdbc_pass">
+										<label class="col-sm-3">Password</label>
+										<div class="col-sm-6">
+											<input type="text" placeholder="Password..." class="form-control" name="dest_pass" id="dest_pass">
+										</div>
+										<br><br>
+									</div>
+									<div class="form-group required "  id="dest_jdbc_table">
+										<label class="col-sm-3">Table</label>
+										<div class="col-sm-6">
+											<input type="text" placeholder="Table..." class="form-control" name="dest_table" id="dest_jtable">
+										</div>
+										<br><br>
+									</div>
+									<div class="form-group required " id="dest_jdbc_driver">
+										<label class="col-sm-3">Driver Path</label>
+										<div class="col-sm-6">
+											<input type="text" placeholder="JDBC driver path..." class="form-control" name="dest_driver" id="dest_driver">
+										</div>
+										<br>
+									</div>
+									<!-- /#JDBC -->
+									<div class="form-group" id="dest_validate">
+										<label class="col-sm-3"> </label>
+										<div class="col-sm-6" style="text-align:right">
+											<button class='btn btn-warning' id="btn_dest_validate">Validate</button>
+										</div>
+										<br>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel-body" id="dest_progress">
+							<div class="progress progress-striped active" style="margin-bottom:10px;">
+								<div class="progress-bar" style="width: 100%"></div>
+							</div>
+							<button class="btn btn-primary col-sm-offset-10 col-sm-2" id="btn_dest_reset">Reset</button>
+						</div>
+						<div class="panel-body" id="dest_table_panel" >
+							<table id="dest_table" class="table"
+								data-height="100%"
+								data-search="true"
+								data-show-columns="true"
+								data-pagination="true"
+								data-show-export="true" >
+							</table>
+							<button class="btn btn-primary col-sm-offset-10 col-sm-2" id="btn_dest_reset2">Reset</button>
+						</div>
+					</div>
+				</div>
+				<!--
+				<div class="col-lg-12">
+					<div class="panel-body">
+						<div class="form-group col-lg-3" style="text-align: left;">
+							<button class="btn btn-primary" id="btn_src_reset">Reset</button>
+						</div>
+						<div class="form-group col-lg-offset-6 col-lg-3" style="text-align: right;">
+							<button class="btn btn-primary" id="btn_dest_reset">Reset</button>
+						</div>
+					</div>
+				</div>
+				-->
+			</div>
+			<div class="row" id="form_advanced2">
+				<div class="col-lg-12" style="padding-bottom: 9px;text-align: right;">
+					<button id="btn_advanced_rules2" type="button" class="btn btn-danger" >
+						<i class="glyphicon glyphicon-pencil"></i>Compare datasets
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- /#page-wrapper -->
+		<footer>
+			<p class="copyright">© DataQ, 2017</p>
+		</footer>
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- Advanced Rule Modal -->
+	<div class="ui-dialog" id="advancedRulesModal" style="z-index:9999;display: none;width: 50%;position: absolute;top: 5%;left: 20%;">
+		<div class="modal-dialog" style="width: 800px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" id="advanced" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Rules Mapping</h4>
+				</div>
+
+				<div class="modal-body">
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a data-toggle="tab" href="#column_map" aria-expanded="true">Column Map</a>
+						</li>
+						<!--<li>
+							<a data-toggle="tab" href="#transmation" aria-expanded="false">Transformations</a>
+						</li>-->
+					</ul>
+					<div class="col-md-6" style="margin-left: 20%;">
+						<div class="form-group">
+							<label class="col-sm-4" style="margin-top:13px;">Job Name<span style="color: red;">*</span></label>
+							<div class="col-sm-8">
+								<input type="text" id="job_name" placeholder="Name" class="form-control" style="margin-top:9px;">
+							</div>
+						</div>
+					</div>
+					<div class="tab-content" style="margin-top: 40px;">
+
+						<div class="row tab-pane fade active in" id="column_map">
+							<!--<img src="../dest/img/help.png" width="30px" height="30px" style="position: fixed;right: 20px;top: 75px" onclick="colMapHelp()" />-->
+							<div class="panel-group" id="accordion">
+								<div class="panel panel-default" style="margin-left: 30px;margin-right: 30px;border-radius: 0;margin-top:15px;">
+
+
+									<div class="panel-heading" data-toggle="collapse" data-parent="#accordion"data-target="#collapseThree">
+										<h3 class="panel-title accordion-toggle">Data Filter</h3>
+									</div>
+
+									<div id="collapseThree" class="panel-collapse collapse">
+										<div class="panel-body">
+											<div class="col-md-12" style="margin-bottom: 25px;">
+												<div class="form-group">
+													<label class="col-sm-4">Run on sample of</label>
+													<div class="col-sm-8">
+														<input type="number" placeholder="Insert number of keys to comapre between 1 to 100,000" class="form-control" id="rule_randomsample" min="0">
+													</div>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="col-sm-4">Source Filter Sql</label>
+													<div class="col-sm-8">
+														<input type="text" placeholder="Insert sql here to filter Source Dataset..." class="form-control" id="src_filter_sql">
+													</div>
+													<br><br>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="col-sm-4">Destination Filter Sql</label>
+													<div class="col-sm-8">
+														<input type="text" placeholder="Insert sql here to filter Destination Dataset..." class="form-control" id="dest_filter_sql">
+													</div>
+													<br><br>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="modal fade" id="what1" role="dialog">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss-modal="modal2" aria-hidden="true">&times;</button>
+															</div>
+															<div class="modal-body">
+																<p><b>Run on sample of:</b>To run the data comparision on random sample of compare keys Instead of whole data. Accepts a number between 1 to 100,000.</p>
+																<p>Note : The actual output may have less number of keys count. (As there could be multiple records for a key)</p>
+																<p><b>Src Filter Sql/dest Filter Sql :</b> To filter the dataset instead of comparing the whole data provide a SQL statement.</p>
+																<p>Note :  You can refer to the dataset as my_data.</p>
+																<p>Ex : select * from my_data where age > 30</p>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<!--<button class="btn btn-danger" data-toggle="modal" data-target="#what" id="btn_delete">What is this</button>-->
+												<img src="../dest/img/question.png" width="30px" height="30px" data-toggle="modal" data-target="#what1" />
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="panel panel-default" style="margin-left: 30px;margin-right: 30px;border-radius: 0;margin-top:15px;">
+
+									<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseFour">
+										<h3 class="panel-title accordion-toggle">Dataset Comparision Options</h3>
+									</div>
+									<div id="collapseFour" class="panel-collapse collapse">
+										<div class="panel-body">
+											<div class="col-md-12">
+												<div class="modal fade" id="what" role="dialog">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss-modal="modal2" aria-hidden="true">&times;</button>
+															</div>
+															<div class="modal-body">
+																<p><b>Compare two way : </b>When the checkbox is selected compares both source and destination datasets with each other. When destination dataset is subset of source dataset unselect the check box.</p>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="checkbox" style="margin-bottom: 30px;display: inline-block;margin-left: 30px;">
+													<label style="margin-right: 10px"><input type="checkbox" value="" id="rule_matchboth" checked>Compare two way</label>
+												</div>
+											</div>
+											<div class="col-md-12">
+
+												<img src="../dest/img/question.png" width="30px" height="30px" data-toggle="modal" data-target="#what" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default" style="margin-left: 30px;margin-right: 30px;border-radius: 0;margin-top:15px;">
+									<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseFive">
+										<h3 class="panel-title accordion-toggle">Data Transformations</h3>
+									</div>
+									<div id="collapseFive" class="panel-collapse collapse">
+										<div class="panel-body">
+											<div class="col-md-12">
+												<div class="col-md-6">
+													<label>Source Dataset</label>
+													<div class="form-group row" style="margin-top: 15px;">
+														<!--<label class="col-sm-3">Column</label>-->
+														<div class="col-sm-9 src_dataset">
+															<div class="src_trans_column">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<label class="col-sm-3">SQL</label>
+														<div class="col-sm-9">
+															<input type="text" class="form-control src_trans_rule" placeholder="Enter transformation SQL">
+														</div>
+													</div>
+													<!--<div class="form-group row" id="src_trans_next">
+														<button class="btn btn-default btn-sm col-sm-offset-4 col-sm-1" id="src_trans_plus">
+															<span class="glyphicon glyphicon-plus"></span>
+														</button>
+														<button class="btn btn-default btn-sm col-sm-offset-2 col-sm-1" id="src_trans_minus">
+															<span class="glyphicon glyphicon-minus"></span>
+														</button>
+													</div>-->
+												</div>
+												<div class="col-md-6">
+													<label>Destination Dataset</label>
+													<div class="form-group row" style="margin-top: 15px;" id="dest_trans_first">
+														<!--<label class="col-sm-3">Column</label>-->
+														<div class="col-sm-9 desti_dataset">
+															<div class="dest_trans_column">
+																<input type="text" class="form-control" value="">
+															</div>
+														</div>
+														<label class="col-sm-3">SQL</label>
+														<div class="col-sm-9">
+															<input type="text" class="form-control dest_trans_rule" placeholder="Enter transformation SQL">
+														</div>
+													</div>
+													<!--<div class="form-group row" id="dest_trans_next">
+														<button class="btn btn-default btn-sm col-sm-offset-4 col-sm-1" id="dest_trans_plus">
+															<span class="glyphicon glyphicon-plus"></span>
+														</button>
+														<button class="btn btn-default btn-sm col-sm-offset-2 col-sm-1" id="dest_trans_minus">
+															<span class="glyphicon glyphicon-minus"></span>
+														</button>
+													</div>-->
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="modal fade" id="what2" role="dialog">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss-modal="modal2" aria-hidden="true">&times;</button>
+															</div>
+																																		<div class="modal-body">
+																		<p>	<b>Transformations</b> : DiffTool provides ability to transform the columns before comparing. Transformation rule can be applied to one or more columns. The transformations can be applied using SQL functions. Below are some examples :</p>
+																		
+																		<table class="table2" style="width:100%">
+																			<th>Example Transformations</th>
+																			<th>SQL Functions</th>
+																			<tr>
+																				<td>Convert column “first_name” to lower case</td>
+																				<td>
+																					LOWER(first_name) as first_name
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>Convert column “first_name” to lower case , increase column “age” by 1</td>
+																				<td>
+																					LOWER(first_name) as first_name, (age+1) as age
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>Trim and upper case the column “organization”</td>
+																				<td>
+																					trim(upper(organization)) as organization
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>Make a substring of at most 10 charecters for column “organization”</td>
+																				<td>
+																					substring(organization,0,10)  as organization
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>Join columns “first_name” and “last_name” and populate column “name”
+Note : column “name” should already exist and be marked for comparision.</td>
+																				<td>
+																					concat(first_name | last_name) as name
+																				</td>
+																			</tr>
+																		</table>
+																		
+																		<style>
+																			table.table2 tr {
+																			text-transform: none;
+																			}
+																			table.table2 th{border: 1px solid black;
+																			border-collapse: collapse;padding: 6px;}
+																			
+																			table.table2 td{border: 1px solid black;
+																			border-collapse: collapse;padding: 6px;}
+																		</style>
+																	</div>
+
+
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-12">
+
+												<img src="../dest/img/question.png" width="30px" height="30px" data-toggle="modal" data-target="#what2" />
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!--changes-->
+					<!-- 			<div id ="cluster_resources" class="panel panel-default" style="margin-left: 30px;margin-right: 30px;border-radius: 0;margin-top:15px;">
+								<div class="panel-heading" data-toggle="collapse" data-parent="#accordion"data-target="#cluster">
+										<h3 class="panel-title accordion-toggle">Cluster Resources</h3>
+									</div>
+									<div id="cluster" class="panel-collapse collapse">
+										<div class="panel-body">
+									
+									 <div class="col-md-12" style="margin-bottom: 25px;">
+												<div class="form-group">
+													<label class="col-sm-4">Number of Executors</label>
+													<div class="col-sm-8">
+														<input type="number" class="form-control" id="numExecutors" min="0">
+													</div>
+												</div>
+											</div><br><br>
+											
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="col-sm-4">Executor Memory</label>
+													<div class="col-sm-8">
+														<input type="text" class="form-control" id="executorMemory">
+													</div>
+													<br><br>
+												</div>
+											</div>
+											
+											<div class="col-md-12" style="margin-bottom: 25px;">
+												<div class="form-group">
+													<label class="col-sm-4">Number of cores per executor</label>
+													<div class="col-sm-8">
+														<input type="number" class="form-control" id="executorCores" min="0">
+													</div>
+												</div>
+											</div>
+									
+									
+										</div>
+									
+									</div>
+								</div> -->
+								
+									
+											
+								
+								<!--end changes-->
+							<div class="panel-body">
+								<div class="col-md-12">
+									<div class="modal fade" id="what3" role="dialog">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss-modal="modal2" aria-hidden="true">&times;</button>
+												</div>
+												<div class="modal-body">
+
+													<p><b>Source Dataset Columns</b> : Atleast one column needs to be a compare key column to compare datasets. Compare key columns are used to join the datasets in order to compare record by record. Select the check box next to column name to define a column/s as key column/s.  Drag the columns to map them to the corresponding column in the destination dataset.</p>
+
+													<p><b>Destination Dataset Columns</b> :  Column names from the destination dataset. Drag the columns to map them to the corresponding source dataset column.</p>
+
+													<p><b>Exclude Columns</b> : Only columns which have green icon next to them are compared. Click on the green icon( changes to red cross) to exclude the column from comparision.</p>
+
+												</div>
+
+
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-md-12">
+
+									<img src="../dest/img/question.png" width="30px" height="30px" style="float: right" data-toggle="modal" data-target="#what3" />
+								</div>
+							</div>
+
+
+							<div>
+								<div class="col-md-12">
+									<h3 class="data-filter-header">Columns Mapping</h3>
+								</div>
+
+								<div class="col-md-12">
+									<!--<div class="checkbox" style="margin-left:30px;margin-bottom: 30px;display: inline-block">-->
+									<!--<label style="margin-right: 10px"><input type="checkbox" value="" id="auto_mapping">Auto Column Mapping</label>-->
+									<!--</div>-->
+
+								</div>
+								<div class="col-md-5">
+									<ul style="padding-left: 0px;margin-left: 30px;">
+										<label style="width: 100%;font-weight: bold;
+										color: #000000;">Source Columns <span style="float:right">Compare Key<span style="color: red;"> *</span></span></label>
+									</ul>
+									<ul class="list-group connectedSortable1" style="padding-left: 0px;margin-left: 30px" id="src_column">
+									</ul>
+								</div>
+
+								<label style="position: relative; right: 325px; top: 84px; hfont-weight: bold;color: #000000;margin-left:-17%">Columns Included</label>
+
+								<div class="col-md-2" style="margin-top: 34px;text-align: center;" id="mapper">
+								</div>
+
+								<div class="col-md-5">
+									<ul style="padding-right: 0px;margin-right: 30px;">
+										<label style="font-weight: bold;color: #000000;margin-left:-17%">Destination Columns</label>
+									</ul>
+									<ul class="list-group connectedSortable2" style="padding-right: 0px;margin-right: 30px;" id="dest_column">
+
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!--<div class="row tab-pane fade" id="transmation">
+							<img src="../dest/img/help.png" width="30px" height="30px" style="position: fixed;right: 20px;top: 75px" onclick="transHelp()" />
+							<div class="col-md-6">
+							<label>Source Dataset</label>
+							<div class="form-group row" style="margin-top: 15px;">
+							<label class="col-sm-3">Column</label>
+							<div class="col-sm-9">
+							<div class="src_trans_column">
+							<input type="text" class="form-control">
+							</div>
+							</div>
+							<label class="col-sm-3">Rule</label>
+							<div class="col-sm-9">
+							<input type="text" class="form-control src_trans_rule">
+							</div>
+							</div>
+							<div class="form-group row" id="src_trans_next">
+							<button class="btn btn-default btn-sm col-sm-offset-4 col-sm-1" id="src_trans_plus">
+							<span class="glyphicon glyphicon-plus"></span>
+							</button>
+							<button class="btn btn-default btn-sm col-sm-offset-2 col-sm-1" id="src_trans_minus">
+							<span class="glyphicon glyphicon-minus"></span>
+							</button>
+							</div>
+
+							</div>
+
+							<div class="col-md-6">
+							<label>Destination Dataset</label>
+							<div class="form-group row" style="margin-top: 15px;" id="dest_trans_first">
+							<label class="col-sm-3">Column</label>
+							<div class="col-sm-9">
+							<div class="dest_trans_column">
+							<input type="text" class="form-control" value="">
+							</div>
+							</div>
+							<label class="col-sm-3">Rule</label>
+							<div class="col-sm-9">
+							<input type="text" class="form-control dest_trans_rule">
+							</div>
+							</div>
+							<div class="form-group row" id="dest_trans_next">
+							<button class="btn btn-default btn-sm col-sm-offset-4 col-sm-1" id="dest_trans_plus">
+							<span class="glyphicon glyphicon-plus"></span>
+							</button>
+							<button class="btn btn-default btn-sm col-sm-offset-2 col-sm-1" id="dest_trans_minus">
+							<span class="glyphicon glyphicon-minus"></span>
+							</button>
+							</div>
+							</div>
+						</div>-->
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<!--<button type="button" class="btn btn-default" id="btn_cancel_rules">Cancel</button>-->
+					<!--<button class="btn btn-primary" id="btn_reset">Reset</button>-->
+					<a class="btn btn-success btn-ok" id="btn_save_rules">Submit Job</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-93298501-2', 'auto');
+	ga('send', 'pageview');
+
+	//alert(getCookie("localMode"));
+	/* to hide hive on localhost for SRC*/
+	if (getCookie("localMode") == "true" || getCookie("localMode") == ''){
+		$('#select_src_type #src_orc').hide();
+		$('#select_src_type #src_hive').hide();
+	}else{
+		$('#select_src_type #src_orc').show();
+		$('#select_src_type #src_hive').show();
+	}
+
+	/* to hide hive on localhost for dest*/
+	if (getCookie("localMode") == "true" || getCookie("localMode") == ''){
+		$('#select_dest_type #dest_orc').hide();
+		$('#select_dest_type #dest_hive').hide();
+	}else{
+		$('#select_dest_type #dest_orc').show();
+		$('#select_dest_type #dest_hive').show();
+	}
+
+	/* to change text hive selected*/
+
+	$('select#select_src_type').on('change', function() {
+		if( this.value == 'HIVE' ){
+			$('#table').text('Table');
+		}
+		else{
+			$('#table').text('Dataset path');
+		}
+	})
+
+	$('select#select_dest_type').on('change', function() {
+		if( this.value == 'HIVE' ){
+			$('#table_dest').text('Table');
+		}
+		else{
+			$('#table_dest').text('Dataset path');
+		}
+	})
+
+	/* close the model*/
+	$("button[data-dismiss-modal=modal2]").click(function () {
+		$('#what1').modal('hide');
+	});
+	$("button[data-dismiss-modal=modal2]").click(function () {
+		$('#what').modal('hide');
+	});
+	$("button[data-dismiss-modal=modal2]").click(function () {
+		$('#what2').modal('hide');
+	});
+	$("button[data-dismiss-modal=modal2]").click(function () {
+		$('#what3').modal('hide');
+	});
+	$("button[data-dismiss-modal=modal2]").click(function () {
+		$('#addjobhelp').modal('hide');
+	});
+	/* close*/
+
+	$(function() {
+		$('.panel-heading').click(function() {
+			if ($(this).hasClass('accordion-opened-addjob')) {
+				$(this).removeClass('accordion-opened-addjob');
+				} else {
+				$('.panel-heading').removeClass('accordion-opened-addjb');
+				$(this).addClass('accordion-opened-addjob');
+			}
+		});
+	});
+</script>
+<style>
+	#mapper div img {
+	height: 82% !important;
+	width: 52% !important;
+	}
+	.modal { overflow: auto !important; }
+	
+	.ui-state-highlight { background: #A9A9A9 !important; border-color: #A9A9A9 !important }
+	.accordion-toggle:after {
+	
+	font-family:'FontAwesome';
+	content:"\f077";
+	float: right;
+	color: inherit;
+	}
+	.accordion-toggle:after {
+	font-family: 'FontAwesome';
+	content: "\f078";    
+	float: right;
+	}
+	.accordion-opened-addjob .accordion-toggle:after {    
+	content: "\f077";    
+	}
+	.panel-heading {
+	cursor: pointer;
+	}
+	.tooltipd:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+	}
+	.tooltipd {
+    position: relative;
+    display: inline-block;
+    
+}
+
+.tooltipd .tooltiptext {
+    visibility: hidden;
+    width: 100%;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tooltipd .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+.alert-warning-dest {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.col-sm-9.desti_dataset{
+    display: none !important;
+}
+.col-sm-9.src_dataset{
+    display: none !important;
+}
+
+
+
+	
+</style>
+
+</html>

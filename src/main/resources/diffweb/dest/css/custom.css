@@ -1,0 +1,274 @@
+.bootstrap-tagsinput {
+    width: 100%;
+}
+
+.accordion {
+    margin-bottom:-3px;
+}
+
+.accordion-group {
+    border: none;
+}
+
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {
+    margin-bottom: 0;
+}
+
+.twitter-typeahead .tt-hint
+{
+    display: none;
+}
+
+.tt-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 14px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+    cursor: pointer;
+}
+
+.tt-suggestion {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #333333;
+    white-space: nowrap;
+}
+
+.tt-suggestion:hover,
+.tt-suggestion:focus {
+    color: #ffffff;
+    text-decoration: none;
+    outline: 0;
+    background-color: #428bca;
+}
+
+.form-group.required label:after{
+    content:" * ";
+    color:red;
+}
+
+.li-tiff {
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.datapath-tiff {
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    text-align: left;
+    font-size: 14px;
+    direction: rtl;
+    unicode-bidi: plaintext;
+    width: 78%;
+    float: right;
+    font-weight: normal;
+}
+
+#src_column li, #dest_column li {
+    height: 40px;
+}
+
+#mapper div {
+    height: 40px;
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+}
+
+#mapper div img {
+    height: 30px;
+    width: 40px;
+    margin-top: 5px;
+}
+
+footer {
+    position: relative;
+    height: 75px;
+    width: 100%;
+    background-color: #f8f8f8;
+}
+
+p.copyright {
+    position: absolute;
+    width: 100%;
+    color: black;
+    line-height: 40px;
+    font-size: 1.0em;
+    text-align: center;
+    bottom:0;
+}
+
+.modal-content{
+    border: 0;
+    border-radius: 0;
+}
+
+.modal-header{
+    background: #009688;
+    border:0;
+    color: #fff;
+}
+
+.modal-title{
+    font-weight: 300;
+}
+
+.modal-body .nav-tabs {
+    border-bottom: 0;
+    background: #f2f2f2;
+}
+
+.modal-body .nav-tabs>li>a{
+    border: 0;
+}
+
+.modal-body .nav-tabs>li.active>a,.modal-body .nav-tabs>li.active>a:focus,.modal-body .nav-tabs>li.active>a:hover{
+    background-color: #4caf50;
+    border: 0!important;
+    color: #fff;
+}
+
+.modal .nav>li>a{
+    color: #000000;
+}
+
+.data-filter-header{
+    font-weight: 300;
+    font-size: 20px;
+    border-bottom: 1px solid #ddd!important;
+    margin-right: 15px;
+}
+
+.form-control{
+    border-radius: 0;
+    border-color: #eee;
+}
+
+textarea{
+    border-radius: 0;
+}
+
+.modal input{
+
+}
+
+.form-control:hover,.form-control:focus{
+    box-shadow: none;
+    border-color: #990000;
+}
+
+.modal label{
+    font-weight: 400;
+}
+
+.bg-row{
+    background: #f7f7f7;
+    display:table;
+    width:100%;
+    padding:15px 0;
+    margin-bottom: 30px;
+}
+
+.btn{
+    border-radius: 0!important;
+    border: 0;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.btn-default{
+    background: #eeeeee;
+}
+
+.btn-success{
+    background: #4caf50;
+}
+
+.btn-success:hover,.btn-success:focus{
+    background: #59b75c;
+}
+
+
+label.ui-sortable-handle {
+    font-weight: bold;
+    color: #000000;
+}
+/*
+tr {
+    text-transform: capitalize;
+}
+*/
+.table>tbody>tr.info>td, .table>tbody>tr.info>th, .table>tbody>tr>td.info, .table>tbody>tr>th.info, .table>tfoot>tr.info>td, .table>tfoot>tr.info>th, .table>tfoot>tr>td.info, .table>tfoot>tr>th.info, .table>thead>tr.info>td, .table>thead>tr.info>th, .table>thead>tr>td.info, .table>thead>tr>th.info{
+    background: #eee;
+    /*border: 0;*/
+}
+
+.table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th{
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.table>tbody>tr.success>td, .table>tbody>tr.success>th, .table>tbody>tr>td.success, .table>tbody>tr>th.success, .table>tfoot>tr.success>td, .table>tfoot>tr.success>th, .table>tfoot>tr>td.success, .table>tfoot>tr>th.success, .table>thead>tr.success>td, .table>thead>tr.success>th, .table>thead>tr>td.success, .table>thead>tr>th.success{
+    background: #f7f7f7;
+    /*border:0;*/
+}
+
+.table>tbody>tr.orphan>td, .table>tbody>tr.orphan>th, .table>tbody>tr>td.orphan, .table>tbody>tr>th.orphan, .table>tfoot>tr.orphan>td, .table>tfoot>tr.orphan>th, .table>tfoot>tr>td.orphan, .table>tfoot>tr>th.orphan, .table>thead>tr.orphan>td, .table>thead>tr.orphan>th, .table>thead>tr>td.orphan, .table>thead>tr>th.orphan{
+   /* background:  #d9d9d9;*/
+	background:  #ADD8E6;
+    /*border:0;*/
+}
+
+
+.table-error{
+    color: #d32f2f;
+}
+
+.bootstrap-table .table:not(.table-condensed), .bootstrap-table .table:not(.table-condensed)>tbody>tr>td, .bootstrap-table .table:not(.table-condensed)>tbody>tr>th, .bootstrap-table .table:not(.table-condensed)>tfoot>tr>td, .bootstrap-table .table:not(.table-condensed)>tfoot>tr>th, .bootstrap-table .table:not(.table-condensed)>thead>tr>td{
+    padding: 12px;
+}
+
+.table-hover>tbody>tr.info:hover>td, .table-hover>tbody>tr.info:hover>th, .table-hover>tbody>tr:hover>.info, .table-hover>tbody>tr>td.info:hover, .table-hover>tbody>tr>th.info:hover{
+    background: #ddd;
+}
+
+.table-hover>tbody>tr.success:hover>td, .table-hover>tbody>tr.success:hover>th, .table-hover>tbody>tr:hover>.success, .table-hover>tbody>tr>td.success:hover, .table-hover>tbody>tr>th.success:hover{
+    background: #ddd;
+}
+
+tr > td{
+    font-size: 14px;
+}
+
+.th-inner .glyphicon-ok {
+    font-size: 10px;
+}
+
+.arrow-toggle .fa-chevron-up,
+.arrow-toggle.collapsed .fa-chevron-down {
+    display: inline-block;
+}
+.arrow-toggle.collapsed .fa-chevron-up,
+.arrow-toggle .fa-chevron-down {
+    display: none;
+}

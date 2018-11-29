@@ -1,0 +1,682 @@
+{
+  "sampleData": [
+    [
+      {
+        "col": "name",
+        "value": "Axel Wilkinson",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Vitae Posuere Consulting",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-424-892-4814",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "metus.sit@euodio.net",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "24/09/17",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "Ap #525-205 Vel Avenue",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Ferris Haley",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Nunc Sit Company-bad",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-362-193-1885",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "lorem@Aeneanmassa.ca",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "24/08/16bad",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "637-8532 Vestibulum St.",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Jason Jennings",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "In Molestie Limited-bad",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-156-300-0257",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "dui@orci.ca",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "19/12/16bad",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "512-2333 Dictum Road bad",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Bradley Gomez",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Risus Varius Institute",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-404-734-2081",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "Nunc.commodo.auctor@PhasellusornareFusce.org",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "13/03/16",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "610-2759 Est, St.",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Kane Gross",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Sed Consulting",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-608-914-9118",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "Curabitur.ut.odio@auctorvelitAliquam.net",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "14/03/17",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "Ap #132-7433 Velit Road",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Kane Gross",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Sed Consulting",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-608-914-9118",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "Curabitur.ut.odio@auctorvelitAliquam.net",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "14/03/17",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "Ap #132-7433 Velit Road",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Talon Tran",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Pede Suspendisse Company",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-305-457-4739",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "lacus@nascetur.net",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "15/12/16",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "Ap #930-7544 Elit Ave",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Tanek Hendrix",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Sed Congue Corp.",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-876-946-5431",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "inceptos.hymenaeos@atortor.net",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "23/03/16",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "Ap #504-1398 Sed Rd.",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Lucas Ferrell",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Dolor Dolor Inc.",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-924-193-5199",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "id@diamPellentesque.com",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "11/01/17",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "9778 Ante St.",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Dorian Hayes",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Proin Nisl Sem Incorporated",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-880-331-9994",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "nonummy.ut.molestie@sem.net",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "12/03/17",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "P.O. Box 478, 8719 Etiam St.",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Christian Boyer",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Mauris Limited",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-509-726-3742",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "lorem@interdum.ca",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "30/07/17",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "Ap #932-4228 Euismod Av.",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Anthony Webb",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Urna Justo Faucibus Limited",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-863-788-8586",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "lobortis@Nullaaliquet.org",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "03/05/17",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "135-2738 Nullam Av.",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Anthony Webb",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Urna Justo Faucibus Limited",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-863-788-8586",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "lobortis@Nullaaliquet.org11",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "03/05/1711",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "135-2738 Nullam Av.211",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Bernard Jennings",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Eu Tempor Limited",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-310-459-3280",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "ligula.Nullam@consequat.edu",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "07/07/17",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "P.O. Box 905, 8664 Praesent St.",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Linus Avila",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Curabitur Consequat Lectus Corporation",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-681-535-6611",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "Mauris.non.dui@Nunc.ca",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "03/08/17",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "835-4924 Dolor Ave",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Linus Avila",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Laoreet Libero Et LLP12",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-692-582-248512",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "nibh.dolor@sitametconsectetuer.net",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "19/10/17",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "P.O. Box 958, 5696 Velit Rd.",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Linus Avila",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Facilisis Non Consulting",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-938-166-6223",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "rhoncus@metusVivamuseuismod.edu",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "31/03/17",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "Ap #910-9014 Diam Avenue",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Aristotle Marsh",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Tristique PC",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-782-134-2036",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "vestibulum.massa@lectussit.co.uk",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "27/06/16",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "752-7110 Sagittis Av.",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Kennedy Fisher",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "In Lorem Donec PC",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-641-769-5896",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "condimentum.eget@adipiscing.net",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "02/07/16",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "P.O. Box 856, 2171 Ligula. St.",
+        "colType": "string"
+      }
+    ],
+    [
+      {
+        "col": "name",
+        "value": "Sawyer Long",
+        "colType": "string"
+      },
+      {
+        "col": "company",
+        "value": "Orci Lacus Foundation",
+        "colType": "string"
+      },
+      {
+        "col": "phone",
+        "value": "1-920-137-3088",
+        "colType": "string"
+      },
+      {
+        "col": "email",
+        "value": "fringilla.euismod@porttitorerosnec.com",
+        "colType": "string"
+      },
+      {
+        "col": "date",
+        "value": "11/11/16",
+        "colType": "string"
+      },
+      {
+        "col": "street",
+        "value": "Ap #147-6808 Risus. Rd.",
+        "colType": "string"
+      }
+    ]
+  ],
+  "fileSource": {
+    "srcPath": "/user/cloudera/input/golden_src.csv",
+    "srcFormat": "CSV",
+    "srcDelimiter": ",",
+    "header": true
+  },
+  "schema": [
+    {
+      "name": "name",
+      "dataType": "string",
+      "nullable": true
+    },
+    {
+      "name": "company",
+      "dataType": "string",
+      "nullable": true
+    },
+    {
+      "name": "phone",
+      "dataType": "string",
+      "nullable": true
+    },
+    {
+      "name": "email",
+      "dataType": "string",
+      "nullable": true
+    },
+    {
+      "name": "date",
+      "dataType": "string",
+      "nullable": true
+    },
+    {
+      "name": "street",
+      "dataType": "string",
+      "nullable": true
+    }
+  ]
+}

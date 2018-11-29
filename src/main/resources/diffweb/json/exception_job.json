@@ -1,0 +1,64 @@
+{
+    "beginTime": 1486739996086,
+    "dataMatch": false,
+    "destPath": "",
+    "endTime": 1486739997691,
+    "exception": "Input path does not exist: hdfs://quickstart.cloudera:8020/user/cloudera/input/golden_src.csv",
+    "inputData": {
+        "columnMapping": [
+            {
+                "destColumn": "phone",
+                "srcColumn": "phone"
+            },
+            {
+                "destColumn": "date",
+                "srcColumn": "date"
+            }
+        ],
+        "compareCommonColumnsOnly": false,
+        "destFile": {
+            "excludeColmns": [],
+            "header": true,
+            "srcDelimiter": ",",
+            "srcFormat": "CSV",
+            "srcPath": "/user/cloudera/input/golden_dest.csv",
+            "transformations": []
+        },
+        "matchBoth": true,
+        "primaryKey": [
+            "name"
+        ],
+        "process": true,
+        "srcFile": {
+            "excludeColmns": [
+                "company"
+            ],
+            "header": true,
+            "srcDelimiter": ",",
+            "srcFormat": "CSV",
+            "srcPath": "/user/cloudera/input/golden_src.csv",
+            "transformations": [
+                {
+                    "base64": false,
+                    "column": [
+                        "phone",
+                        "email"
+                    ],
+                    "rule": "if(value != null) value.trim else value"
+                },
+                {
+                    "base64": true,
+                    "column": [
+                        "phone",
+                        "email"
+                    ],
+                    "rule": "aWYodmFsdWUgIT0gbnVsbCkgdmFsdWUudHJpbSBlbHNlIHZhbHVl"
+                }
+            ]
+        },
+        "validateRowsCount": false
+    },
+    "srcPath": "",
+    "submittedTime": 1486739977352,
+    "version": "0.5-Beta - 2017-02-10"
+}

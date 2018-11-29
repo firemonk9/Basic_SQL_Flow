@@ -1,0 +1,2091 @@
+{
+    "dataMatch": false,
+    "differencessForKey": [
+        {
+            "columnsNotMatching": [],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [],
+                    "srcFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "James"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Butt"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "504-621-8927"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "New Orleans"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "70116"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Benton, John B Jr"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "jbutt@gmail.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "LA"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Orleans"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.bentonjohnbjr.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "6649 N Blue Gum St"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "504-845-1427"
+                        }
+                    ]
+                }
+            ],
+            "dest": [],
+            "destRecordsCount": 0,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "James"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Butt"
+                }
+            ],
+            "src": [
+                "Vector(first_name:James \t , last_name:Butt \t , phone1:504-621-8927 \t , city:New Orleans \t , zip:70116 \t , company_name:Benton, John B Jr \t , email:jbutt@gmail.com \t , state:LA \t , county:Orleans \t , web:http://www.bentonjohnbjr.com \t , address:6649 N Blue Gum St \t , phone2:504-845-1427 \t )\n"
+            ],
+            "srcRecordsCount": 1,
+            "totalRecordsMatched": 0
+        },
+        {
+            "columnsNotMatching": [],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [],
+                    "destFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Rozella"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Ostrosky"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "805-832-6163"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Camarillo"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "93012"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Parkway Company"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "rozella.ostrosky@ostrosky.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "CA"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Ventura"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.parkwaycompany.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "17 Morena Blvd"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "805-609-1531"
+                        }
+                    ]
+                }
+            ],
+            "dest": [
+                "Vector(first_name:Rozella \t , last_name:Ostrosky \t , phone1:805-832-6163 \t , city:Camarillo \t , zip:93012 \t , company_name:Parkway Company \t , email:rozella.ostrosky@ostrosky.com \t , state:CA \t , county:Ventura \t , web:http://www.parkwaycompany.com \t , address:17 Morena Blvd \t , phone2:805-609-1531 \t )\n"
+            ],
+            "destRecordsCount": 1,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Rozella"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Ostrosky"
+                }
+            ],
+            "src": [],
+            "srcRecordsCount": 0,
+            "totalRecordsMatched": 0
+        },
+        {
+            "columnsNotMatching": [],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [],
+                    "srcFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Cammy"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Albares"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "956-537-6195"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Laredo"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "78045"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Rousseaux, Michael Esq"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "calbares@gmail.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "TX"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Webb"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.rousseauxmichaelesq.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "56 E Morehead St"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "956-841-7216"
+                        }
+                    ]
+                },
+                {
+                    "badCols": [],
+                    "srcFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Cammy"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Albares"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "956-537-6195"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Laredo"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "78045"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Rousseaux, Michael Esq"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "calbares@gmail.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "TX"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Webb"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.rousseauxmichaelesq.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "56 E Morehead St"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "956-841-7216"
+                        }
+                    ]
+                }
+            ],
+            "dest": [
+                "Vector(first_name:Cammy \t , last_name:Albares \t , phone1:956-537-6195 \t , city:Laredo \t , zip:78045 \t , company_name:Rousseaux, Michael Esq \t , email:calbares@gmail.com \t , state:TX \t , county:Webb \t , web:http://www.rousseauxmichaelesq.com \t , address:56 E Morehead St \t , phone2:956-841-7216 \t )\n"
+            ],
+            "destRecordsCount": 1,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Cammy"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Albares"
+                }
+            ],
+            "src": [
+                "Vector(first_name:Cammy \t , last_name:Albares \t , phone1:956-537-6195 \t , city:Laredo \t , zip:78045 \t , company_name:Rousseaux, Michael Esq \t , email:calbares@gmail.com \t , state:TX \t , county:Webb \t , web:http://www.rousseauxmichaelesq.com \t , address:56 E Morehead St \t , phone2:956-841-7216 \t )\n",
+                "Vector(first_name:Cammy \t , last_name:Albares \t , phone1:956-537-6195 \t , city:Laredo \t , zip:78045 \t , company_name:Rousseaux, Michael Esq \t , email:calbares@gmail.com \t , state:TX \t , county:Webb \t , web:http://www.rousseauxmichaelesq.com \t , address:56 E Morehead St \t , phone2:956-841-7216 \t )\n",
+                "Vector(first_name:Cammy \t , last_name:Albares \t , phone1:956-537-6195 \t , city:Laredo \t , zip:78045 \t , company_name:Rousseaux, Michael Esq \t , email:calbares@gmail.com \t , state:TX \t , county:Webb \t , web:http://www.rousseauxmichaelesq.com \t , address:56 E Morehead St \t , phone2:956-841-7216 \t )\n"
+            ],
+            "srcRecordsCount": 3,
+            "totalRecordsMatched": 1
+        },
+        {
+            "columnsNotMatching": [],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [],
+                    "destFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Minna"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Amigon"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "215-874-1229"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Kulpsvilleqwe"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "19443"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Dorl, James J Esq"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "minna_amigon@yahoo.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "PA"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Montgomer12y"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.dorljamesjesq.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "2371 Jerrold Ave"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "215-422-8694"
+                        }
+                    ]
+                }
+            ],
+            "dest": [
+                "Vector(first_name:Minna \t , last_name:Amigon \t , phone1:215-874-1229 \t , city:Kulpsvilleqwe \t , zip:19443 \t , company_name:Dorl, James J Esq \t , email:minna_amigon@yahoo.com \t , state:PA \t , county:Montgomer12y \t , web:http://www.dorljamesjesq.com \t , address:2371 Jerrold Ave \t , phone2:215-422-8694 \t )\n"
+            ],
+            "destRecordsCount": 1,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Minna"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Amigon"
+                }
+            ],
+            "src": [],
+            "srcRecordsCount": 0,
+            "totalRecordsMatched": 0
+        },
+        {
+            "columnsNotMatching": [],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [],
+                    "destFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Solange"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Shinko"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "504-979-9175"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Metairie"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "70002"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Mosocco, Ronald A"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "solange@shinko.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "LA"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Jefferson"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.mosoccoronalda.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "426 Wolf St"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "504-265-8174"
+                        }
+                    ]
+                }
+            ],
+            "dest": [
+                "Vector(first_name:Solange \t , last_name:Shinko \t , phone1:504-979-9175 \t , city:Metairie \t , zip:70002 \t , company_name:Mosocco, Ronald A \t , email:solange@shinko.com \t , state:LA \t , county:Jefferson \t , web:http://www.mosoccoronalda.com \t , address:426 Wolf St \t , phone2:504-265-8174 \t )\n"
+            ],
+            "destRecordsCount": 1,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Solange"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Shinko"
+                }
+            ],
+            "src": [],
+            "srcRecordsCount": 0,
+            "totalRecordsMatched": 0
+        },
+        {
+            "columnsNotMatching": [
+                "city",
+                "zip"
+            ],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [
+                        "city",
+                        "zip"
+                    ],
+                    "destFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Mitsue"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Tollner"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "773-573-6914"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Chicago"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "60632"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Morlong Associates"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "mitsue_tollner@yahoo.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "IL"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Cook"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.morlongassociates.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "7 Eads St"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "773-924-8565"
+                        }
+                    ],
+                    "srcFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Mitsue"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Tollner"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "773-573-6914"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Chicago_bad"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "606321"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Morlong Associates"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "mitsue_tollner@yahoo.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "IL"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Cook"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.morlongassociates.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "7 Eads St"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "773-924-8565"
+                        }
+                    ]
+                }
+            ],
+            "dest": [
+                "Vector(first_name:Mitsue \t , last_name:Tollner \t , phone1:773-573-6914 \t , city:Chicago \t , zip:60632 \t , company_name:Morlong Associates \t , email:mitsue_tollner@yahoo.com \t , state:IL \t , county:Cook \t , web:http://www.morlongassociates.com \t , address:7 Eads St \t , phone2:773-924-8565 \t )\n"
+            ],
+            "destRecordsCount": 1,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Mitsue"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Tollner"
+                }
+            ],
+            "src": [
+                "Vector(first_name:Mitsue \t , last_name:Tollner \t , phone1:773-573-6914 \t , city:Chicago_bad \t , zip:606321 \t , company_name:Morlong Associates \t , email:mitsue_tollner@yahoo.com \t , state:IL \t , county:Cook \t , web:http://www.morlongassociates.com \t , address:7 Eads St \t , phone2:773-924-8565 \t )\n"
+            ],
+            "srcRecordsCount": 1,
+            "totalRecordsMatched": 1
+        },
+        {
+            "columnsNotMatching": [
+                "zip",
+                "email",
+                "state"
+            ],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [
+                        "zip",
+                        "email",
+                        "state"
+                    ],
+                    "destFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Gladys"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Rim"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "414-661-9598"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Milwaukee"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "532017"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "T M Byxbee Company Pc"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "gladys.rim@rim.org_1"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "WZ"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Milwaukee"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.tmbyxbeecompanypc.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "322 New Horizon Blvd"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "414-377-2880"
+                        }
+                    ],
+                    "srcFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Gladys"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Rim"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "414-661-9598"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Milwaukee"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "53207"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "T M Byxbee Company Pc"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "gladys.rim@rim.org"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "WI"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Milwaukee"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.tmbyxbeecompanypc.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "322 New Horizon Blvd"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "414-377-2880"
+                        }
+                    ]
+                }
+            ],
+            "dest": [
+                "Vector(first_name:Gladys \t , last_name:Rim \t , phone1:414-661-9598 \t , city:Milwaukee \t , zip:532017 \t , company_name:T M Byxbee Company Pc \t , email:gladys.rim@rim.org_1 \t , state:WZ \t , county:Milwaukee \t , web:http://www.tmbyxbeecompanypc.com \t , address:322 New Horizon Blvd \t , phone2:414-377-2880 \t )\n"
+            ],
+            "destRecordsCount": 1,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Gladys"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Rim"
+                }
+            ],
+            "src": [
+                "Vector(first_name:Gladys \t , last_name:Rim \t , phone1:414-661-9598 \t , city:Milwaukee \t , zip:53207 \t , company_name:T M Byxbee Company Pc \t , email:gladys.rim@rim.org \t , state:WI \t , county:Milwaukee \t , web:http://www.tmbyxbeecompanypc.com \t , address:322 New Horizon Blvd \t , phone2:414-377-2880 \t )\n"
+            ],
+            "srcRecordsCount": 1,
+            "totalRecordsMatched": 1
+        },
+        {
+            "columnsNotMatching": [],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [],
+                    "srcFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Leota"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Dilliard"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "408-752-3500"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "San Jose"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "95111"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Commercial Press"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "leota@hotmail.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "CA"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Santa Clara"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.commercialpress.comwer"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "7 W Jackson Blvd"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "408-813-1105"
+                        }
+                    ]
+                }
+            ],
+            "dest": [
+                "Vector(first_name:Leota \t , last_name:Dilliard \t , phone1:408-752-3500 \t , city:San Jose \t , zip:95111 \t , company_name:Commercial Press \t , email:leota@hotmail.com \t , state:CA \t , county:Santa Clara \t , web:http://www.commercialpress.com \t , address:7 W Jackson Blvd \t , phone2:408-813-1105 \t )\n"
+            ],
+            "destRecordsCount": 1,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Leota"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Dilliard"
+                }
+            ],
+            "src": [
+                "Vector(first_name:Leota \t , last_name:Dilliard \t , phone1:408-752-3500 \t , city:San Jose \t , zip:95111 \t , company_name:Commercial Press \t , email:leota@hotmail.com \t , state:CA \t , county:Santa Clara \t , web:http://www.commercialpress.comwer \t , address:7 W Jackson Blvd \t , phone2:408-813-1105 \t )\n",
+                "Vector(first_name:Leota \t , last_name:Dilliard \t , phone1:408-752-3500 \t , city:San Jose \t , zip:95111 \t , company_name:Commercial Press \t , email:leota@hotmail.com \t , state:CA \t , county:Santa Clara \t , web:http://www.commercialpress.com \t , address:7 W Jackson Blvd \t , phone2:408-813-1105 \t )\n"
+            ],
+            "srcRecordsCount": 2,
+            "totalRecordsMatched": 1
+        },
+        {
+            "columnsNotMatching": [
+                "zip",
+                "state"
+            ],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [
+                        "zip",
+                        "state"
+                    ],
+                    "destFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Fletcher"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Flosi"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "815-828-2147"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Rockford"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "61109"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Post Box Services Plus"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "fletcher.flosi@yahoo.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "IL"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Winnebago"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.postboxservicesplus.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "394 Manchester Blvd"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "815-426-5657"
+                        }
+                    ],
+                    "srcFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Fletcher"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Flosi"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "815-828-2147"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Rockford"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "611091"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Post Box Services Plus"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "fletcher.flosi@yahoo.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "ILL"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Winnebago"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.postboxservicesplus.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "394 Manchester Blvd"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "815-426-5657"
+                        }
+                    ]
+                }
+            ],
+            "dest": [
+                "Vector(first_name:Fletcher \t , last_name:Flosi \t , phone1:815-828-2147 \t , city:Rockford \t , zip:61109 \t , company_name:Post Box Services Plus \t , email:fletcher.flosi@yahoo.com \t , state:IL \t , county:Winnebago \t , web:http://www.postboxservicesplus.com \t , address:394 Manchester Blvd \t , phone2:815-426-5657 \t )\n"
+            ],
+            "destRecordsCount": 1,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Fletcher"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Flosi"
+                }
+            ],
+            "src": [
+                "Vector(first_name:Fletcher \t , last_name:Flosi \t , phone1:815-828-2147 \t , city:Rockford \t , zip:611091 \t , company_name:Post Box Services Plus \t , email:fletcher.flosi@yahoo.com \t , state:ILL \t , county:Winnebago \t , web:http://www.postboxservicesplus.com \t , address:394 Manchester Blvd \t , phone2:815-426-5657 \t )\n"
+            ],
+            "srcRecordsCount": 1,
+            "totalRecordsMatched": 1
+        },
+        {
+            "columnsNotMatching": [
+                "city",
+                "address"
+            ],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [
+                        "city",
+                        "address"
+                    ],
+                    "destFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Lenna"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Paprocki"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "907-385-4412"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Anchorage"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "99501"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Feltz Printing Service"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "lpaprocki@hotmail.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "AK"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Anchorage"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.feltzprintingservice.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "639 Main St"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "907-921-2010"
+                        }
+                    ],
+                    "srcFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Lenna"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Paprocki"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "907-385-4412"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Anchorage123"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "99501"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Feltz Printing Service"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "lpaprocki@hotmail.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "AK"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Anchorage"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.feltzprintingservice.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "639 Main St123"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "907-921-2010"
+                        }
+                    ]
+                }
+            ],
+            "dest": [
+                "Vector(first_name:Lenna \t , last_name:Paprocki \t , phone1:907-385-4412 \t , city:Anchorage \t , zip:99501 \t , company_name:Feltz Printing Service \t , email:lpaprocki@hotmail.com \t , state:AK \t , county:Anchorage \t , web:http://www.feltzprintingservice.com \t , address:639 Main St \t , phone2:907-921-2010 \t )\n"
+            ],
+            "destRecordsCount": 1,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Lenna"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Paprocki"
+                }
+            ],
+            "src": [
+                "Vector(first_name:Lenna \t , last_name:Paprocki \t , phone1:907-385-4412 \t , city:Anchorage123 \t , zip:99501 \t , company_name:Feltz Printing Service \t , email:lpaprocki@hotmail.com \t , state:AK \t , county:Anchorage \t , web:http://www.feltzprintingservice.com \t , address:639 Main St123 \t , phone2:907-921-2010 \t )\n"
+            ],
+            "srcRecordsCount": 1,
+            "totalRecordsMatched": 1
+        },
+        {
+            "columnsNotMatching": [],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [],
+                    "destFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Yuki"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Whobrey"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "313-288-7937"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Taylor"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "48180"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Farmers Insurance Group"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "yuki_whobrey@aol.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "MI"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Wayne"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.farmersinsurancegroup.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "1 State Route 27"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "313-341-4470"
+                        }
+                    ]
+                }
+            ],
+            "dest": [
+                "Vector(first_name:Yuki \t , last_name:Whobrey \t , phone1:313-288-7937 \t , city:Taylor \t , zip:48180 \t , company_name:Farmers Insurance Group \t , email:yuki_whobrey@aol.com \t , state:MI \t , county:Wayne \t , web:http://www.farmersinsurancegroup.com \t , address:1 State Route 27 \t , phone2:313-341-4470 \t )\n"
+            ],
+            "destRecordsCount": 1,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Yuki"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Whobrey"
+                }
+            ],
+            "src": [],
+            "srcRecordsCount": 0,
+            "totalRecordsMatched": 0
+        },
+        {
+            "columnsNotMatching": [],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [],
+                    "destFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Jose"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Stockham"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "212-675-8570"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "New York"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "10011"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Tri State Refueler Co"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "jose@yahoo.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "NY"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "New York"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.tristaterefuelerco.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "128 Bransten Rd"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "212-569-4233"
+                        }
+                    ]
+                }
+            ],
+            "dest": [
+                "Vector(first_name:Jose \t , last_name:Stockham \t , phone1:212-675-8570 \t , city:New York \t , zip:10011 \t , company_name:Tri State Refueler Co \t , email:jose@yahoo.com \t , state:NY \t , county:New York \t , web:http://www.tristaterefuelerco.com \t , address:128 Bransten Rd \t , phone2:212-569-4233 \t )\n"
+            ],
+            "destRecordsCount": 1,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Jose"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Stockham"
+                }
+            ],
+            "src": [],
+            "srcRecordsCount": 0,
+            "totalRecordsMatched": 0
+        },
+        {
+            "columnsNotMatching": [],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [],
+                    "destFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Abel"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Maclead"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "631-335-3414"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Middle Island"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "11953"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Rangoni Of Florence"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "amaclead@gmail.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "NY"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Suffolk"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.rangoniofflorence.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "37275 St  Rt 17m M"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "631-677-3675"
+                        }
+                    ]
+                }
+            ],
+            "dest": [
+                "Vector(first_name:Abel \t , last_name:Maclead \t , phone1:631-335-3414 \t , city:Middle Island \t , zip:11953 \t , company_name:Rangoni Of Florence \t , email:amaclead@gmail.com \t , state:NY \t , county:Suffolk \t , web:http://www.rangoniofflorence.com \t , address:37275 St  Rt 17m M \t , phone2:631-677-3675 \t )\n"
+            ],
+            "destRecordsCount": 1,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Abel"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Maclead"
+                }
+            ],
+            "src": [],
+            "srcRecordsCount": 0,
+            "totalRecordsMatched": 0
+        },
+        {
+            "columnsNotMatching": [
+                "city",
+                "county"
+            ],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [
+                        "city",
+                        "county"
+                    ],
+                    "destFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Kris"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Marrier"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "410-655-8723"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Baltimore12312"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "21224"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "King, Christopher A Esq"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "kris@gmail.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "MD"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Baltimore City1213"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.kingchristopheraesq.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "228 Runamuck Pl #2808"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "410-804-4694"
+                        }
+                    ],
+                    "srcFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Kris"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Marrier"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "410-655-8723"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Baltimore"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "21224"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "King, Christopher A Esq"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "kris@gmail.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "MD"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Baltimore City"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.kingchristopheraesq.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "228 Runamuck Pl #2808"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "410-804-4694"
+                        }
+                    ]
+                },
+                {
+                    "badCols": [
+                        "city",
+                        "county"
+                    ],
+                    "destFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Kris"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Marrier"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "410-655-8723"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Baltimore12312"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "21224"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "King, Christopher A Esq"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "kris@gmail.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "MD"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Baltimore City1213"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.kingchristopheraesq.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "228 Runamuck Pl #2808"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "410-804-4694"
+                        }
+                    ],
+                    "srcFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Kris"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Marrier"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "410-655-8723"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Baltimore"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "21224"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "King, Christopher A Esq"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "kris@gmail.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "MD"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Baltimore City"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.kingchristopheraesq.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "228 Runamuck Pl #2808"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "410-804-4694"
+                        }
+                    ]
+                },
+                {
+                    "badCols": [
+                        "city",
+                        "county"
+                    ],
+                    "destFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Kris"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Marrier"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "410-655-8723"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Baltimore12312"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "21224"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "King, Christopher A Esq"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "kris@gmail.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "MD"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Baltimore City1213"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.kingchristopheraesq.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "228 Runamuck Pl #2808"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "410-804-4694"
+                        }
+                    ],
+                    "srcFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Kris"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Marrier"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "410-655-8723"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "Baltimore"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "21224"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "King, Christopher A Esq"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "kris@gmail.com"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "MD"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "Baltimore City"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.kingchristopheraesq.com"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "228 Runamuck Pl #2808"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "410-804-4694"
+                        }
+                    ]
+                }
+            ],
+            "dest": [
+                "Vector(first_name:Kris \t , last_name:Marrier \t , phone1:410-655-8723 \t , city:Baltimore12312 \t , zip:21224 \t , company_name:King, Christopher A Esq \t , email:kris@gmail.com \t , state:MD \t , county:Baltimore City1213 \t , web:http://www.kingchristopheraesq.com \t , address:228 Runamuck Pl #2808 \t , phone2:410-804-4694 \t )\n",
+                "Vector(first_name:Kris \t , last_name:Marrier \t , phone1:410-655-8723 \t , city:Baltimore123 \t , zip:1221224 \t , company_name:King, Christopher A Esq \t , email:kris@gmail.com12 \t , state:MD \t , county:Baltimore City123 \t , web:http://www.kingchristopheraesq.com \t , address:228 Runamuck Pl #2808 \t , phone2:410-804-4694 \t )\n",
+                "Vector(first_name:Kris \t , last_name:Marrier \t , phone1:410-655-8723 \t , city:Baltimore123 \t , zip:21224 \t , company_name:King, Christopher A Esq12 \t , email:kris@gmail.com \t , state:MD \t , county:Baltimore City123 \t , web:http://www.kingchristopheraesq.com \t , address:228 Runamuck Pl #2808 \t , phone2:410-804-4694 \t )\n"
+            ],
+            "destRecordsCount": 3,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Kris"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Marrier"
+                }
+            ],
+            "src": [
+                "Vector(first_name:Kris \t , last_name:Marrier \t , phone1:410-655-8723 \t , city:Baltimore \t , zip:21224 \t , company_name:King, Christopher A Esq \t , email:kris@gmail.com \t , state:MD \t , county:Baltimore City \t , web:http://www.kingchristopheraesq.com \t , address:228 Runamuck Pl #2808 \t , phone2:410-804-4694 \t )\n",
+                "Vector(first_name:Kris \t , last_name:Marrier \t , phone1:410-655-8723 \t , city:Baltimore \t , zip:21224 \t , company_name:King, Christopher A Esq \t , email:kris@gmail.com \t , state:MD \t , county:Baltimore City \t , web:http://www.kingchristopheraesq.com \t , address:228 Runamuck Pl #2808 \t , phone2:410-804-4694 \t )\n",
+                "Vector(first_name:Kris \t , last_name:Marrier \t , phone1:410-655-8723 \t , city:Baltimore \t , zip:21224 \t , company_name:King, Christopher A Esq \t , email:kris@gmail.com \t , state:MD \t , county:Baltimore City \t , web:http://www.kingchristopheraesq.com \t , address:228 Runamuck Pl #2808 \t , phone2:410-804-4694 \t )\n"
+            ],
+            "srcRecordsCount": 3,
+            "totalRecordsMatched": 0
+        },
+        {
+            "columnsNotMatching": [],
+            "computedUnmatchPair": [
+                {
+                    "badCols": [],
+                    "srcFormatted": [
+                        {
+                            "col": "first_name",
+                            "colType": "string",
+                            "value": "Donette"
+                        },
+                        {
+                            "col": "last_name",
+                            "colType": "string",
+                            "value": "Foller"
+                        },
+                        {
+                            "col": "phone1",
+                            "colType": "string",
+                            "value": "513-570-1893"
+                        },
+                        {
+                            "col": "city",
+                            "colType": "string",
+                            "value": "qwqe123"
+                        },
+                        {
+                            "col": "zip",
+                            "colType": "string",
+                            "value": "45011"
+                        },
+                        {
+                            "col": "company_name",
+                            "colType": "string",
+                            "value": "Printing Dimensions"
+                        },
+                        {
+                            "col": "email",
+                            "colType": "string",
+                            "value": "donette.foller@cox.net"
+                        },
+                        {
+                            "col": "state",
+                            "colType": "string",
+                            "value": "OH"
+                        },
+                        {
+                            "col": "county",
+                            "colType": "string",
+                            "value": "qw"
+                        },
+                        {
+                            "col": "web",
+                            "colType": "string",
+                            "value": "http://www.printingdimensions.comwerwe"
+                        },
+                        {
+                            "col": "address",
+                            "colType": "string",
+                            "value": "34 Center St"
+                        },
+                        {
+                            "col": "phone2",
+                            "colType": "string",
+                            "value": "513-549-4561"
+                        }
+                    ]
+                }
+            ],
+            "dest": [],
+            "destRecordsCount": 0,
+            "key": [
+                {
+                    "col": "first_name",
+                    "colType": "string",
+                    "value": "Donette"
+                },
+                {
+                    "col": "last_name",
+                    "colType": "string",
+                    "value": "Foller"
+                }
+            ],
+            "src": [
+                "Vector(first_name:Donette \t , last_name:Foller \t , phone1:513-570-1893 \t , city:qwqe123 \t , zip:45011 \t , company_name:Printing Dimensions \t , email:donette.foller@cox.net \t , state:OH \t , county:qw \t , web:http://www.printingdimensions.comwerwe \t , address:34 Center St \t , phone2:513-549-4561 \t )\n"
+            ],
+            "srcRecordsCount": 1,
+            "totalRecordsMatched": 0
+        }
+    ],
+    "destPath": "/data/input/us-500.csv",
+    "destRowCount": 38,
+    "inputData": {
+        "compareColumns": false,
+        "compareCommonColumnsOnly": false,
+        "destFile": {
+            "excludeColmns": [],
+            "header": true,
+            "srcDelimiter": ",",
+            "srcFormat": "CSV",
+            "srcPath": "/data/input/us-500.csv",
+            "transformations": [],
+            "useOtherSchema": false
+        },
+        "matchBoth": true,
+        "primaryKey": [
+            "first_name",
+            "last_name"
+        ],
+        "process": true,
+        "srcFile": {
+            "excludeColmns": [],
+            "header": true,
+            "srcDelimiter": ",",
+            "srcFormat": "CSV",
+            "srcPath": "/data/input/us-500_1.csv",
+            "transformations": [],
+            "useOtherSchema": false
+        },
+        "validateRowsCount": false
+    },
+    "reason": "TO_BE_IMPLEMENTED",
+    "srcPath": "/data/input/us-500_1.csv",
+    "srcRowCount": 37,
+    "srcSampleStr": "RecordByKey(List(Cell(first_name,James,string), Cell(last_name,Butt,string)),List(),1,0,0,List(Vector(first_name:James \t , last_name:Butt \t , phone1:504-621-8927 \t , city:New Orleans \t , zip:70116 \t , company_name:Benton, John B Jr \t , email:jbutt@gmail.com \t , state:LA \t , county:Orleans \t , web:http://www.bentonjohnbjr.com \t , address:6649 N Blue Gum St \t , phone2:504-845-1427 \t )\n),List(),Some(List(ComputedUnmatchPair(Some(List(Cell(first_name,James,string), Cell(last_name,Butt,string), Cell(phone1,504-621-8927,string), Cell(city,New Orleans,string), Cell(zip,70116,string), Cell(company_name,Benton, John B Jr,string), Cell(email,jbutt@gmail.com,string), Cell(state,LA,string), Cell(county,Orleans,string), Cell(web,http://www.bentonjohnbjr.com,string), Cell(address,6649 N Blue Gum St,string), Cell(phone2,504-845-1427,string))),None,Some(List())))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Rozella,string), Cell(last_name,Ostrosky,string)),List(),0,1,0,List(),List(Vector(first_name:Rozella \t , last_name:Ostrosky \t , phone1:805-832-6163 \t , city:Camarillo \t , zip:93012 \t , company_name:Parkway Company \t , email:rozella.ostrosky@ostrosky.com \t , state:CA \t , county:Ventura \t , web:http://www.parkwaycompany.com \t , address:17 Morena Blvd \t , phone2:805-609-1531 \t )\n),Some(List(ComputedUnmatchPair(None,Some(List(Cell(first_name,Rozella,string), Cell(last_name,Ostrosky,string), Cell(phone1,805-832-6163,string), Cell(city,Camarillo,string), Cell(zip,93012,string), Cell(company_name,Parkway Company,string), Cell(email,rozella.ostrosky@ostrosky.com,string), Cell(state,CA,string), Cell(county,Ventura,string), Cell(web,http://www.parkwaycompany.com,string), Cell(address,17 Morena Blvd,string), Cell(phone2,805-609-1531,string))),Some(List())))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Cammy,string), Cell(last_name,Albares,string)),List(),3,1,1,List(Vector(first_name:Cammy \t , last_name:Albares \t , phone1:956-537-6195 \t , city:Laredo \t , zip:78045 \t , company_name:Rousseaux, Michael Esq \t , email:calbares@gmail.com \t , state:TX \t , county:Webb \t , web:http://www.rousseauxmichaelesq.com \t , address:56 E Morehead St \t , phone2:956-841-7216 \t )\n, Vector(first_name:Cammy \t , last_name:Albares \t , phone1:956-537-6195 \t , city:Laredo \t , zip:78045 \t , company_name:Rousseaux, Michael Esq \t , email:calbares@gmail.com \t , state:TX \t , county:Webb \t , web:http://www.rousseauxmichaelesq.com \t , address:56 E Morehead St \t , phone2:956-841-7216 \t )\n, Vector(first_name:Cammy \t , last_name:Albares \t , phone1:956-537-6195 \t , city:Laredo \t , zip:78045 \t , company_name:Rousseaux, Michael Esq \t , email:calbares@gmail.com \t , state:TX \t , county:Webb \t , web:http://www.rousseauxmichaelesq.com \t , address:56 E Morehead St \t , phone2:956-841-7216 \t )\n),List(Vector(first_name:Cammy \t , last_name:Albares \t , phone1:956-537-6195 \t , city:Laredo \t , zip:78045 \t , company_name:Rousseaux, Michael Esq \t , email:calbares@gmail.com \t , state:TX \t , county:Webb \t , web:http://www.rousseauxmichaelesq.com \t , address:56 E Morehead St \t , phone2:956-841-7216 \t )\n),Some(List(ComputedUnmatchPair(Some(List(Cell(first_name,Cammy,string), Cell(last_name,Albares,string), Cell(phone1,956-537-6195,string), Cell(city,Laredo,string), Cell(zip,78045,string), Cell(company_name,Rousseaux, Michael Esq,string), Cell(email,calbares@gmail.com,string), Cell(state,TX,string), Cell(county,Webb,string), Cell(web,http://www.rousseauxmichaelesq.com,string), Cell(address,56 E Morehead St,string), Cell(phone2,956-841-7216,string))),None,Some(List())), ComputedUnmatchPair(Some(List(Cell(first_name,Cammy,string), Cell(last_name,Albares,string), Cell(phone1,956-537-6195,string), Cell(city,Laredo,string), Cell(zip,78045,string), Cell(company_name,Rousseaux, Michael Esq,string), Cell(email,calbares@gmail.com,string), Cell(state,TX,string), Cell(county,Webb,string), Cell(web,http://www.rousseauxmichaelesq.com,string), Cell(address,56 E Morehead St,string), Cell(phone2,956-841-7216,string))),None,Some(List())))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Minna,string), Cell(last_name,Amigon,string)),List(),0,1,0,List(),List(Vector(first_name:Minna \t , last_name:Amigon \t , phone1:215-874-1229 \t , city:Kulpsvilleqwe \t , zip:19443 \t , company_name:Dorl, James J Esq \t , email:minna_amigon@yahoo.com \t , state:PA \t , county:Montgomer12y \t , web:http://www.dorljamesjesq.com \t , address:2371 Jerrold Ave \t , phone2:215-422-8694 \t )\n),Some(List(ComputedUnmatchPair(None,Some(List(Cell(first_name,Minna,string), Cell(last_name,Amigon,string), Cell(phone1,215-874-1229,string), Cell(city,Kulpsvilleqwe,string), Cell(zip,19443,string), Cell(company_name,Dorl, James J Esq,string), Cell(email,minna_amigon@yahoo.com,string), Cell(state,PA,string), Cell(county,Montgomer12y,string), Cell(web,http://www.dorljamesjesq.com,string), Cell(address,2371 Jerrold Ave,string), Cell(phone2,215-422-8694,string))),Some(List())))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Solange,string), Cell(last_name,Shinko,string)),List(),0,1,0,List(),List(Vector(first_name:Solange \t , last_name:Shinko \t , phone1:504-979-9175 \t , city:Metairie \t , zip:70002 \t , company_name:Mosocco, Ronald A \t , email:solange@shinko.com \t , state:LA \t , county:Jefferson \t , web:http://www.mosoccoronalda.com \t , address:426 Wolf St \t , phone2:504-265-8174 \t )\n),Some(List(ComputedUnmatchPair(None,Some(List(Cell(first_name,Solange,string), Cell(last_name,Shinko,string), Cell(phone1,504-979-9175,string), Cell(city,Metairie,string), Cell(zip,70002,string), Cell(company_name,Mosocco, Ronald A,string), Cell(email,solange@shinko.com,string), Cell(state,LA,string), Cell(county,Jefferson,string), Cell(web,http://www.mosoccoronalda.com,string), Cell(address,426 Wolf St,string), Cell(phone2,504-265-8174,string))),Some(List())))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Mitsue,string), Cell(last_name,Tollner,string)),List(city, zip),1,1,1,List(Vector(first_name:Mitsue \t , last_name:Tollner \t , phone1:773-573-6914 \t , city:Chicago_bad \t , zip:606321 \t , company_name:Morlong Associates \t , email:mitsue_tollner@yahoo.com \t , state:IL \t , county:Cook \t , web:http://www.morlongassociates.com \t , address:7 Eads St \t , phone2:773-924-8565 \t )\n),List(Vector(first_name:Mitsue \t , last_name:Tollner \t , phone1:773-573-6914 \t , city:Chicago \t , zip:60632 \t , company_name:Morlong Associates \t , email:mitsue_tollner@yahoo.com \t , state:IL \t , county:Cook \t , web:http://www.morlongassociates.com \t , address:7 Eads St \t , phone2:773-924-8565 \t )\n),Some(List(ComputedUnmatchPair(Some(List(Cell(first_name,Mitsue,string), Cell(last_name,Tollner,string), Cell(phone1,773-573-6914,string), Cell(city,Chicago_bad,string), Cell(zip,606321,string), Cell(company_name,Morlong Associates,string), Cell(email,mitsue_tollner@yahoo.com,string), Cell(state,IL,string), Cell(county,Cook,string), Cell(web,http://www.morlongassociates.com,string), Cell(address,7 Eads St,string), Cell(phone2,773-924-8565,string))),Some(List(Cell(first_name,Mitsue,string), Cell(last_name,Tollner,string), Cell(phone1,773-573-6914,string), Cell(city,Chicago,string), Cell(zip,60632,string), Cell(company_name,Morlong Associates,string), Cell(email,mitsue_tollner@yahoo.com,string), Cell(state,IL,string), Cell(county,Cook,string), Cell(web,http://www.morlongassociates.com,string), Cell(address,7 Eads St,string), Cell(phone2,773-924-8565,string))),Some(List(city, zip))))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Gladys,string), Cell(last_name,Rim,string)),List(zip, email, state),1,1,1,List(Vector(first_name:Gladys \t , last_name:Rim \t , phone1:414-661-9598 \t , city:Milwaukee \t , zip:53207 \t , company_name:T M Byxbee Company Pc \t , email:gladys.rim@rim.org \t , state:WI \t , county:Milwaukee \t , web:http://www.tmbyxbeecompanypc.com \t , address:322 New Horizon Blvd \t , phone2:414-377-2880 \t )\n),List(Vector(first_name:Gladys \t , last_name:Rim \t , phone1:414-661-9598 \t , city:Milwaukee \t , zip:532017 \t , company_name:T M Byxbee Company Pc \t , email:gladys.rim@rim.org_1 \t , state:WZ \t , county:Milwaukee \t , web:http://www.tmbyxbeecompanypc.com \t , address:322 New Horizon Blvd \t , phone2:414-377-2880 \t )\n),Some(List(ComputedUnmatchPair(Some(List(Cell(first_name,Gladys,string), Cell(last_name,Rim,string), Cell(phone1,414-661-9598,string), Cell(city,Milwaukee,string), Cell(zip,53207,string), Cell(company_name,T M Byxbee Company Pc,string), Cell(email,gladys.rim@rim.org,string), Cell(state,WI,string), Cell(county,Milwaukee,string), Cell(web,http://www.tmbyxbeecompanypc.com,string), Cell(address,322 New Horizon Blvd,string), Cell(phone2,414-377-2880,string))),Some(List(Cell(first_name,Gladys,string), Cell(last_name,Rim,string), Cell(phone1,414-661-9598,string), Cell(city,Milwaukee,string), Cell(zip,532017,string), Cell(company_name,T M Byxbee Company Pc,string), Cell(email,gladys.rim@rim.org_1,string), Cell(state,WZ,string), Cell(county,Milwaukee,string), Cell(web,http://www.tmbyxbeecompanypc.com,string), Cell(address,322 New Horizon Blvd,string), Cell(phone2,414-377-2880,string))),Some(List(zip, email, state))))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Leota,string), Cell(last_name,Dilliard,string)),List(),2,1,1,List(Vector(first_name:Leota \t , last_name:Dilliard \t , phone1:408-752-3500 \t , city:San Jose \t , zip:95111 \t , company_name:Commercial Press \t , email:leota@hotmail.com \t , state:CA \t , county:Santa Clara \t , web:http://www.commercialpress.comwer \t , address:7 W Jackson Blvd \t , phone2:408-813-1105 \t )\n, Vector(first_name:Leota \t , last_name:Dilliard \t , phone1:408-752-3500 \t , city:San Jose \t , zip:95111 \t , company_name:Commercial Press \t , email:leota@hotmail.com \t , state:CA \t , county:Santa Clara \t , web:http://www.commercialpress.com \t , address:7 W Jackson Blvd \t , phone2:408-813-1105 \t )\n),List(Vector(first_name:Leota \t , last_name:Dilliard \t , phone1:408-752-3500 \t , city:San Jose \t , zip:95111 \t , company_name:Commercial Press \t , email:leota@hotmail.com \t , state:CA \t , county:Santa Clara \t , web:http://www.commercialpress.com \t , address:7 W Jackson Blvd \t , phone2:408-813-1105 \t )\n),Some(List(ComputedUnmatchPair(Some(List(Cell(first_name,Leota,string), Cell(last_name,Dilliard,string), Cell(phone1,408-752-3500,string), Cell(city,San Jose,string), Cell(zip,95111,string), Cell(company_name,Commercial Press,string), Cell(email,leota@hotmail.com,string), Cell(state,CA,string), Cell(county,Santa Clara,string), Cell(web,http://www.commercialpress.comwer,string), Cell(address,7 W Jackson Blvd,string), Cell(phone2,408-813-1105,string))),None,Some(List())))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Fletcher,string), Cell(last_name,Flosi,string)),List(zip, state),1,1,1,List(Vector(first_name:Fletcher \t , last_name:Flosi \t , phone1:815-828-2147 \t , city:Rockford \t , zip:611091 \t , company_name:Post Box Services Plus \t , email:fletcher.flosi@yahoo.com \t , state:ILL \t , county:Winnebago \t , web:http://www.postboxservicesplus.com \t , address:394 Manchester Blvd \t , phone2:815-426-5657 \t )\n),List(Vector(first_name:Fletcher \t , last_name:Flosi \t , phone1:815-828-2147 \t , city:Rockford \t , zip:61109 \t , company_name:Post Box Services Plus \t , email:fletcher.flosi@yahoo.com \t , state:IL \t , county:Winnebago \t , web:http://www.postboxservicesplus.com \t , address:394 Manchester Blvd \t , phone2:815-426-5657 \t )\n),Some(List(ComputedUnmatchPair(Some(List(Cell(first_name,Fletcher,string), Cell(last_name,Flosi,string), Cell(phone1,815-828-2147,string), Cell(city,Rockford,string), Cell(zip,611091,string), Cell(company_name,Post Box Services Plus,string), Cell(email,fletcher.flosi@yahoo.com,string), Cell(state,ILL,string), Cell(county,Winnebago,string), Cell(web,http://www.postboxservicesplus.com,string), Cell(address,394 Manchester Blvd,string), Cell(phone2,815-426-5657,string))),Some(List(Cell(first_name,Fletcher,string), Cell(last_name,Flosi,string), Cell(phone1,815-828-2147,string), Cell(city,Rockford,string), Cell(zip,61109,string), Cell(company_name,Post Box Services Plus,string), Cell(email,fletcher.flosi@yahoo.com,string), Cell(state,IL,string), Cell(county,Winnebago,string), Cell(web,http://www.postboxservicesplus.com,string), Cell(address,394 Manchester Blvd,string), Cell(phone2,815-426-5657,string))),Some(List(zip, state))))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Lenna,string), Cell(last_name,Paprocki,string)),List(city, address),1,1,1,List(Vector(first_name:Lenna \t , last_name:Paprocki \t , phone1:907-385-4412 \t , city:Anchorage123 \t , zip:99501 \t , company_name:Feltz Printing Service \t , email:lpaprocki@hotmail.com \t , state:AK \t , county:Anchorage \t , web:http://www.feltzprintingservice.com \t , address:639 Main St123 \t , phone2:907-921-2010 \t )\n),List(Vector(first_name:Lenna \t , last_name:Paprocki \t , phone1:907-385-4412 \t , city:Anchorage \t , zip:99501 \t , company_name:Feltz Printing Service \t , email:lpaprocki@hotmail.com \t , state:AK \t , county:Anchorage \t , web:http://www.feltzprintingservice.com \t , address:639 Main St \t , phone2:907-921-2010 \t )\n),Some(List(ComputedUnmatchPair(Some(List(Cell(first_name,Lenna,string), Cell(last_name,Paprocki,string), Cell(phone1,907-385-4412,string), Cell(city,Anchorage123,string), Cell(zip,99501,string), Cell(company_name,Feltz Printing Service,string), Cell(email,lpaprocki@hotmail.com,string), Cell(state,AK,string), Cell(county,Anchorage,string), Cell(web,http://www.feltzprintingservice.com,string), Cell(address,639 Main St123,string), Cell(phone2,907-921-2010,string))),Some(List(Cell(first_name,Lenna,string), Cell(last_name,Paprocki,string), Cell(phone1,907-385-4412,string), Cell(city,Anchorage,string), Cell(zip,99501,string), Cell(company_name,Feltz Printing Service,string), Cell(email,lpaprocki@hotmail.com,string), Cell(state,AK,string), Cell(county,Anchorage,string), Cell(web,http://www.feltzprintingservice.com,string), Cell(address,639 Main St,string), Cell(phone2,907-921-2010,string))),Some(List(city, address))))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Yuki,string), Cell(last_name,Whobrey,string)),List(),0,1,0,List(),List(Vector(first_name:Yuki \t , last_name:Whobrey \t , phone1:313-288-7937 \t , city:Taylor \t , zip:48180 \t , company_name:Farmers Insurance Group \t , email:yuki_whobrey@aol.com \t , state:MI \t , county:Wayne \t , web:http://www.farmersinsurancegroup.com \t , address:1 State Route 27 \t , phone2:313-341-4470 \t )\n),Some(List(ComputedUnmatchPair(None,Some(List(Cell(first_name,Yuki,string), Cell(last_name,Whobrey,string), Cell(phone1,313-288-7937,string), Cell(city,Taylor,string), Cell(zip,48180,string), Cell(company_name,Farmers Insurance Group,string), Cell(email,yuki_whobrey@aol.com,string), Cell(state,MI,string), Cell(county,Wayne,string), Cell(web,http://www.farmersinsurancegroup.com,string), Cell(address,1 State Route 27,string), Cell(phone2,313-341-4470,string))),Some(List())))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Jose,string), Cell(last_name,Stockham,string)),List(),0,1,0,List(),List(Vector(first_name:Jose \t , last_name:Stockham \t , phone1:212-675-8570 \t , city:New York \t , zip:10011 \t , company_name:Tri State Refueler Co \t , email:jose@yahoo.com \t , state:NY \t , county:New York \t , web:http://www.tristaterefuelerco.com \t , address:128 Bransten Rd \t , phone2:212-569-4233 \t )\n),Some(List(ComputedUnmatchPair(None,Some(List(Cell(first_name,Jose,string), Cell(last_name,Stockham,string), Cell(phone1,212-675-8570,string), Cell(city,New York,string), Cell(zip,10011,string), Cell(company_name,Tri State Refueler Co,string), Cell(email,jose@yahoo.com,string), Cell(state,NY,string), Cell(county,New York,string), Cell(web,http://www.tristaterefuelerco.com,string), Cell(address,128 Bransten Rd,string), Cell(phone2,212-569-4233,string))),Some(List())))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Abel,string), Cell(last_name,Maclead,string)),List(),0,1,0,List(),List(Vector(first_name:Abel \t , last_name:Maclead \t , phone1:631-335-3414 \t , city:Middle Island \t , zip:11953 \t , company_name:Rangoni Of Florence \t , email:amaclead@gmail.com \t , state:NY \t , county:Suffolk \t , web:http://www.rangoniofflorence.com \t , address:37275 St  Rt 17m M \t , phone2:631-677-3675 \t )\n),Some(List(ComputedUnmatchPair(None,Some(List(Cell(first_name,Abel,string), Cell(last_name,Maclead,string), Cell(phone1,631-335-3414,string), Cell(city,Middle Island,string), Cell(zip,11953,string), Cell(company_name,Rangoni Of Florence,string), Cell(email,amaclead@gmail.com,string), Cell(state,NY,string), Cell(county,Suffolk,string), Cell(web,http://www.rangoniofflorence.com,string), Cell(address,37275 St  Rt 17m M,string), Cell(phone2,631-677-3675,string))),Some(List())))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Kris,string), Cell(last_name,Marrier,string)),List(city, county),3,3,0,List(Vector(first_name:Kris \t , last_name:Marrier \t , phone1:410-655-8723 \t , city:Baltimore \t , zip:21224 \t , company_name:King, Christopher A Esq \t , email:kris@gmail.com \t , state:MD \t , county:Baltimore City \t , web:http://www.kingchristopheraesq.com \t , address:228 Runamuck Pl #2808 \t , phone2:410-804-4694 \t )\n, Vector(first_name:Kris \t , last_name:Marrier \t , phone1:410-655-8723 \t , city:Baltimore \t , zip:21224 \t , company_name:King, Christopher A Esq \t , email:kris@gmail.com \t , state:MD \t , county:Baltimore City \t , web:http://www.kingchristopheraesq.com \t , address:228 Runamuck Pl #2808 \t , phone2:410-804-4694 \t )\n, Vector(first_name:Kris \t , last_name:Marrier \t , phone1:410-655-8723 \t , city:Baltimore \t , zip:21224 \t , company_name:King, Christopher A Esq \t , email:kris@gmail.com \t , state:MD \t , county:Baltimore City \t , web:http://www.kingchristopheraesq.com \t , address:228 Runamuck Pl #2808 \t , phone2:410-804-4694 \t )\n),List(Vector(first_name:Kris \t , last_name:Marrier \t , phone1:410-655-8723 \t , city:Baltimore12312 \t , zip:21224 \t , company_name:King, Christopher A Esq \t , email:kris@gmail.com \t , state:MD \t , county:Baltimore City1213 \t , web:http://www.kingchristopheraesq.com \t , address:228 Runamuck Pl #2808 \t , phone2:410-804-4694 \t )\n, Vector(first_name:Kris \t , last_name:Marrier \t , phone1:410-655-8723 \t , city:Baltimore123 \t , zip:1221224 \t , company_name:King, Christopher A Esq \t , email:kris@gmail.com12 \t , state:MD \t , county:Baltimore City123 \t , web:http://www.kingchristopheraesq.com \t , address:228 Runamuck Pl #2808 \t , phone2:410-804-4694 \t )\n, Vector(first_name:Kris \t , last_name:Marrier \t , phone1:410-655-8723 \t , city:Baltimore123 \t , zip:21224 \t , company_name:King, Christopher A Esq12 \t , email:kris@gmail.com \t , state:MD \t , county:Baltimore City123 \t , web:http://www.kingchristopheraesq.com \t , address:228 Runamuck Pl #2808 \t , phone2:410-804-4694 \t )\n),Some(List(ComputedUnmatchPair(Some(List(Cell(first_name,Kris,string), Cell(last_name,Marrier,string), Cell(phone1,410-655-8723,string), Cell(city,Baltimore,string), Cell(zip,21224,string), Cell(company_name,King, Christopher A Esq,string), Cell(email,kris@gmail.com,string), Cell(state,MD,string), Cell(county,Baltimore City,string), Cell(web,http://www.kingchristopheraesq.com,string), Cell(address,228 Runamuck Pl #2808,string), Cell(phone2,410-804-4694,string))),Some(List(Cell(first_name,Kris,string), Cell(last_name,Marrier,string), Cell(phone1,410-655-8723,string), Cell(city,Baltimore12312,string), Cell(zip,21224,string), Cell(company_name,King, Christopher A Esq,string), Cell(email,kris@gmail.com,string), Cell(state,MD,string), Cell(county,Baltimore City1213,string), Cell(web,http://www.kingchristopheraesq.com,string), Cell(address,228 Runamuck Pl #2808,string), Cell(phone2,410-804-4694,string))),Some(List(city, county))), ComputedUnmatchPair(Some(List(Cell(first_name,Kris,string), Cell(last_name,Marrier,string), Cell(phone1,410-655-8723,string), Cell(city,Baltimore,string), Cell(zip,21224,string), Cell(company_name,King, Christopher A Esq,string), Cell(email,kris@gmail.com,string), Cell(state,MD,string), Cell(county,Baltimore City,string), Cell(web,http://www.kingchristopheraesq.com,string), Cell(address,228 Runamuck Pl #2808,string), Cell(phone2,410-804-4694,string))),Some(List(Cell(first_name,Kris,string), Cell(last_name,Marrier,string), Cell(phone1,410-655-8723,string), Cell(city,Baltimore12312,string), Cell(zip,21224,string), Cell(company_name,King, Christopher A Esq,string), Cell(email,kris@gmail.com,string), Cell(state,MD,string), Cell(county,Baltimore City1213,string), Cell(web,http://www.kingchristopheraesq.com,string), Cell(address,228 Runamuck Pl #2808,string), Cell(phone2,410-804-4694,string))),Some(List(city, county))), ComputedUnmatchPair(Some(List(Cell(first_name,Kris,string), Cell(last_name,Marrier,string), Cell(phone1,410-655-8723,string), Cell(city,Baltimore,string), Cell(zip,21224,string), Cell(company_name,King, Christopher A Esq,string), Cell(email,kris@gmail.com,string), Cell(state,MD,string), Cell(county,Baltimore City,string), Cell(web,http://www.kingchristopheraesq.com,string), Cell(address,228 Runamuck Pl #2808,string), Cell(phone2,410-804-4694,string))),Some(List(Cell(first_name,Kris,string), Cell(last_name,Marrier,string), Cell(phone1,410-655-8723,string), Cell(city,Baltimore12312,string), Cell(zip,21224,string), Cell(company_name,King, Christopher A Esq,string), Cell(email,kris@gmail.com,string), Cell(state,MD,string), Cell(county,Baltimore City1213,string), Cell(web,http://www.kingchristopheraesq.com,string), Cell(address,228 Runamuck Pl #2808,string), Cell(phone2,410-804-4694,string))),Some(List(city, county))))),None,None,None)  \n  RecordByKey(List(Cell(first_name,Donette,string), Cell(last_name,Foller,string)),List(),1,0,0,List(Vector(first_name:Donette \t , last_name:Foller \t , phone1:513-570-1893 \t , city:qwqe123 \t , zip:45011 \t , company_name:Printing Dimensions \t , email:donette.foller@cox.net \t , state:OH \t , county:qw \t , web:http://www.printingdimensions.comwerwe \t , address:34 Center St \t , phone2:513-549-4561 \t )\n),List(),Some(List(ComputedUnmatchPair(Some(List(Cell(first_name,Donette,string), Cell(last_name,Foller,string), Cell(phone1,513-570-1893,string), Cell(city,qwqe123,string), Cell(zip,45011,string), Cell(company_name,Printing Dimensions,string), Cell(email,donette.foller@cox.net,string), Cell(state,OH,string), Cell(county,qw,string), Cell(web,http://www.printingdimensions.comwerwe,string), Cell(address,34 Center St,string), Cell(phone2,513-549-4561,string))),None,Some(List())))),None,None,None)",
+    "stats": {
+        "columnsNotMatching": {
+            "address": 1,
+            "city": 5,
+            "county": 3,
+            "email": 1,
+            "state": 2,
+            "zip": 3
+        },
+        "columnsNotMatchingMap": {
+            "": 3,
+            "city####address": 1,
+            "city####county": 3,
+            "city####zip": 1,
+            "zip####email####state": 1,
+            "zip####state": 1
+        },
+        "destDuplicateRecords": -1,
+        "destKeyCount": 30,
+        "destRecordsCount": 38,
+        "srcDuplicateRecords": -1,
+        "srcKeyCount": 30,
+        "srcRecordsCount": 37,
+        "totalDestRecordsMatching": 25,
+        "totalDestRecordsNotMatching": 13,
+        "totalSrcRecordsMatching": 25,
+        "totalSrcRecordsNotMatching": 12
+    }
+}

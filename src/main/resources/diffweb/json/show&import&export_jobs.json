@@ -1,0 +1,139 @@
+{
+  "summaryList": [
+    {
+    "result": true,
+    "sourceCount": 3,
+    "beginTime": 0,
+    "endTime": 0,
+    "destCount": 3,
+    "jobId": "564321384828190-DIFF-0",
+    "submittedTime": 0,
+    "input": {
+      "compareColumns": false,
+      "compareCommonColumnsOnly": false,
+      "process": true,
+      "matchBoth": true,
+      "primaryKey": ["A"],
+      "validateRowsCount": true,
+      "destFile": {
+        "useOtherSchema": false,
+        "excludeColmns": [],
+        "srcPath": "/data/input/a.csv",
+        "transformations": [],
+        "header": true,
+        "srcFormat": "CSV",
+        "srcDelimiter": ","
+      },
+      "srcFile": {
+        "useOtherSchema": false,
+        "excludeColmns": [],
+        "srcPath": "/data/input/a.csv",
+        "transformations": [],
+        "header": true,
+        "srcFormat": "CSV",
+        "srcDelimiter": ","
+      }
+    }
+  }, {
+    "result": false,
+    "sourceCount": 4,
+    "beginTime": 0,
+    "endTime": 0,
+    "destCount": 4,
+    "jobId": "564585240108384-DIFF-0",
+    "submittedTime": 0,
+    "input": {
+      "compareColumns": false,
+      "compareCommonColumnsOnly": false,
+      "process": true,
+      "matchBoth": true,
+      "primaryKey": ["name"],
+      "validateRowsCount": true,
+      "destFile": {
+        "useOtherSchema": false,
+        "excludeColmns": [],
+        "srcPath": "/data/input/person.csv",
+        "transformations": [],
+        "header": true,
+        "srcFormat": "CSV",
+        "srcDelimiter": ","
+      },
+      "srcFile": {
+        "useOtherSchema": false,
+        "excludeColmns": [],
+        "srcPath": "/data/input/person1.csv",
+        "transformations": [],
+        "header": true,
+        "srcFormat": "CSV",
+        "srcDelimiter": ","
+      }
+    }
+  }, {
+    "result": true,
+    "sourceCount": 3,
+    "beginTime": 0,
+    "endTime": 0,
+    "destCount": 3,
+    "jobId": "125394724530082-DIFF-1",
+    "submittedTime": 0,
+    "input": {
+      "compareColumns": false,
+      "compareCommonColumnsOnly": false,
+      "process": true,
+      "matchBoth": true,
+      "validateRowsCount": true,
+      "destFile": {
+        "useOtherSchema": false,
+        "excludeColmns": [],
+        "srcPath": "/data/input/a.csv",
+        "transformations": [],
+        "header": true,
+        "srcFormat": "CSV",
+        "srcDelimiter": ","
+      },
+      "srcFile": {
+        "useOtherSchema": false,
+        "excludeColmns": [],
+        "srcPath": "/data/input/a.csv",
+        "transformations": [],
+        "header": true,
+        "srcFormat": "CSV",
+        "srcDelimiter": ","
+      }
+    }
+  }, {
+    "result": true,
+    "sourceCount": 3,
+    "beginTime": 0,
+    "endTime": 0,
+    "destCount": 3,
+    "jobId": "156087644312846-DIFF-0",
+    "submittedTime": 0,
+    "input": {
+      "compareColumns": false,
+      "compareCommonColumnsOnly": false,
+      "process": true,
+      "matchBoth": true,
+      "primaryKey": ["A"],
+      "validateRowsCount": true,
+      "destFile": {
+        "useOtherSchema": false,
+        "excludeColmns": [],
+        "srcPath": "/data/input/a.csv",
+        "transformations": [],
+        "header": true,
+        "srcFormat": "CSV",
+        "srcDelimiter": ","
+      },
+      "srcFile": {
+        "useOtherSchema": false,
+        "excludeColmns": [],
+        "srcPath": "/data/input/a.csv",
+        "transformations": [],
+        "header": true,
+        "srcFormat": "CSV",
+        "srcDelimiter": ","
+      }
+    }
+  }]
+}
