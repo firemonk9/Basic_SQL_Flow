@@ -21,7 +21,8 @@ Clone the Repo from URL:
 
 ```git clone <URL>```
 
-### Prerequisites
+### Prerequisites for development
+
 
 * Java8
 * Java editor (Intellij preferred)

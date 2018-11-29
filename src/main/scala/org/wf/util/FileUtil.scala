@@ -1,7 +1,6 @@
 package org.wf.util
 
 import java.io._
-import javax.security.auth.kerberos.KerberosKey
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.Path

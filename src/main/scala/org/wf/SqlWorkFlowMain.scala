@@ -1,11 +1,11 @@
 package org.wf
 
-//org.diff.DataDiffTool
+
 import java.io.ByteArrayOutputStream
-import javax.xml.bind.DatatypeConverter
+
 import org.apache.spark.sql.{SQLContext, SparkSession}
-import org.common.{DiffToolJsonParser, JobsExecutor}
 import org.common.model._
+import org.common.{DiffToolJsonParser, JobsExecutor}
 import org.wf.util.FileUtil
 
 /**
@@ -19,7 +19,7 @@ object SqlWorkFlowMain extends SparkInit with DiffToolJsonParser {
   var jobId: String = null
   var execId: String = null
   var projectId: String = null
-  var base64enCoded: Boolean = false
+  //  var base64enCoded: Boolean = false
   var exceptionOccured: Boolean = false
 
   def setSparkContext(lsparkContext: SparkSession): Unit = {
@@ -35,7 +35,7 @@ object SqlWorkFlowMain extends SparkInit with DiffToolJsonParser {
 
     val inputDiffPropsFile = argsMap.getOrElse("INPUT_FILE", "")
 
-    val debug = argsMap.get("DEBUG")
+    val debug = if (argsMap.getOrElse("DEBUG", "false") == "true") true else false
     val local = if (argsMap.getOrElse("local", "false") == "true") true else false
     val spark = if (sparkContextLivy != null) {
       sparkContextLivy
@@ -58,7 +58,7 @@ object SqlWorkFlowMain extends SparkInit with DiffToolJsonParser {
     val hdfsOutput: Boolean = if (argsMap.getOrElse("HDFS_OUTPUT", "true") == "true") true else false
 
     try {
-      processDiff1(inputDiffPropsFile, sQLContext, machineConsumable1 = false, hdfsOutput)
+      processFlow(inputDiffPropsFile, sQLContext, hdfsOutput, debug)
     } catch {
       case e: Exception => e.printStackTrace(); throw e;
     } finally {
@@ -67,14 +67,11 @@ object SqlWorkFlowMain extends SparkInit with DiffToolJsonParser {
   }
 
 
-  def processDiff1(inputFile: String, sqlContext: SQLContext, machineConsumable1: Boolean = true, hdfsOutput: Boolean = true): Unit = {
-    val jsonContent = if (base64enCoded) {
-      Some(new String(DatatypeConverter.parseBase64Binary(inputFile), "utf-8"))
-    } else if (hdfsOutput) org.wf.util.FileUtil.getFileContent(inputFile, sqlContext.sparkContext.hadoopConfiguration) else Some(scala.io.Source.fromFile(inputFile).getLines().mkString)
+  def processFlow(inputFile: String, sqlContext: SQLContext, hdfsOutput: Boolean = true, debug: Boolean): Unit = {
+    val jsonContent = if (hdfsOutput) org.wf.util.FileUtil.getFileContent(inputFile, sqlContext.sparkContext.hadoopConfiguration) else Some(scala.io.Source.fromFile(inputFile).getLines().mkString)
     val filesCompare: InputFlow = if (jsonContent.isDefined) readDataTaskChainsJson(jsonContent.get) else throw new IllegalArgumentException("unable to read input JSON " + inputFile)
-    org.common.JobsExecutor.init(sqlContext)
-    JobsExecutor.processChains(filesCompare, sqlContext)
-//    exceptionOccured = res.exception
+    new JobsExecutor(filesCompare, sqlContext, debug).processChains()
+
   }
 
   def writeToFile(jsonStr: String, filePath: Option[String], hdfsOutput: Boolean, sqlContext: SQLContext): Unit = {

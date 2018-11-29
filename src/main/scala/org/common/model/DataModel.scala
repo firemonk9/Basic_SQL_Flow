@@ -91,6 +91,17 @@ object StatusMsg{
   val STARTED:String = "STARTED"
   val EXCEPTION:String = "EXCEPTION"
   val COMPLETED:String = "COMPLETED"
+  val PROCESSING:String = "PROCESSING"
   val TABLE_COUNT:String = "TABLE_COUNT"
+
+}
+
+object SqlJobTypes{
+  val FILTER:String = "FILTER"
+  val TRANSFORMATION:String = "TRANSFORMATION"
+  val INPUT_SOURCE:String = "INPUT_SOURCE"
+  val OUTPUT_SOURCE:String = "OUTPUT_SOURCE"
+  val JOIN:String = "JOIN"
+
 
 }

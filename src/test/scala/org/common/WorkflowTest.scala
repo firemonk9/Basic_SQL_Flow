@@ -1,14 +1,12 @@
 package org.common
 
-import java.nio.file.Paths
+import java.nio.file.{Files, Paths}
 
 import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.functions.expr
-import org.common.{DiffToolJsonParser, JobsExecutor}
 import org.common.model._
-import org.wf.WorkFlowUtil
-import org.wf.WorkFlowUtil.getDelimiter
 import org.scalatest.{BeforeAndAfterAll, FunSuite}
+import org.wf.SqlWorkFlowMain
+import org.wf.util.FileUtil
 
 class WorkflowTest extends FunSuite with BaseTestModule with BeforeAndAfterAll with DiffToolJsonParser {
 
@@ -24,12 +22,10 @@ class WorkflowTest extends FunSuite with BaseTestModule with BeforeAndAfterAll w
 
   override def afterAll() {
     vv.sc.stop()
-    // println("After!") // shut down the web server
   }
 
   test("basic flow 1") {
     val sqlContext = vv.sqlContext //new org.apache.spark.sql.SQLContext(vv.sc)
-    import sqlContext.implicits._
 
     val basePath = Paths.get(this.getClass().getResource("/sample_data/").toURI()).toAbsolutePath.toString
     val job1 = Job("source1", sourceData = Some(FileSource(basePath + "/golden_src.csv", "CSV", header = Some(true))), jobOutputTableName = Some("source1"))
@@ -37,9 +33,9 @@ class WorkflowTest extends FunSuite with BaseTestModule with BeforeAndAfterAll w
     val job3 = Job("output", dependsOn = Some(List("filter")), output = Some(FileSource(basePath + "/golden_src_temp1.csv", "CSV", header = Some(true), tableNameMap = Some(Map("source1_filter" -> (basePath + "/golden_src_temp1.csv"))))))
 
     val stringToJob = Map("source1" -> job1, "filter" -> job2, "output" -> job3)
-    JobsExecutor.processChains(InputFlow("output", stringToJob, flowName = "my_temp"), sqlContext)
-    val df1 = sqlContext.read.format("com.databricks.spark.csv").option("header", "true").load(basePath + "/golden_src.csv") //.save(outputDir)
-    val df2 = sqlContext.read.format("com.databricks.spark.csv").option("header", "true").load(basePath + "/golden_src_temp1.csv") //.save(outputDir)
+    new JobsExecutor(InputFlow("output", stringToJob, flowName = "my_temp"), sqlContext).processChains()
+    val df1 = sqlContext.read.format("csv").option("header", "true").load(basePath + "/golden_src.csv") //.save(outputDir)
+    val df2 = sqlContext.read.format("csv").option("header", "true").load(basePath + "/golden_src_temp1.csv") //.save(outputDir)
 
     val df3 = df1.except(df2)
     assert(df3.count() == 0)
@@ -48,7 +44,6 @@ class WorkflowTest extends FunSuite with BaseTestModule with BeforeAndAfterAll w
 
   test("basic flow with filter some data ") {
     val sqlContext = vv.sqlContext //new org.apache.spark.sql.SQLContext(vv.sc)
-    import sqlContext.implicits._
 
     val basePath = Paths.get(this.getClass().getResource("/sample_data/").toURI()).toAbsolutePath.toString
     val job1 = Job("source1", sourceData = Some(FileSource(basePath + "/golden_src.csv", "CSV", header = Some(true))), jobOutputTableName = Some("source1"))
@@ -56,9 +51,9 @@ class WorkflowTest extends FunSuite with BaseTestModule with BeforeAndAfterAll w
     val job3 = Job("output", dependsOn = Some(List("filter")), output = Some(FileSource(basePath + "/golden_src_temp1.csv", "CSV", header = Some(true), tableNameMap = Some(Map("source1_filter" -> (basePath + "/golden_src_temp1.csv"))))))
 
     val stringToJob = Map("source1" -> job1, "filter" -> job2, "output" -> job3)
-    JobsExecutor.processChains(InputFlow("output", stringToJob, flowName = "my_temp"), sqlContext)
-    val df1 = sqlContext.read.format("com.databricks.spark.csv").option("header", "true").load(basePath + "/golden_src.csv") //.save(outputDir)
-    val df2 = sqlContext.read.format("com.databricks.spark.csv").option("header", "true").load(basePath + "/golden_src_temp1.csv") //.save(outputDir)
+    new JobsExecutor(InputFlow("output", stringToJob, flowName = "my_temp"), sqlContext).processChains()
+    val df1 = sqlContext.read.format("csv").option("header", "true").load(basePath + "/golden_src.csv") //.save(outputDir)
+    val df2 = sqlContext.read.format("csv").option("header", "true").load(basePath + "/golden_src_temp1.csv") //.save(outputDir)
 
     val df3 = df1.except(df2)
     assert(df3.count() == 3)
@@ -68,7 +63,6 @@ class WorkflowTest extends FunSuite with BaseTestModule with BeforeAndAfterAll w
 
   test("basic flow with filter and transforamtion ") {
     val sqlContext = vv.sqlContext //new org.apache.spark.sql.SQLContext(vv.sc)
-    import sqlContext.implicits._
 
     val basePath = Paths.get(this.getClass().getResource("/sample_data/").toURI()).toAbsolutePath.toString
     val job1 = Job("source1", sourceData = Some(FileSource(basePath + "/golden_src.csv", "CSV", header = Some(true))), jobOutputTableName = Some("source1"))
@@ -83,9 +77,12 @@ class WorkflowTest extends FunSuite with BaseTestModule with BeforeAndAfterAll w
 
     val jsonStr = writeDataTaskChainsJson(flow)
     println(jsonStr)
+    val tempPath = System.getProperty("java.io.tmpdir") + "/" + System.nanoTime() + ".json"
+    FileUtil.writeToTextFile(tempPath, jsonStr)
+    SqlWorkFlowMain.processFlow(tempPath, sqlContext, false, true)
+    Files.deleteIfExists(Paths.get(tempPath))
 
-    JobsExecutor.processChains(flow, sqlContext)
-    val df1 = sqlContext.read.format("com.databricks.spark.csv").option("header", "true").load(basePath + "/golden_src.csv") //.save(outputDir)
+    val df1 = sqlContext.read.format("csv").option("header", "true").load(basePath + "/golden_src.csv") //.save(outputDir)
     val wf_produced_output = sqlContext.read.parquet(basePath + "/" + tempOutputFile + ".csv") //.save(outputDir)
 
     df1.createOrReplaceTempView("t2")
@@ -107,7 +104,6 @@ class WorkflowTest extends FunSuite with BaseTestModule with BeforeAndAfterAll w
 
   test("test filter transform and join") {
     val sqlContext = vv.sqlContext //new org.apache.spark.sql.SQLContext(vv.sc)
-    import sqlContext.implicits._
 
     val basePath = Paths.get(this.getClass().getResource("/sample_data/").toURI()).toAbsolutePath.toString
     val joba = Job("source_a", sourceData = Some(FileSource(basePath + "/joina.csv", "CSV", header = Some(true))), jobOutputTableName = Some("joina"))
@@ -121,9 +117,9 @@ class WorkflowTest extends FunSuite with BaseTestModule with BeforeAndAfterAll w
     val flow = InputFlow("output", stringToJob, flowName = "my_temp")
     val jsonStr = writeDataTaskChainsJson(flow)
     println(jsonStr)
-    JobsExecutor.processChains(flow, sqlContext)
+    new JobsExecutor(flow, sqlContext).processChains()
 
-    val test_output = sqlContext.read.format("com.databricks.spark.csv").option("header", "true").load(basePath + "/joinc.csv")
+    val test_output = sqlContext.read.format("csv").option("header", "true").load(basePath + "/joinc.csv")
     val wf_produced_output = sqlContext.read.parquet(basePath + "/" + tempOutputFile)
 
     val columns = test_output.columns
@@ -134,9 +130,7 @@ class WorkflowTest extends FunSuite with BaseTestModule with BeforeAndAfterAll w
     test_output.show(true)
     assert(badRecordsCount == 0)
 
-
   }
-
 
 
 }
