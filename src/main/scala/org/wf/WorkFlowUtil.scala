@@ -224,7 +224,7 @@ object WorkFlowUtil {
         sdf = sqlContext.sql(a.transformSQL.get)
 
       }
-      else if (a.scalaRule.isDefined || a.columnExpressionSqlStatement.isDefined) {
+      else if ( a.columnExpressionSqlStatement.isDefined) {
 
 
         val filterdCols: List[String] = if (a.column.isDefined) a.column.get.filter(col => colMap.contains(col) || columns.toSeq.contains(col)) else List()

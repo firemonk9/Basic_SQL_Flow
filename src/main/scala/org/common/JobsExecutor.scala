@@ -60,7 +60,7 @@ class JobsExecutor(inputFlow: InputFlow, sqlContext: SQLContext, debug: Boolean 
 
     def exeJob(e: Exception): Unit = {
       //      val count: Long = df.get.df.get.count()
-      StatusUpdate.addStatus(StatusMessage(flowName, jobName = Some(cJob.id), jobType = getJobType(cJob), msg = StatusMsg.COMPLETED, Some(e.getMessage), new Date(), Some(""), None))
+      StatusUpdate.addStatus(StatusMessage(flowName, jobName = Some(cJob.id), jobType = getJobType(cJob), msg = StatusMsg.EXCEPTION, Some(e.getMessage), new Date(), Some(""), None))
       e.printStackTrace()
       exception = true
     }
@@ -131,14 +131,14 @@ class JobsExecutor(inputFlow: InputFlow, sqlContext: SQLContext, debug: Boolean 
     } else if (a.output.isDefined && df.isDefined) {
       try {
         println("in output data ::")
-        val kValue: String = if (a.output.get.tableName.isDefined) a.output.get.tableName.get else a.output.get.datasetPath
-        val mapTableName: Map[String, String] = a.output.get.tableNameMap.get //else Map(a.output.get.datasetPath -> kValue)
+//        val kValue: String = if (a.output.get.tableName.isDefined) a.output.get.tableName.get else a.output.get.datasetPath
+//        val mapTableName: Map[String, String] = a.output.get.tableNameMap.get //else Map(a.output.get.datasetPath -> kValue)
 
-        mapTableName.keys.foreach(key => {
+//        mapTableName.keys.foreach(key => {
 
-          val ttdf: org.apache.spark.sql.DataFrame = sqlContext.sql("select * from " + key)
-          val tdf: Boolean = WorkFlowUtil.writeDataframe(ttdf, a.output.get, mapTableName.get(key).get, sqlContext)
-        })
+//          val ttdf: org.apache.spark.sql.DataFrame = sqlContext.sql("select * from " + key)
+          val tdf: Boolean = WorkFlowUtil.writeDataframe(df.get.df.get, a.output.get,a.output.get.datasetPath, sqlContext)
+//        })
 
       } catch {
         case e: Exception => exeJob(e)

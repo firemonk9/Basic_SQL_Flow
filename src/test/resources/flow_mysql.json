@@ -1,0 +1,71 @@
+{
+  "root": "output",
+  "jobMap": {
+    "join_a_b": {
+      "id": "join_a_b",
+      "dependsOn": ["filter_a", "source_b"],
+      "joins": {
+        "joinSql": "select a.id, first_name,last_name,secret_code from MOCK_DATA_2 a inner join filter_SECRET_INFO b on a.id=b.id"
+      },
+      "jobOutputTableName": "join_output"
+    },
+    "filter_a": {
+      "id": "filter_a",
+      "dependsOn": ["source_a"],
+      "filterData": {
+        "filterSql": "select * from SECRET_INFO where secret_code not like '%Linus%'"
+      },
+      "jobOutputTableName": "filter_SECRET_INFO"
+    },
+    "source_b": {
+      "id": "source_b",
+      "sourceData": {
+        "datasetFormat": "JDBC",
+
+        "datasetPath": "MOCK_DATA_2",
+        "jdbcData": {
+          "jdbcUser": "root",
+          "jdbcDriverPath": "/my_data/jars/mysql-connector-java-8.0.12.jar",
+          "jdbcDriverClass": "com.mysql.cj.jdbc.Driver",
+          "jdbcPassword": "mysql",
+          "jdbcUrl": "jdbc:mysql://127.0.0.1:3307/my_test?useLegacyDatetimeCode=false&serverTimezone=America/New_York"
+        }
+      },
+      "jobOutputTableName": "MOCK_DATA_2"
+    },
+    "source_a": {
+      "id": "source_a",
+      "sourceData": {
+        "datasetFormat": "JDBC",
+
+        "datasetPath": "SECRET_INFO",
+        "jdbcData": {
+          "jdbcUser": "root",
+          "jdbcDriverPath": "/my_data/jars/mysql-connector-java-8.0.12.jar",
+          "jdbcDriverClass": "com.mysql.cj.jdbc.Driver",
+          "jdbcPassword": "mysql",
+          "jdbcUrl": "jdbc:mysql://127.0.0.1:3307/my_test?useLegacyDatetimeCode=false&serverTimezone=America/New_York"
+
+        }
+      },
+      "jobOutputTableName": "SECRET_INFO"
+    },
+    "output": {
+      "id": "output",
+      "dependsOn": ["join_a_b"],
+      "output": {
+        "jdbcData": {
+          "jdbcUser": "root",
+          "jdbcDriverPath": "/my_data/jars/mysql-connector-java-8.0.12.jar",
+          "jdbcDriverClass": "com.mysql.cj.jdbc.Driver",
+          "jdbcPassword": "mysql",
+          "jdbcUrl": "jdbc:mysql://127.0.0.1:3307/my_test?useLegacyDatetimeCode=false&serverTimezone=America/New_York",
+          "mode":"overwrite"
+        },
+        "datasetFormat": "JDBC",
+        "datasetPath": "SECRET_RESULT"
+      }
+    }
+  },
+  "flowName": "my_temp_sql"
+}

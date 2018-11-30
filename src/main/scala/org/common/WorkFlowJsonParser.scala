@@ -12,7 +12,7 @@ object InputProtocolModelFormat extends DefaultJsonProtocol {
 
 
   implicit val colorFormat7b = jsonFormat2(Cast)
-  implicit val colorFormat1 = jsonFormat6(DataTransformRule)
+  implicit val colorFormat1 = jsonFormat5(DataTransformRule)
   implicit val colorFormat1jdbc = jsonFormat11(JDBCData)
 
   implicit val colorFormat7 = jsonFormat2(ColumnFilter)
@@ -33,7 +33,7 @@ object ResultProtocolModelFormat extends DefaultJsonProtocol {
 
 
   implicit val colorFormat7b = jsonFormat2(Cast)
-  implicit val colorFormat1 = jsonFormat6(DataTransformRule)
+  implicit val colorFormat1 = jsonFormat5(DataTransformRule)
   implicit val colorFormat1jdbc = jsonFormat11(JDBCData)
   implicit val colorFormat7 = jsonFormat2(ColumnFilter)
   implicit val colorFormat6 = jsonFormat1(RecordFilter)

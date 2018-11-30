@@ -33,7 +33,7 @@ case class JDBCData(jdbcUrl: String, jdbcUser: String, jdbcPassword: String, jdb
 
 case class FileSourceException(fileSource: FileSource, message: String)
 
-case class DataTransformRule(column: Option[List[String]] = None, scalaRule: Option[String]=None, base64: Option[Boolean] = Some(false), columnExpressionSqlStatement: Option[String] = None, transformSQL: Option[String] = None, columnCasts: Option[Array[Cast]] = None)
+case class DataTransformRule(column: Option[List[String]] = None,  base64: Option[Boolean] = Some(false), columnExpressionSqlStatement: Option[String] = None, transformSQL: Option[String] = None, columnCasts: Option[Array[Cast]] = None)
 
 case class ColumnFilter(column: String, value: String)
 
