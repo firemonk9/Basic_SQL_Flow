@@ -74,7 +74,7 @@ object WorkFlowUtil {
 
 
       df
-    }  else if (fileSource.datasetFormat == "NETEZZA") {
+    } else if (fileSource.datasetFormat == "NETEZZA") {
       val opts = Map("url" -> fileSource.jdbcData.get.jdbcUrl,
         "user" -> fileSource.jdbcData.get.jdbcUser,
         "password" -> fileSource.jdbcData.get.jdbcPassword,
@@ -94,17 +94,17 @@ object WorkFlowUtil {
   }
 
 
-  def writeDataframe(dataFrameTemp: DataFrame, fileSource: FileSource,output:String ,sqlContext: SQLContext): Boolean = {
+  def writeDataframe(dataFrameTemp: DataFrame, fileSource: FileSource, output: String, sqlContext: SQLContext): Boolean = {
     val dataFrame = if (fileSource.repartition.isDefined) dataFrameTemp.repartition(fileSource.repartition.get) else if (fileSource.coalesce.isDefined) dataFrameTemp.coalesce(fileSource.coalesce.get) else dataFrameTemp
-    val mode:Option[SaveMode] = if(fileSource.mode.isDefined) fileSource.mode.get.toLowerCase match{
+    val mode: Option[SaveMode] = if (fileSource.mode.isDefined) fileSource.mode.get.toLowerCase match {
       case "append" => Some(SaveMode.Append)
       case "overwrite" => Some(SaveMode.Overwrite)
       case "ignore" => Some(SaveMode.Ignore)
       case "errorifexists" => Some(SaveMode.ErrorIfExists)
-        //TODO this is a hack. Need to fix
-      case _ => Some(SaveMode.Append) ; //throw new Exception("Mode not found "+mode+" accepted modes are "+SaveMode.Append+", "+SaveMode.Overwrite+", "+SaveMode.Ignore+" ,"+SaveMode.ErrorIfExists+"")
+      //TODO this is a hack. Need to fix
+      case _ => Some(SaveMode.Append); //throw new Exception("Mode not found "+mode+" accepted modes are "+SaveMode.Append+", "+SaveMode.Overwrite+", "+SaveMode.Ignore+" ,"+SaveMode.ErrorIfExists+"")
 
-    }  else Some(SaveMode.Overwrite)
+    } else Some(SaveMode.Overwrite)
     if (fileSource.datasetFormat == FileFormats.CSV) {
 
       //val inferSchema = if (fileSource.inferSchema.isDefined) fileSource.inferSchema.get else false
@@ -224,7 +224,7 @@ object WorkFlowUtil {
         sdf = sqlContext.sql(a.transformSQL.get)
 
       }
-      else if ( a.columnExpressionSqlStatement.isDefined) {
+      else if (a.columnExpressionSqlStatement.isDefined) {
 
 
         val filterdCols: List[String] = if (a.column.isDefined) a.column.get.filter(col => colMap.contains(col) || columns.toSeq.contains(col)) else List()

@@ -1,9 +1,12 @@
 {
-  "root": "output",
+  "root": "output_2",
   "jobMap": {
     "join_a_b": {
       "id": "join_a_b",
-      "dependsOn": ["filter_a", "transformation_b"],
+      "dependsOn": [
+        "filter_a",
+        "transformation_b"
+      ],
       "joins": {
         "joinSql": "select a.id, first_name,last_name,secret_code,a.joined_name from MOCK_DATA_ADD_COL a inner join filter_SECRET_INFO b on a.id=b.id"
       },
@@ -11,7 +14,9 @@
     },
     "filter_a": {
       "id": "filter_a",
-      "dependsOn": ["source_a"],
+      "dependsOn": [
+        "source_a"
+      ],
       "filterData": {
         "filterSql": "select * from SECRET_INFO where secret_code not like '%Linus%'"
       },
@@ -19,10 +24,14 @@
     },
     "transformation_b": {
       "id": "transformation_b",
-      "dependsOn": ["source_b"],
-      "dataTransformRule": [{
-        "transformSQL": "select id, first_name, last_name, email, gender, ip_address, age, salary, birth_date, home_price, concat(first_name,'_',last_name) as joined_name from MOCK_DATA_2 "
-      }],
+      "dependsOn": [
+        "source_b"
+      ],
+      "dataTransformRule": [
+        {
+          "transformSQL": "select id, first_name, last_name, email, gender, ip_address, age, salary, birth_date, home_price, concat(first_name,'_',last_name) as joined_name from MOCK_DATA_2 "
+        }
+      ],
       "jobOutputTableName": "MOCK_DATA_ADD_COL"
     },
     "source_b": {
@@ -44,7 +53,6 @@
       "id": "source_a",
       "sourceData": {
         "datasetFormat": "JDBC",
-
         "datasetPath": "SECRET_INFO",
         "jdbcData": {
           "jdbcUser": "root",
@@ -52,23 +60,44 @@
           "jdbcDriverClass": "com.mysql.cj.jdbc.Driver",
           "jdbcPassword": "mysql",
           "jdbcUrl": "jdbc:mysql://127.0.0.1:3307/my_test?useLegacyDatetimeCode=false&serverTimezone=America/New_York"
-
         }
       },
       "jobOutputTableName": "SECRET_INFO"
     },
     "output": {
       "id": "output",
-      "dependsOn": ["join_a_b"],
+      "dependsOn": [
+        "join_a_b"
+      ],
+      "jobOutputTableName": "output1",
       "output": {
         "jdbcData": {
           "jdbcUser": "root",
           "jdbcDriverPath": "/my_data/jars/mysql-connector-java-8.0.12.jar",
           "jdbcDriverClass": "com.mysql.cj.jdbc.Driver",
           "jdbcPassword": "mysql",
-          "jdbcUrl": "jdbc:mysql://127.0.0.1:3307/my_test?useLegacyDatetimeCode=false&serverTimezone=America/New_York",
-          "mode":"overwrite"
+          "jdbcUrl": "jdbc:mysql://127.0.0.1:3307/my_test?useLegacyDatetimeCode=false&serverTimezone=America/New_York"
         },
+        "mode": "overwrite",
+        "datasetFormat": "JDBC",
+        "datasetPath": "SECRET_RESULT"
+      }
+    },
+    "output_2": {
+      "id": "output_2",
+      "dependsOn": [
+        "output"
+      ],
+      "jobOutputTableName": "output22",
+      "output": {
+        "jdbcData": {
+          "jdbcUser": "root",
+          "jdbcDriverPath": "/my_data/jars/mysql-connector-java-8.0.12.jar",
+          "jdbcDriverClass": "com.mysql.cj.jdbc.Driver",
+          "jdbcPassword": "mysql",
+          "jdbcUrl": "jdbc:mysql://127.0.0.1:3307/my_test?useLegacyDatetimeCode=false&serverTimezone=America/New_York"
+        },
+        "mode": "append",
         "datasetFormat": "JDBC",
         "datasetPath": "SECRET_RESULT"
       }
