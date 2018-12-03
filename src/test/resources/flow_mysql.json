@@ -3,9 +3,9 @@
   "jobMap": {
     "join_a_b": {
       "id": "join_a_b",
-      "dependsOn": ["filter_a", "source_b"],
+      "dependsOn": ["filter_a", "transformation_b"],
       "joins": {
-        "joinSql": "select a.id, first_name,last_name,secret_code from MOCK_DATA_2 a inner join filter_SECRET_INFO b on a.id=b.id"
+        "joinSql": "select a.id, first_name,last_name,secret_code,a.joined_name from MOCK_DATA_ADD_COL a inner join filter_SECRET_INFO b on a.id=b.id"
       },
       "jobOutputTableName": "join_output"
     },
@@ -17,11 +17,18 @@
       },
       "jobOutputTableName": "filter_SECRET_INFO"
     },
+    "transformation_b": {
+      "id": "transformation_b",
+      "dependsOn": ["source_b"],
+      "dataTransformRule": [{
+        "transformSQL": "select id, first_name, last_name, email, gender, ip_address, age, salary, birth_date, home_price, concat(first_name,'_',last_name) as joined_name from MOCK_DATA_2 "
+      }],
+      "jobOutputTableName": "MOCK_DATA_ADD_COL"
+    },
     "source_b": {
       "id": "source_b",
       "sourceData": {
         "datasetFormat": "JDBC",
-
         "datasetPath": "MOCK_DATA_2",
         "jdbcData": {
           "jdbcUser": "root",
