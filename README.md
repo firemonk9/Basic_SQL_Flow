@@ -1,6 +1,6 @@
 # Project Basic_SQL_Flow
 
-Basic_SQL_Flow is a work flow based tool for sql statements. The input is a flow(JSON) composed of jobs represented as a tree. The following five job types are supported.
+Basic_SQL_Flow is a work flow based tool for sql statements. The input is a JSON or CSV file composed of jobs represented as a tree. The following five job types are supported.
 * Filter
 * Transformation
 * Join
@@ -10,7 +10,7 @@ Basic_SQL_Flow is a work flow based tool for sql statements. The input is a flow
 The Input/Output can be any of the following five types of data sources.
 1. CSV
 2. Json 
-3. Hive 
+3. Hive flow
 4. JDBC 
 5. Parquet
 
