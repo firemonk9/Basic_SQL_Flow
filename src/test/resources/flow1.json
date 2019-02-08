@@ -23,7 +23,7 @@
         "datasetFormat": "CSV",
         "transformations": [],
         "datasetDelimiter": ",",
-        "datasetPath": "<CODE_PATH>/Basic_SQL_Flow/src/test/resources/sample_data/joinb.csv",
+        "datasetPath": "/Users/dhiraj/Documents/my_experiment/Basic_SQL_Flow/src/test/resources/sample_data/joinb.csv",
         "header": true
       },
       "jobOutputTableName": "joinb"
@@ -34,7 +34,7 @@
         "datasetFormat": "CSV",
         "transformations": [],
         "datasetDelimiter": ",",
-        "datasetPath": "<CODE_PATH>/Basic_SQL_Flow/src/test/resources/sample_data/joina.csv",
+        "datasetPath": "/Users/dhiraj/Documents/my_experiment/Basic_SQL_Flow/src/test/resources/sample_data/joina.csv",
         "header": true
       },
       "jobOutputTableName": "joina"
@@ -44,7 +44,7 @@
       "dependsOn": ["join_a_b"],
       "output": {
         "tableNameMap": {
-          "join_output": "<CODE_PATH>/golden_src_temp1.csv"
+          "join_output": "/Users/dhiraj/Documents/my_experiment/golden_src_temp1.csv"
         },
         "datasetFormat": "PARQUET",
         "transformations": [],

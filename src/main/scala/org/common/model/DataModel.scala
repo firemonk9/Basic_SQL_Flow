@@ -12,6 +12,8 @@ import org.apache.spark.sql.catalyst.plans.logical.Repartition
 class DataModel {}
 
 
+case class CSV_INPUT_JOB(job_name:String,depends_on:String,job_type:String,output_tbl_name:String,csv_file_path:String,csv_delimiter:String,csv_header:String,table_map:String,filter_file:String,filter_sql:String,transformation_file:String,transformation_sql:String,join_file:String,join_sql:String)
+
 case class InputFlow(root: String, jobMap: Map[String, Job], callBackUrl: Option[String] = None, flowName: String, livy:Option[Boolean]=None, hadoop:Option[Boolean]=None)
 
 case class Job(id: String, dependentJob: Option[Boolean] = None, dependsOn: Option[List[String]] = None,
@@ -45,13 +47,9 @@ case class ValidationSQL(sql: String, source: FileSource, validExpected: Option[
 
 case class ColumnType(columnName: String, columnType: String, columnLength: Option[Int], nullable: Option[Boolean], primaryKey: Option[Boolean], foreignKey: Option[Boolean])
 
-
 case class Status(id: String, status: Option[String] = None)
 
-
 case class Cast(columnName: String, columnType: String)
-
-
 
 object JobData {
   val SAMPLE_DATA: String = "SAMPLEDATA"

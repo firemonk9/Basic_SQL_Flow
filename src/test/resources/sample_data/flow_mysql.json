@@ -9,8 +9,9 @@
       ],
       "joins": {
         "joinSql": "select a.id, first_name,last_name,secret_code,a.joined_name from MOCK_DATA_ADD_COL a inner join filter_SECRET_INFO b on a.id=b.id"
+
       },
-      "jobOutputTableName": "1"
+      "jobOutputTableName": "join_output"
     },
     "filter_a": {
       "id": "filter_a",
