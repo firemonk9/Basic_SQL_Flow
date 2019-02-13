@@ -12,7 +12,7 @@ import org.apache.spark.sql.catalyst.plans.logical.Repartition
 class DataModel {}
 
 
-case class CSV_INPUT_JOB(job_name:String,depends_on:String,job_type:String,output_tbl_name:String,csv_file_path:String,csv_delimiter:String,csv_header:String,table_map:String,filter_file:String,filter_sql:String,transformation_file:String,transformation_sql:String,join_file:String,join_sql:String)
+case class CSV_INPUT_JOB(job_name:String,depends_on:String,job_type:String,output_mode:String,output_tbl_name:String,csv_file_path:String,csv_delimiter:String,csv_header:String,table_map:String,filter_file:String,filter_sql:String,transformation_file:String,transformation_sql:String,join_file:String,join_sql:String)
 
 case class InputFlow(root: String, jobMap: Map[String, Job], callBackUrl: Option[String] = None, flowName: String, livy:Option[Boolean]=None, hadoop:Option[Boolean]=None)
 

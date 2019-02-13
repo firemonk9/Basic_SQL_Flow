@@ -70,8 +70,9 @@ object SqlWorkFlowMain extends SparkInit with DiffToolJsonParser {
 
 
   def processFlow(inputFile: String, sqlContext: SQLContext, hdfsOutput: Boolean = true, debug: Boolean): Unit = {
-    val jsonContent = if (hdfsOutput) org.wf.util.FileUtil.getFileContent(inputFile, sqlContext.sparkContext.hadoopConfiguration) else Some(scala.io.Source.fromFile(inputFile).getLines().mkString)
-    val filesCompare: InputFlow = if (jsonContent.isDefined) readDataTaskChainsJson(jsonContent.get) else throw new IllegalArgumentException("unable to read input JSON " + inputFile)
+    //    val jsonContent = if (hdfsOutput) org.wf.util.FileUtil.getFileContent(inputFile, sqlContext.sparkContext.hadoopConfiguration) else Some(scala.io.Source.fromFile(inputFile).getLines().mkString)
+    //    val filesCompare: InputFlow = if (jsonContent.isDefined) readDataTaskChainsJson(jsonContent.get) else throw new IllegalArgumentException("unable to read input JSON " + inputFile)
+    val filesCompare: InputFlow = csvToWF(inputFile, sqlContext, hdfsOutput)
     new JobsExecutor(filesCompare, sqlContext, debug).processChains()
 
   }
@@ -116,46 +117,50 @@ object SqlWorkFlowMain extends SparkInit with DiffToolJsonParser {
   }
 
 
-//  def csvToWF(filePath: String, sqlContext: SQLContext, local: Boolean): InputFlow = {
-//    //    sqlContext.read.format()
-//    import CSV_INPUT_JOB._
-//    import sqlContext.implicits._
-//    val ds = sqlContext.read.option("header", "true").option("delimiter", ",").csv(filePath).as[CSV_INPUT_JOB] // //.save(outputDir)
-//
-//
-//    def getSqlText(filePath: String, actSql: String) = {
-//      val sql: Option[String] = if (filePath != null && filePath.length > 0) {
-//        if (local) Some(new String(Files.readAllBytes(Paths.get(filePath)))) else FileUtil.getFileContent(filePath, sqlContext.sparkContext.hadoopConfiguration)
-//      } else Some(actSql)
-//      sql
-//    }
-//
-//    val jobsMap = ds.collect().map(record => {
-//      val depends_on: Option[List[String]] = if (record != null || record.depends_on.length == 0) None else Some(record.depends_on.split(":").toList)
-//      val outputName: Option[String] = if (record.output_tbl_name != null) Some(record.job_name) else None
-//      record.job_type match {
-//        case SqlJobTypes.INPUT_SOURCE => {
-//
-//        }
-//        case SqlJobTypes.OUTPUT_SOURCE => {
-//
-//        }
-//        case SqlJobTypes.TRANSFORMATION => {
-//          val sql: Option[String] = getSqlText(record.transformation_file, record.transformation_sql)
-//          record.job_name -> Job(record.job_name, Some(true), depends_on, None, None, Some(List(DataTransformRule(transformSQL = sql))), jobOutputTableName = outputName)
-//        }
-//        case SqlJobTypes.FILTER => {
-//          val sql: Option[String] = getSqlText(record.filter_file, record.filter_sql)
-//          record.job_name -> Job(record.job_name, Some(true), depends_on, None, filterData = Some(FilterData(sql)), None, None, jobOutputTableName = outputName)
-//        }
-//        case SqlJobTypes.JOIN => {
-//          val sql: Option[String] = getSqlText(record.join_file, record.join_sql)
-//          record.job_name -> Job(record.job_name, Some(true), depends_on, None, joins = Some(JoinJob(sql)), jobOutputTableName = outputName)
-//        }
-//        case _ => None
-//
-//      }
-//    })
-//  }
+  def csvToWF(filePath: String, sqlContext: SQLContext, local: Boolean): InputFlow = {
+    //    sqlContext.read.format()
+    import CSV_INPUT_JOB._
+    import sqlContext.implicits._
+    val ds = sqlContext.read.option("header", "true").option("delimiter", ",").csv(filePath).as[CSV_INPUT_JOB] // //.save(outputDir)
+
+
+    def getSqlText(filePath: String, actSql: String) = {
+      val sql: Option[String] = if (filePath != null && filePath.length > 0) {
+        if (local) Some(new String(Files.readAllBytes(Paths.get(filePath)))) else FileUtil.getFileContent(filePath, sqlContext.sparkContext.hadoopConfiguration)
+      } else Some(actSql)
+      sql
+    }
+
+    val jobsMap = ds.collect().map(record => {
+      val depends_on: Option[List[String]] = if (record != null || record.depends_on.length == 0) None else Some(record.depends_on.split(":").toList)
+      val outputName: Option[String] = if (record.output_tbl_name != null) Some(record.job_name) else None
+      record.job_type match {
+        case SqlJobTypes.INPUT_SOURCE => {
+          val header = if (record.csv_header != null && record.csv_header == "true") true else false
+          val fs = FileSource(record.csv_file_path, FileFormats.CSV, Some(record.csv_delimiter), Some(header))
+          record.job_name -> Job(record.job_name, Some(true), depends_on, Some(fs), jobOutputTableName = outputName)
+        }
+        case SqlJobTypes.OUTPUT_SOURCE => {
+          val header = if (record.csv_header != null && record.csv_header == "true") true else false
+          val fs = FileSource(record.csv_file_path, FileFormats.CSV, Some(record.csv_delimiter), Some(header), mode = Some(record.output_mode))
+          record.job_name -> Job(record.job_name, Some(true), depends_on, output = Some(fs), jobOutputTableName = outputName)
+        }
+        case SqlJobTypes.TRANSFORMATION => {
+          val sql: Option[String] = getSqlText(record.transformation_file, record.transformation_sql)
+          record.job_name -> Job(record.job_name, Some(true), depends_on, None, None, Some(List(DataTransformRule(transformSQL = sql))), jobOutputTableName = outputName)
+        }
+        case SqlJobTypes.FILTER => {
+          val sql: Option[String] = getSqlText(record.filter_file, record.filter_sql)
+          record.job_name -> Job(record.job_name, Some(true), depends_on, None, filterData = Some(FilterData(sql)), None, None, jobOutputTableName = outputName)
+        }
+        case SqlJobTypes.JOIN => {
+          val sql: Option[String] = getSqlText(record.join_file, record.join_sql)
+          record.job_name -> Job(record.job_name, Some(true), depends_on, None, joins = Some(JoinJob(sql)), jobOutputTableName = outputName)
+        }
+        case _ => None
+
+      }
+    })
+  }
 
 }
